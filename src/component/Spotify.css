@@ -1,0 +1,51 @@
+.section-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.section-container p {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.ST {
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 0px; /* Optional: Add border radius for rounded corners */
+    padding-top: 14px; /* Optional: Add padding */
+    padding-bottom: 4px;
+
+    border-top: 2px solid #9c8f8f;
+  }
+
+  .ST img
+  {
+    transition: all 1.75s;
+  }
+
+  .ST img:hover {
+    transition: all 1.85s;
+    transform: rotateZ(360deg);
+  }
+
+
+  .MT {
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 0px; /* Optional: Add border radius for rounded corners */
+    padding-top: 14px; /* Optional: Add padding */
+    padding-bottom: 4px;
+
+    border-top: 2px solid #9c8f8f;
+  }
+
+  .MT img
+  {
+    transition: all 1.75s;
+  }
+
+  .MT img:hover {
+    transition: all 1.85s;
+    transform: rotateZ(360deg);
+  }

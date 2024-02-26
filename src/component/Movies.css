@@ -1,0 +1,25 @@
+.movies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid with minimum width of 200px */
+    grid-gap: 20px; /* Spacing between grid items */
+}
+
+.movie {
+    position: relative; /* Enable relative positioning for the image */
+}
+
+.movie img {
+    width: 100%; /* Ensure the image fills the container */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow effect */
+    transition: transform 0.2s ease; /* Optional: Add transition effect */
+}
+
+
+.movie img:hover {
+    transform: scale(1.05);
+    box-shadow:inset 0 0 1px #def
+}
+
