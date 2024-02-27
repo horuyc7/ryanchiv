@@ -20,33 +20,6 @@ const images = importAll(require.context('./images/', false, /\.(png|jpe?g|JPG|s
 
 export default function App() {
   
-  const [auth, setAuth] = useState({
-    token: "",
-    user: {},
-    meta: {}
-  });
-
-  const onLoginSuccess = auth => {
-    setAuth(auth);
-  };
-
-  const onLogOut = e => {
-    setAuth({
-      token: "",
-      user: {},
-      meta: {}
-    });
-  };
-
-  const currentPage = () => {
-    return auth.token ? (
-      <Dashboard auth={auth} />
-    ) : (
-      <LoginForm onLoginSuccess={onLoginSuccess} />
-    );
-  };
-
-
   return (
     <Router>
     <div>
@@ -56,7 +29,6 @@ export default function App() {
             <Profile />
           </Link>
         </div>
-        {auth.token && (
           <ul className="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
           <li className="nav-item">
             <Link className="nav-link" to="/" style={{ marginRight: '10px'}}>Home</Link>
@@ -73,26 +45,16 @@ export default function App() {
           <li className="nav-item">
           <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/" style={{marginRight: '10px' }} onClick={onLogOut}>Log out</Link>
-          </li>
         </ul>
-        )}
       </nav>
       <div className="container">
         <Routes>
-              {auth.token ? (
-                <>
-                  <Route path="/" element={<Dashboard auth={auth} />} />
-                  <Route path="/travel" element={<Travel images={images} />} />
-                  <Route path="/movies" element={<Movies />} />
-                  <Route path="/manga" element={<Manga />} />
-                  <Route path="/spotify" element={<Spotify />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </>
-              ) : (
-                <Route path="/" element={<LoginForm onLoginSuccess={onLoginSuccess} />} />
-              )}
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/travel" element={<Travel images={images} />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/manga" element={<Manga />} />
+            <Route path="/spotify" element={<Spotify />} />
+            <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
     </div>
