@@ -16,7 +16,7 @@ const Manga = () => {
             const completedResponse = await axios.get('/api/mangaCompletedScraping');
             setCompleted(completedResponse.data);
 
-            console.log(completed);
+            console.log(currently);
 
         } catch (error) {
             console.error('Error fetching data:', error);
