@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 module.exports = async (req, res) =>{
         try {
           const browser = await puppeteer.launch({
-            product: 'firefox',
+            executablePath: '/Applications/Firefox.app/Contents/MacOS/firefox'
           });
           const page = await browser.newPage();
           await page.goto('https://letterboxd.com/stoopidass/list/fav/');
