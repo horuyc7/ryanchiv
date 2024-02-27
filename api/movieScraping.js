@@ -1,5 +1,17 @@
-const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium-min');
+const puppeteer = require('puppeteer-core');
 
+async function getBrowser() {
+  return puppeteer.launch({
+    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(
+      'https://github.com/Sparticuz/chromium/releases/download/v122.0.0/chromium-v122.0.0-pack.tar'
+    ),
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
+  });
+}
 
 module.exports = async (req, res) =>{
         try {
@@ -8,8 +20,8 @@ module.exports = async (req, res) =>{
             executablePath: require('puppeteer').executablePath(),
           }); */
 
-          const browser = await puppeteer.launch({ headless: true });
-          
+          const browser = await getBrowser();
+
           const page = await browser.newPage();
           await page.goto('https://letterboxd.com/stoopidass/list/fav/');
       
@@ -56,6 +68,6 @@ module.exports = async (req, res) =>{
           res.json({ listDetails, moviesData });
         } catch (error) {
           console.error('Error scraping:', error);
-          res.json.status(500).json({ error: 'Failed to scrape data' });
+          res.status(500).json({ error: 'Failed to scrape data' });
         }
 }
