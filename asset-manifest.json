@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ryanchiv.github.io/static/css/main.f831cef5.css",
+    "main.js": "/ryanchiv.github.io/static/js/main.d53f0662.js",
+    "static/js/453.adc34edb.chunk.js": "/ryanchiv.github.io/static/js/453.adc34edb.chunk.js",
+    "static/media/IMG_3444.JPG": "/ryanchiv.github.io/static/media/IMG_3444.ff818e8a2a86acd1a237.JPG",
+    "index.html": "/ryanchiv.github.io/index.html",
+    "main.f831cef5.css.map": "/ryanchiv.github.io/static/css/main.f831cef5.css.map",
+    "main.d53f0662.js.map": "/ryanchiv.github.io/static/js/main.d53f0662.js.map",
+    "453.adc34edb.chunk.js.map": "/ryanchiv.github.io/static/js/453.adc34edb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f831cef5.css",
+    "static/js/main.d53f0662.js"
+  ]
+}
