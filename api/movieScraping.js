@@ -3,9 +3,13 @@ const puppeteer = require('puppeteer');
 
 module.exports = async (req, res) =>{
         try {
+          /*
           const browser = await puppeteer.launch({
             executablePath: require('puppeteer').executablePath(),
-          });
+          }); */
+
+          const browser = await puppeteer.launch({ headless: true });
+          
           const page = await browser.newPage();
           await page.goto('https://letterboxd.com/stoopidass/list/fav/');
       
