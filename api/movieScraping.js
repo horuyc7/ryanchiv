@@ -40,11 +40,12 @@ module.exports = async (req, res) =>{
               });
       
         
-                  
+              
               return movies;
           });
       
           await browser.close();
+          
       
           res.json({ listDetails, moviesData });
         } catch (error) {
