@@ -5,6 +5,7 @@ import './Movies.css';
 const Movies = () => {
     const [listDetails, setListDetails] = useState({});
     const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,6 +20,8 @@ const Movies = () => {
 
       } catch (error) {
         console.error('Error fetching data:', error);
+      }finally {
+          setLoading(false); // Update loading status once data fetching is complete
       }
     };
 
@@ -31,15 +34,20 @@ const Movies = () => {
     <div>
         <h2>{listDetails.title}</h2>
         <p>{listDetails.description}</p>
-        <div className="movies-container">
-            {movies.map((movie, index) => (
-                <div key={index} className="movie">
-                    <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
-                            <img src={movie.imageUrl} alt={movie.title} />
-                        </a>
-                </div>
-            ))}
-        </div>
+
+        {loading ? (
+                <p>Loading...</p> // Show loading indicator while data is being fetched
+            ) : (
+              <div className="movies-container">
+                  {movies.map((movie, index) => (
+                      <div key={index} className="movie">
+                          <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
+                                  <img src={movie.imageUrl} alt={movie.title} />
+                              </a>
+                      </div>
+                  ))}
+              </div>
+            )}
     </div>
 );
 }
