@@ -1,70 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Spotify.css";
 
-// Authorization token that must have been created previously. See : https://developer.spotify.com/documentation/web-api/concepts/authorization
-/*
-const token = 'BQAeRV4dbeXXaN52nlV2SWVLELafJY_Ida_5d08AJwpcihSUYhMIAHHiyyf9YMbvETQTd10AAKkLpczkzZEIvokwfw9QuyjzW5iCqhkrRwf2C83-ZSIsrHLKbnPn80WR7hf8Tnpqx62TnpHNkFjF5ccoYTnvLHdp_l34g6oULtg5yJjwepDS4lrTvUeCznyHoM-0UfQa6gA5tjiYrfsf8bkLtrXzJ2vodX0RSmyRj3w47X82p1H2jQT0BC8ORMso_GitFcU';
-
-async function fetchWebApi(endpoint, method, body) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    method,
-    body: JSON.stringify(body)
-  });
-  return await res.json();
-}
-
-async function getTopTracks() {
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
-  return (await fetchWebApi(
-    'v1/me/top/tracks?time_range=short_term&limit=10', 'GET'
-  )).items;
-}
-
-export default function Spotify() {
-    const [topTracks, setTopTracks] = useState([]);
-    const [loading, setLoading] = useState(true);
-  
-    useEffect(() => {
-      async function fetchAndSetTopTracks() {
-        try {
-          const tracks = await getTopTracks();
-          setTopTracks(tracks);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching top tracks:', error);
-          setLoading(false);
-        }
-      }
-  
-      fetchAndSetTopTracks();
-    }, []);
-  
-    return (
-      <div>
-        <h2>Top Tracks (last 4 weeks) </h2>
-
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div>
-            {topTracks.map((track, index) => (
-              <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-              <img style={{ marginRight: '20px', width: '100px', height: '100px'}} src={track.album.images[1].url} alt={track.name} />
-              <div>
-                <p style={{fontSize: '18px', fontWeight: '500'}}>{track.name}</p>
-                <p style={{fontSize: '18px', fontWeight: '500'}}>{track.artists.map(artist => artist.name).join(', ')}</p>
-              </div>
-            </div>
-            ))}
-          </div>
-        )}
-      </div>
-    ); */
-
-const token = 'BQBbyabVZwchwFV39Yqt2guuM25G_xfvOv0SJuusIvozTPHuGd3MPJsmPClCjb09yJmI2Cc4-tFtFaXznsT5N4-CPyAqRmqnzrO7R-TKm3pVBrXbY864KoDfKKUV7SVn8Ka8tbudb9PZCvEEKsTfddTOXAjRc4qnfNlH2D8wOyC7lA4F74bunZA9EglYgKVXwYL7_nTGm3SSQx3YrVqpgn0YGEC5hg9zl20sdFPnPIWuwtnu7aspV7BJVYvZv_T6O-_5UfU';
+const token = 'BQDmTGTdluTtQXsvc98FTDwfTru8vezQvCC-fxQZMQAxMDU3bElF8KebQOOUoKtuW0Lk3OYQHcp4Pwjnp-r8I0eDkmAIRsETSeoh9HXrTpnqPYmdfLNFFNclmf221nZZEKkf0ZdpvqmEnOQk7TcNnjeKwbz977D7ZqM8k__y57OSwqKPRqJITrnPLFZEk50nGg2XzqaXfZBsa-UGaDKMQr_prfLC9C8NP6pHqd14QJ1aObVhC4IoMzcRCY5LpBFhdrJrBbM';
 
 async function fetchWebApi(endpoint, method, body) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
