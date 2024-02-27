@@ -3,9 +3,7 @@ const puppeteer = require('puppeteer');
 
 module.exports = async (req, res) =>{
         try {
-          const browser = await puppeteer.launch({
-            executablePath: '/Applications/Firefox.app/Contents/MacOS/firefox'
-          });
+          const browser = await puppeteer.launch();
           const page = await browser.newPage();
           await page.goto('https://letterboxd.com/stoopidass/list/fav/');
       
