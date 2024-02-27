@@ -4,7 +4,7 @@ import "./Manga.css";
 
 const Manga = () => {
     const [mangaData, setMangaData] = useState({ currently: [], completed: [] });
-    const [activeSection, setActiveSection] = useState('completed');
+    const [activeSection, setActiveSection] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
