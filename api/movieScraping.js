@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 
 
-export async function GET(request){
+module.exports = async (req, res) =>{
         try {
           const browser = await puppeteer.launch();
           const page = await browser.newPage();
@@ -46,9 +46,9 @@ export async function GET(request){
       
           await browser.close();
       
-          return new Response({ listDetails, moviesData });
+          res.json({ listDetails, moviesData });
         } catch (error) {
           console.error('Error scraping:', error);
-          return new Response().status(500).json({ error: 'Failed to scrape data' });
+          res.json.status(500).json({ error: 'Failed to scrape data' });
         }
 }
