@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import "./Spotify.css";
 
-const token = 'BQDmTGTdluTtQXsvc98FTDwfTru8vezQvCC-fxQZMQAxMDU3bElF8KebQOOUoKtuW0Lk3OYQHcp4Pwjnp-r8I0eDkmAIRsETSeoh9HXrTpnqPYmdfLNFFNclmf221nZZEKkf0ZdpvqmEnOQk7TcNnjeKwbz977D7ZqM8k__y57OSwqKPRqJITrnPLFZEk50nGg2XzqaXfZBsa-UGaDKMQr_prfLC9C8NP6pHqd14QJ1aObVhC4IoMzcRCY5LpBFhdrJrBbM';
+async function fetchAccessToken() {
+  const response = await fetch('/api/spotifyToken'); // Make request to serverless function endpoint
+  const data = await response.json();
+  return data.access_token; // Extract access token from response
+}
 
 async function fetchWebApi(endpoint, method, body) {
+  const accessToken = await fetchAccessToken();
+
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     method,
     body: JSON.stringify(body)
