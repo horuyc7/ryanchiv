@@ -15,6 +15,8 @@ const Movies = () => {
         setListDetails(listDetails);
         setMovies(moviesData);
 
+        console.log(listDetails);
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
