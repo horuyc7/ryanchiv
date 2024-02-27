@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import placeholderImage from './placeholder.jpg';
+import placeholderImage from './images/placeholder.jpg';
 import './Movies.css';
 
 const Movies = () => {
