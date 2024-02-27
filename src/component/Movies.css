@@ -1,5 +1,6 @@
 .movies-container {
     display: grid;
+    min-height: 400px;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid with minimum width of 200px */
     grid-gap: 20px; /* Spacing between grid items */
 }
