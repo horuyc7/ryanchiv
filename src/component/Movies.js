@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import placeholderImage from './images/placeholder.jpg';
 import './Movies.css';
 
 const Movies = () => {
+
+    
     const [listDetails, setListDetails] = useState({});
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -43,7 +44,6 @@ const Movies = () => {
                       <div key={index} className="movie">
                           <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
                               <img
-                                        src={placeholderImage}
                                         data-src={movie.imageUrl} // Lazy load image
                                         alt={movie.title}
                                         className="lazy-load"
