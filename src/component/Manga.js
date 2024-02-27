@@ -10,10 +10,10 @@ const Manga = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
-            const currentlyResponse = await axios.get('http://localhost:8000/scrap/manga/currently');
+            const currentlyResponse = await axios.get('/api/mangaCurrentlyScraping');
             setCurrentlyReading(currentlyResponse.data);
 
-            const completedResponse = await axios.get('http://localhost:8000/scrap/manga/completed');
+            const completedResponse = await axios.get('/api/mangaCompletedScraping');
             setCompleted(completedResponse.data);
 
             console.log(completed);
