@@ -11,12 +11,11 @@ const Movies = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/movieScraping');
-        //setMovies(response.data);
         const { listDetails, moviesData } = response.data;
+
         setListDetails(listDetails);
         setMovies(moviesData);
 
-        console.log(listDetails);
 
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -42,7 +41,12 @@ const Movies = () => {
                   {movies.map((movie, index) => (
                       <div key={index} className="movie">
                           <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
-                                  <img src={movie.imageUrl} alt={movie.title} />
+                              <img
+                                        src={placeholderImage}
+                                        data-src={movie.imageUrl} // Lazy load image
+                                        alt={movie.title}
+                                        className="lazy-load"
+                                    />
                               </a>
                       </div>
                   ))}
