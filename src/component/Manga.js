@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import placeholderImage from './placeholder.jpg';
+import placeholderImage from './public/placeholder.jpg';
 import "./Manga.css";
 
 const Manga = () => {
