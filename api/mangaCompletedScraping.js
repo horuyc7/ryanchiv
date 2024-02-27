@@ -1,11 +1,21 @@
-const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium-min');
+const puppeteer = require('puppeteer-core');
 
+async function getBrowser() {
+  return puppeteer.launch({
+    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath(
+      'https://github.com/Sparticuz/chromium/releases/download/v122.0.0/chromium-v122.0.0-pack.tar'
+    ),
+    headless: chromium.headless,
+    ignoreHTTPSErrors: true,
+  });
+}
 
 module.exports = async (req, res) => {
         try {
-          const browser = await puppeteer.launch({
-            product: 'firefox',
-          });
+          const browser = await getBrowser();
           const page = await browser.newPage();
           await page.goto('https://myanimelist.net/mangalist/hunchojhuncho99?status=2&order=4&order2=0');
       
