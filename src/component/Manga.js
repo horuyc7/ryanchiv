@@ -5,7 +5,7 @@ import "./Manga.css";
 const Manga = () => {
     const [currently, setCurrentlyReading] = useState([]);
     const [completed, setCompleted] = useState([]);
-    const [activeSection, setActiveSection] = useState('currentlyReading');
+    const [activeSection, setActiveSection] = useState('completed');
 
     useEffect(() => {
         const fetchData = async () => {
