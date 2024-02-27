@@ -9,7 +9,7 @@ const Movies = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('api/movieScraping');
+        const response = await axios.get('/api/movieScraping');
         //setMovies(response.data);
         const { listDetails, moviesData } = response.data;
         setListDetails(listDetails);
