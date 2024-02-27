@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 import './Movies.css';
 
@@ -26,10 +26,28 @@ const Movies = () => {
       }
     };
 
-    
-
     fetchData();
   }, []);
+
+  const observer = useRef(null);
+  useEffect(() => {
+    if (!loading) {
+        observer.current = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const lazyImage = entry.target;
+                    lazyImage.src = lazyImage.dataset.src;
+                    observer.current.unobserve(lazyImage);
+                }
+            });
+        });
+
+        // Start observing each lazy-load image
+        document.querySelectorAll('.lazy-load').forEach((img) => {
+            observer.current.observe(img);
+        });
+    }
+}, [loading]);
 
   return (
     <div>
