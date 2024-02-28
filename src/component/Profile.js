@@ -6,23 +6,20 @@ const user = {
   
   export default function Profile() {
     return (
-      <>
+     
+
         <a href="/">
           <img
             className="avatar"
             src={user.imageUrl}
             alt={'Photo of ' + user.name}
             style={{
-              marginTop: '30px',
               width: user.imageSize,
               height: user.imageSize,
               cursor: 'pointer',
               borderRadius: 80,
-              display: 'block',
-              margin: 'auto'
             }}
           />
         </a>
-      </>
     );
   }

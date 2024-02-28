@@ -11,16 +11,13 @@ const Manga = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        
+
         if (activeSection !== '') {
 
             const fetchData = async () => {
                 try {
-                    const [currentlyResponse, completedResponse] = await Promise.all([
-                        axios.get('/api/mangaCurrentlyScraping'),
-                        axios.get('/api/mangaCompletedScraping')
-                    ]);
-                    setMangaData({ currently: currentlyResponse.data, completed: completedResponse.data });
+                    const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`);
+                    setMangaData({ ...mangaData, [activeSection]: response.data });
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 } finally {
@@ -31,7 +28,7 @@ const Manga = () => {
             fetchData();
         }
 
-    }, [activeSection]);
+    }, [activeSection, mangaData]);
 
   const handleSectionClick = (section) => {
     setActiveSection(section);

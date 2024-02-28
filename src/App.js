@@ -22,12 +22,13 @@ export default function App() {
   return (
     <Router>
     <div>
+        <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px'}}>
+          <Profile />
+        </ul>
+    
+
       <nav className="navbar">
-        <div className="profile-container" style={{marginBottom: '30px' }}>
-          <Link className="profilepic" to="/profile">
-            <Profile />
-          </Link>
-        </div>
+        
           <ul className="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
           <li className="nav-item">
             <Link className="nav-link" to="/" style={{ marginRight: '10px'}}>Home</Link>

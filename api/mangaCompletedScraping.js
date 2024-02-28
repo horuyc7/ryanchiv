@@ -15,7 +15,10 @@ async function getBrowser() {
 
 module.exports = async (req, res) => {
         try {
-          const browser = await getBrowser();
+          //const browser = await getBrowser();
+          const browser = await puppeteer.launch({
+            executablePath: require('puppeteer').executablePath(),
+          });
           const page = await browser.newPage();
           await page.goto('https://myanimelist.net/mangalist/hunchojhuncho99?status=2&order=4&order2=0');
       
