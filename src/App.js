@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate, useNavigate, useLocation } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Profile from "./component/Profile";
 import Travel from "./component/Travel";
@@ -13,8 +13,14 @@ function importAll(r) {
   return r.keys().map(r);
 }
 
+const ExternalLink = ({ to, children }) => (
+  <a href={to} target="_blank" rel="noopener noreferrer">
+    {children}
+  </a>
+);
+
 // Import all images from the './images' directory
-const images = importAll(require.context('./images/', false, /\.(png|jpe?g|JPG|svg)$/));
+const images = importAll(require.context('./images/', false, /\.(png|jpeg|JPG|JPEG|svg)$/));
 
 
 export default function App() {
@@ -22,14 +28,14 @@ export default function App() {
   return (
     <Router>
     <div>
-        <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px'}}>
+        <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px', marginBottom: '20px'}}>
           <Profile />
         </ul>
     
 
       <nav className="navbar">
         
-          <ul className="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
+        <ul className="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
           <li className="nav-item">
             <Link className="nav-link" to="/" style={{ marginRight: '10px'}}>Home</Link>
           </li>
@@ -43,7 +49,10 @@ export default function App() {
             <Link className="nav-link" to="/travel" style={{ marginRight: '10px' }} >Travel</Link>
           </li>
           <li className="nav-item">
-          <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
+            <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
+          </li>
+          <li className="nav-item">
+          <ExternalLink to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
           </li>
         </ul>
       </nav>
