@@ -10,45 +10,27 @@
     margin-bottom: 20px;
   }
   
-  /* TasksCard */
-  .tasks-card {
+  .features-card {
     margin-bottom: 20px;
     border: 3px solid #000000; /* Add border */
     border-radius: 5px; /* Optional: Add border radius for rounded corners */
     padding: 10px; /* Optional: Add padding */
   }
   
-  .tasks-card-header {
+  .features-card-header {
     margin-bottom: 20px;
-    background-color: #3b86dc;
+    background-color: #78f1a6;
     padding: 10px; /* Optional: Add padding */
+    font-weight: bold;
   }
   
-  .tasks-card-body {
+  .features-card-body {
     list-style-type: none;
     padding: 0;
   }
   
-  .list-group-item {
+  .feature-item {
     padding: 10px;
-    border-bottom: 1px solid #3b86dc;
+    border-bottom: 1px solid #bbf3d0;
   }
   
-  /* AlertCard */
-  .alert-card {
-    margin-bottom: 50px;
-    border: 3px solid #0f0304; /* Add border */
-    border-radius: 5px; /* Optional: Add border radius for rounded corners */
-    padding: 10px; /* Optional: Add padding */
-  }
-  
-  .alert-card-header {
-    background-color: #e7fa19;
-    color: #000000;
-    font-weight: bold;
-    padding: 10px;
-  }
-  
-  .alert-card-content {
-    padding: 10px;
-  }

@@ -7,16 +7,12 @@ const Travel = ({ images }) => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const prevImage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
-
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '80vh', cursor: 'pointer' }} onClick={nextImage}>
+    <div style={{ position: 'relative', width: '100vw', height: '90vh', cursor: 'pointer' }} onClick={nextImage}>
       <img 
         src={images[currentIndex]} 
-        alt={`Image ${currentIndex}`} 
-        style={{ width: '100%', height: '100%', objectFit: 'cover'}} 
+        alt={`${currentIndex}`} 
+        style={{ width: '100%', height: '100%', objectFit: 'contain'}} 
       />
     </div>
   );
