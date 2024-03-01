@@ -1,36 +1,14 @@
 /* styles.css */
 
 /* Dashboard */
-.dashboard-container {
-    padding: 20px;
+.dashboard {
+    margin-left: 20px;
+    margin-right: 20px;
   }
   
   .dashboard-title {
     font-size: 24px;
+    color: #8be7ae;
     margin-bottom: 20px;
-  }
-  
-  .features-card {
-    margin-bottom: 20px;
-    border: 3px solid #000000; /* Add border */
-    border-radius: 5px; /* Optional: Add border radius for rounded corners */
-    padding: 10px; /* Optional: Add padding */
-  }
-  
-  .features-card-header {
-    margin-bottom: 20px;
-    background-color: #78f1a6;
-    padding: 10px; /* Optional: Add padding */
-    font-weight: bold;
-  }
-  
-  .features-card-body {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .feature-item {
-    padding: 10px;
-    border-bottom: 1px solid #bbf3d0;
   }
   
