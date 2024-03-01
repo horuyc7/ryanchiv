@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Spotify.css";
 
 async function fetchAccessToken() {
-  const response = await fetch('/api/spotifyToken'); // Make request to serverless function endpoint
+  const response = await fetch('/api/spotifyToken2'); // Make request to serverless function endpoint
   const data = await response.json();
   return data.access_token; // Extract access token from response
 }

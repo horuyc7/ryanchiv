@@ -50,9 +50,9 @@ const Movies = () => {
 }, [loading]);
 
   return (
-    <div>
-        <h2>{listDetails.title}</h2>
-        <p>{listDetails.description}</p>
+    <div className='movies'>
+        <h2 className ="list-name"> {listDetails.title}</h2>
+        <p className ="list-description">{listDetails.description}</p>
 
         {loading ? (
                 <p>Loading...</p> // Show loading indicator while data is being fetched

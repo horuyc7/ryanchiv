@@ -9,12 +9,13 @@ export default function FeaturesCard() {
         <ul className="features-card-items">
           <li className="feature-item">Set up spotify authorization</li>
           <li className="feature-item">Custom filter for spotify</li>
-          <li className="feature-item" >S̶k̶i̶l̶l̶s̶</li>
-          <li className="feature-item">Manga plan to read</li>
+          
           <li className="feature-item">Make Travel dynamic, use google photos API</li>
           <li className="feature-item">Show photo locations, drives API</li>
           <li className="feature-item">Favorite foods</li>
           <li className="feature-item">Favorite restaurants, places API</li>
+          <li className="feature-item" >S̶k̶i̶l̶l̶s̶</li>
+          <li className="feature-item">M̶a̶n̶g̶a̶ p̶l̶a̶n̶ t̶o̶ r̶e̶a̶d̶</li>
         </ul>
       </div>
     </div>

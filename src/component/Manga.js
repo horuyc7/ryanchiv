@@ -6,8 +6,8 @@ const Manga = () => {
 
     
 
-    const [mangaData, setMangaData] = useState({ currently: [], completed: [] });
-    const [activeSection, setActiveSection] = useState('');
+    const [mangaData, setMangaData] = useState({ currently: [], completed: [], plan: [] });
+    const [activeSection, setActiveSection] = useState('currently');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -15,6 +15,7 @@ const Manga = () => {
         if (activeSection !== '') {
 
             const fetchData = async () => {
+
                 try {
                     const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`);
                     setMangaData({ ...mangaData, [activeSection]: response.data });
@@ -32,27 +33,28 @@ const Manga = () => {
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
+    setLoading(true);
     };
 
 
     const observer = useRef(null);
-  useEffect(() => {
-    if (!loading) {
-        observer.current = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const lazyImage = entry.target;
-                    lazyImage.src = lazyImage.dataset.src;
-                    observer.current.unobserve(lazyImage);
-                }
-            });
-        });
+        useEffect(() => {
+            if (!loading) {
+                observer.current = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            observer.current.unobserve(lazyImage);
+                        }
+                    });
+                });
 
-        // Start observing each lazy-load image
-        document.querySelectorAll('.lazy-load').forEach((img) => {
-            observer.current.observe(img);
-        });
-    }
+                // Start observing each lazy-load image
+                document.querySelectorAll('.lazy-load').forEach((img) => {
+                    observer.current.observe(img);
+                });
+            }
 }, [loading]);
 
 
@@ -61,10 +63,13 @@ const Manga = () => {
             <div className="section-container">
                 <p onClick={() => handleSectionClick('currently')} className={activeSection === 'currently' ? 'active' : ''}>Currently Reading</p>
                 <p onClick={() => handleSectionClick('completed')} className={activeSection === 'completed' ? 'active' : ''}>Completed</p>
+                <p onClick={() => handleSectionClick('plan')} className={activeSection === 'plan' ? 'active' : ''}>Plan to Read</p>
             </div>
 
             {loading ? (
-                <p>Loading...</p>
+                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                 <p>Loading... web scraping :( </p>
+                </div>
             ) : (
                 <div className="manga-container">
                     {activeSection === 'currently' && mangaData.currently.map((manga, index) => (
@@ -88,6 +93,17 @@ const Manga = () => {
                                             />
                             </a>
                             <p style={{ marginTop: '5px', textAlign: 'center' }}> ☆ {manga.rating}</p>
+                        </div>
+                    ))}
+                    {activeSection === 'plan' && mangaData.plan.map((manga, index) => (
+                        <div key={index} className="manga">
+                            <a href={`https://myanimelist.net${manga.title}`} target="_blank" rel="noopener noreferrer">
+                                <img
+                                                data-src={manga.imageUrl} // Lazy load image
+                                                alt={manga.title}
+                                                className="lazy-load"
+                                            />
+                            </a>
                         </div>
                     ))}
                 </div>
