@@ -1,0 +1,109 @@
+.skills-card {
+    margin-bottom: 20px;
+    border: 2px solid #ffffff; /* Add border */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    padding: 10px; /* Optional: Add padding */
+  }
+
+  .skills-header1 {
+    margin-bottom: 10px;
+    padding: 10px; /* Optional: Add padding */
+    font-size: 18px;
+    font-weight: bold;
+    color: #95e9b5;
+  }
+
+  .skills-header2 {
+    margin-bottom: 10px;
+    padding: 10px; /* Optional: Add padding */
+    font-size: 18px;
+    font-weight:500;
+    color: #95e9b5;
+  }
+
+
+  .skills-body {
+    margin-top: 10px;
+  }
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .skill {
+    padding: 4px;
+  }
+
+.skill-bar {
+    background: rgba(0, 0, 0, 0.884);
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0.67),rgba(28,28,28,.267) 50%,#366b4e88 0,rgba(44, 116, 77, 0.533));
+      background-position-x: 0%;
+      background-position-y: 0%;
+      background-size: auto;
+    background-position: 0 0;
+    background-size: 200%;
+    -webkit-clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    overflow: hidden;
+    padding: 6px 24px;
+    position: relative;
+    transition: .8s;
+    -webkit-transition: .8s;
+  }
+
+.skill-name{
+    color: #f8fffb;
+    font-weight: 400;
+    position: relative;
+    z-index: 25;
+  }
+
+
+  .skill-line{
+    background: #ffffff;
+    height: 1px;
+    margin-left: 10px;
+    position: absolute;
+    top: 50%;
+  }
+
+  .skill-loader{
+    background: #1fcfcc;
+    background: linear-gradient(90deg,#d0844a,#d0844a 50%,#95e9b5 0,#95e9b5);
+      background-position-x: 0%;
+      background-position-y: 0%;
+      background-size: auto;
+    background-position: 0 0;
+    background-size: 200%;
+    -webkit-clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: .6s;
+    -webkit-transition: .6s;
+  }
+
+  .skill-bar:hover {
+    background-position: 60% 0;
+  
+  }
+
+  .skill-bar:hover .skill-name {
+    color: #51240f;
+    font-weight: bold;
+  }
+
+  .skill-bar:hover .skill-line {
+    background: #51240f;
+  }
+
+
+  .skill-bar:hover .skill-loader {
+    background-position: -100% 0;
+  }
+
+ 
+

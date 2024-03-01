@@ -1,0 +1,27 @@
+.features-card {
+    margin-bottom: 20px;
+    border: 2px solid #ffffff; /* Add border */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    padding: 10px; /* Optional: Add padding */
+  }
+  
+  .features-card-header {
+    margin-bottom: 20px;
+    padding: 10px; /* Optional: Add padding */
+    font-size: 18px;
+    font-weight: bold;
+    color: #95e9b5;
+  }
+  
+  .features-card-body {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .feature-item {
+    padding: 10px;
+    border-bottom: 1px solid #7dbd96;
+    color: #ffffff;
+
+  }
+  
