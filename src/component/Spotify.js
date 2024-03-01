@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import getAccessToken from './component/SpotifyToken2';
 import "./Spotify.css";
 
+/*
 async function fetchAccessToken() {
   const response = await fetch('/api/spotifyToken2'); // Make request to serverless function endpoint
   const data = await response.json();
   return data.access_token; // Extract access token from response
-}
+} */
 
 async function fetchWebApi(endpoint, method, body) {
-  const accessToken = await fetchAccessToken();
+  const accessToken = await getAccessToken();
 
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
@@ -69,16 +71,15 @@ export default function Spotify() {
 
 return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="section-container">
+      <div className="section-container">
           <p onClick={() => handleSectionClick('shortTerm')} className={activeSection === 'shortTerm' ? 'active' : ''}>Top Tracks (last 4 weeks)</p>
           <p onClick={() => handleSectionClick('mediumTerm')} className={activeSection === 'mediumTerm' ? 'active' : ''}>Top Tracks (last 6 months)</p>
         </div>
-      )}
-  
-      <div className="spotify-container">
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="spotify-container">
         {activeSection === 'shortTerm' && (
           <div className="shortTerm">
             {shortTermTracks.map((track, index) => (
@@ -119,6 +120,10 @@ return (
           </div>
         )}
       </div>
+        
+      )}
+  
+      
     </div>
 );
 }
