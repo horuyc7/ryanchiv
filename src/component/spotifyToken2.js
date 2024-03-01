@@ -39,6 +39,11 @@ async function redirectToAuthCodeFlow(clientId) {
 }
 
 export async function getAccessToken(clientId, code) {
+
+    if (!code) {
+        redirectToAuthCodeFlow(clientId);
+    }
+
     const verifier = localStorage.getItem("verifier");
 
     const params = new URLSearchParams();

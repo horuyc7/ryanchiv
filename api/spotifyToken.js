@@ -13,7 +13,7 @@ async function fetchAccessToken() {
         // Make POST request to Spotify API token endpoint
         const response = await axios.post('https://accounts.spotify.com/api/token', null, {
             params: {
-                grant_type: 'client_credentials',
+                grant_type: 'authorization_code',
             },
             headers: {
                 Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
