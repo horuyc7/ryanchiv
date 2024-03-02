@@ -75,6 +75,12 @@ async function fetchAccessToken() {
 
 async function fetchWebApi(endpoint, method, body) {
 
+  if (!clientId) {
+    console.log(process.env);
+    console.error("Spotify client ID is not defined in the environment variables.");
+  } else {
+    console.log("Spotify client ID:", clientId);
+  }
   
   if (!code) {
     redirectToAuthCodeFlow(clientId);
