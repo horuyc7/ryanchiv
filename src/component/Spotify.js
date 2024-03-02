@@ -144,18 +144,18 @@ async function getTopTracks(timeRange, limit) {
 export default function Spotify() {
 
     //const [tracksData, setTracksData] = useState({ shortTermTracks: [], mediumTermTracks: []});
-    
+    /*
     const [shortTermTracks, setShortTermTracks] = useState();
     const [mediumTermTracks, setMediumTermTracks] = useState();
     const [loading, setLoading] = useState(true);
-    const [activeSection, setActiveSection] = useState('');
+    const [activeSection, setActiveSection] = useState(''); */
  
-/*
     const [tracks, setTracks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [timeRange, setTimeRange] = useState('');
-    const [limit, setLimit] = useState(''); */
+    const [timeRange, setTimeRange] = useState('short_term');
+    const [limit, setLimit] = useState(''); 
 
+ /*
     useEffect(() => {
 
       if (activeSection !== '') {
@@ -183,69 +183,84 @@ export default function Spotify() {
           fetchData();
       }
 
-  }, [activeSection]);
+  }, [activeSection]); */
 
-    const handleSectionClick = (section) => {
-      setActiveSection(section);
-  };
+
+
+
+const fetchData = async () => {
+  try {
+      setLoading(true);
+      const data = await getTopTracks(timeRange, limit);
+      setTracks(data);
+
+      console(data);
+  } catch (error) {
+      console.error('Error fetching data:', error);
+  } finally {
+      setLoading(false);
+  }
+};
+
+const handleTimeRangeChange = (event) => {
+  setTimeRange(event.target.value);
+};
+
+const handleLimitChange = (event) => {
+  setLimit(event.target.value);
+};
+
+const handleFetchClick = () => {
+  if (limit && timeRange) {
+      fetchData();
+  }
+};
+
 
 return (
     <div>
-      <div className="section-container">
-          <p onClick={() => handleSectionClick('shortTermTracks')} className={activeSection === 'shortTermTracks' ? 'active' : ''}>Top Tracks (last 4 weeks)</p>
-          <p onClick={() => handleSectionClick('mediumTermTracks')} className={activeSection === 'mediumTermTracks' ? 'active' : ''}>Top Tracks (last 6 months)</p>
-        </div>
+       <div className="section-container">
+                <p>
+                    <label>
+                        <input type="radio" value="short_term" checked={timeRange === 'short_term'} onChange={handleTimeRangeChange} />
+                        Short Term
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" value="medium_term" checked={timeRange === 'medium_term'} onChange={handleTimeRangeChange} />
+                        Medium Term
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" value="long_term" checked={timeRange === 'long_term'} onChange={handleTimeRangeChange} />
+                        Long Term
+                    </label>
+                </p>
+                <input className='textbox' type="text" maxLength="2" placeholder="Enter limit" value={limit} onChange={handleLimitChange} />
+                <button className="fetch" onClick={handleFetchClick}>Get</button>
+            </div>
 
-      {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <p>Loading... </p>
-       </div>
-      ) : (
+    
         <div className="spotify-container">
-        {activeSection === 'shortTermTracks' && (
-          <div className="shortTerm">
-            {shortTermTracks.map((track, index) => (
-              <div className="ST" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                 <p style={{ fontSize: '18px', fontWeight: '500', marginRight: '20px' }}>{index + 1}</p> {/* Add index here */}
-                
-                 <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                    <img style={{ marginRight: '20px', width: '100px', height: '100px'}} src={track.album.images[1].url} alt={track.name} />
-                    
-                 </a>
-                
-                <div>
-                  <p style={{fontSize: '18px', fontWeight: '500'}}>{track.name}</p>
-                  <p style={{fontSize: '18px', fontWeight: '500'}}>{track.artists.map(artist => artist.name).join(', ')}</p>
-                </div>
-              </div>
-            ))}
+                    {tracks && tracks.map((track, index) => (
+                        <div className="ST" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <p style={{ fontSize: '18px', fontWeight: '500', marginRight: '20px' }}>{index + 1}</p> {/* Add index here */}
+                       
+                        <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                           <img style={{ marginRight: '20px', width: '100px', height: '100px'}} src={track.album.images[1].url} alt={track.name} />
+                           
+                        </a>
+                       
+                       <div>
+                         <p style={{fontSize: '18px', fontWeight: '500'}}>{track.name}</p>
+                         <p style={{fontSize: '18px', fontWeight: '500'}}>{track.artists.map(artist => artist.name).join(', ')}</p>
+                       </div>
+                     </div>
+                    ))}
           </div>
-        )}
-        
-        {activeSection === 'mediumTermTracks' && (
-          <div className="mediumTerm">
-            {mediumTermTracks.map((track, index) => (
-              <div className="MT" key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
-                 <p style={{ fontSize: '18px', fontWeight: '500', marginRight: '20px' }}>{index + 1}</p> {/* Add index here */}
-                
-                 <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                    <img style={{ marginRight: '20px', width: '100px', height: '100px'}} src={track.album.images[1].url} alt={track.name} />
-                    
-                 </a>
-                
-                <div>
-                  <p style={{fontSize: '18px', fontWeight: '500'}}>{track.name}</p>
-                  <p style={{fontSize: '18px', fontWeight: '500'}}>{track.artists.map(artist => artist.name).join(', ')}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-        
-      )}
-  
-      
+
     </div>
 );
 }

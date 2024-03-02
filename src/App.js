@@ -52,7 +52,7 @@ export default function App() {
             <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
           </li>
           <li className="nav-item">
-          <ExternalLink to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
+            <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
           </li>
         </ul>
       </nav>

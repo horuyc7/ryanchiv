@@ -7,11 +7,6 @@ body {
     color: white;
 }
 
-.nav-item a {
-  text-decoration: none;
-  color: #ffffff; 
-  font-size: 20px;
-}
 
 .App-logo {
   height: 40vmin;
@@ -65,9 +60,32 @@ body {
 } */
 
 
+.nav-item a{
+  text-decoration: none;
+  transition: 1.4s;
+  transform: scale(.7);
+  color: #ffffff; 
+  font-size: 20px;
+}
+
+.nav-item a:hover::before {
+  transform: scale(0);
+  /*box-shadow: 0 0 0px #60f4a0; */
+}
+
+.nav-item a:hover {
+  color: #bbf3d0;
+  transition: .6s;
+  text-shadow: 0 0 5px #35efe9;
+}
+
+
 .nav-link{
   transition: 1.4s;
   transform: scale(.7);
+  text-decoration: none;
+  color: #ffffff; 
+
 }
 
 .nav-link:hover::before {
@@ -80,3 +98,6 @@ body {
   transition: .6s;
   text-shadow: 0 0 5px #35efe9;
 }
+
+
+
