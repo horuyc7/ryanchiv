@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Spotify.css";
 
-const clientId = process.env.SPOTIFY_CLIENT_ID;
+const clientId = await fetch('/api/SpotifyClientID.js');
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
