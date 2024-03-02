@@ -1,3 +1,3 @@
 export function GET(request) {
-    return new Response(`Hello from ${process.env.SPOTIFY_CLIENT_ID}`);
+    return new Response(process.env.SPOTIFY_CLIENT_ID);
   }
