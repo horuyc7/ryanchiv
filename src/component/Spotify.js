@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import "./Spotify.css";
 
-const clientId = await fetch('/api/SpotifyClientID');
+async function fetchSpotifyClientId() {
+  try {
+    const response = await fetch('/api/SpotifyClientID');
+    const data = await response.json();
+    return data.clientId;
+  } catch (error) {
+    console.error('Error fetching Spotify client ID:', error);
+    return null;
+  }
+}
+
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
@@ -24,7 +34,10 @@ async function generateCodeChallenge(codeVerifier) {
         .replace(/=+$/, '');
 }
 
-async function redirectToAuthCodeFlow(clientId) {
+async function redirectToAuthCodeFlow() {
+
+  const clientId = await fetchSpotifyClientId();
+
     const verifier = generateCodeVerifier(128);
     const challenge = await generateCodeChallenge(verifier);
 
@@ -41,7 +54,9 @@ async function redirectToAuthCodeFlow(clientId) {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
-async function getAccessToken(clientId, code) {
+async function getAccessToken(code) {
+
+  const clientId = await fetchSpotifyClientId();
 
     if (!code) {
         redirectToAuthCodeFlow(clientId);
@@ -74,6 +89,8 @@ async function fetchAccessToken() {
 } */
 
 async function fetchWebApi(endpoint, method, body) {
+
+  const clientId = await fetchSpotifyClientId();
 
   if (!clientId) {
     console.log(process.env);

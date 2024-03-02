@@ -1,3 +1,6 @@
 export function GET(request) {
-    return new Response(process.env.SPOTIFY_CLIENT_ID);
+
+  const { SPOTIFY_CLIENT_ID } = process.env;
+  res.status(200).json({ clientId: SPOTIFY_CLIENT_ID });
+
   }
