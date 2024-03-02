@@ -12,6 +12,7 @@ async function fetchSpotifyClientId() {
   }
 }
 
+const clientId = await fetchSpotifyClientId();
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
@@ -34,9 +35,7 @@ async function generateCodeChallenge(codeVerifier) {
         .replace(/=+$/, '');
 }
 
-async function redirectToAuthCodeFlow() {
-
-  const clientId = await fetchSpotifyClientId();
+async function redirectToAuthCodeFlow(clientId) {
 
     const verifier = generateCodeVerifier(128);
     const challenge = await generateCodeChallenge(verifier);
@@ -54,9 +53,7 @@ async function redirectToAuthCodeFlow() {
     document.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
 }
 
-async function getAccessToken(code) {
-
-  const clientId = await fetchSpotifyClientId();
+async function getAccessToken(clientId, code) {
 
     if (!code) {
         redirectToAuthCodeFlow(clientId);
