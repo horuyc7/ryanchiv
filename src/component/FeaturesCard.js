@@ -9,7 +9,6 @@ export default function FeaturesCard() {
         <ul className="features-card-items">
           
         <li className="feature-item">Make manga dynamic, use myanimelist API</li>
-          <li className="feature-item">Make Travel dynamic, use google photos API</li>
           <li className="feature-item">Show photo locations, drives API</li>
           <li className="feature-item">Favorite foods</li>
           <li className="feature-item">Favorite restaurants, places API</li>

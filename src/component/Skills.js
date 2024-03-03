@@ -123,60 +123,6 @@ export default function Skills() {
         </div>
       </div>
 
-      <div className="skills-header2"> Tools
-    <div className="skills-body">
-        <div className="skills">
-            <div className="skill" style={{width:"67%"}}>
-                <div className="skill-bar">
-                    <div className="skill-name">Java
-                        <span className="skill-line" style={{width: "14.8333%"}}></span>
-                    </div>
-                    <div className="skill-loader" style={{width: "90%"}}></div>
-                </div>
-            </div>
-
-            <div className="skill" style={{width:"45%"}}>
-                <div className="skill-bar">
-                    <div className="skill-name">Python
-                        <span className="skill-line" style={{width: "14.8333%"}}></span>
-                    </div>
-                    <div className="skill-loader" style= {{width: "70%"}}></div>
-                </div>
-            </div>
-
-            <div className="skill" style={{width:"45%"}}>
-                <div className="skill-bar">
-                    <div className="skill-name">SQL
-                        <span className="skill-line" style={{width: "14.8333%"}}></span>
-                    </div>
-                    <div className="skill-loader" style={{width: "70%"}}></div>
-                </div>
-            </div>
-
-            <div className="skill" style={{width:"40%"}}>
-                <div className="skill-bar">
-                    <div className="skill-name">JS
-                        <span className="skill-line" style={{width: "14.8333%"}}></span>
-                    </div>
-                    <div className="skill-loader" style={{width: "75%"}}></div>
-                </div>
-            </div>
-
-            <div className="skill" style={{width:"45%"}}>
-                <div className="skill-bar">
-                    <div className="skill-name">C++
-                        <span className="skill-line" style={{width: "14.8333%"}}></span>
-                    </div>
-                    <div className="skill-loader" style={{width: "60%"}}></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 
       <div className="skills-header2">Tools
       

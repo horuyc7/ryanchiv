@@ -6,7 +6,9 @@ import Travel from "./component/Travel";
 import Movies from "./component/Movies";
 import Manga from "./component/Manga";
 import Spotify from "./component/Spotify";
+import Slide from "./component/Slide";
 import './App.css';
+import Restaurants from './component/Restaurants';
 
 
 function importAll(r) {
@@ -20,7 +22,7 @@ const ExternalLink = ({ to, children }) => (
 );
 
 // Import all images from the './images' directory
-const images = importAll(require.context('./images/', false, /\.(png|jpeg|JPG|JPEG|svg)$/));
+//const images = importAll(require.context('./images/', false, /\.(png|jpeg|JPG|JPEG|svg)$/));
 
 
 export default function App() {
@@ -52,6 +54,9 @@ export default function App() {
             <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
           </li>
           <li className="nav-item">
+            <Link className="nav-link" to="/restaurants" style={{ marginRight: '10px' }} >Restaurants</Link>
+          </li>
+          <li className="nav-item">
             <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
           </li>
         </ul>
@@ -59,10 +64,11 @@ export default function App() {
       <div className="container">
         <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/travel" element={<Travel images={images} />} />
+            <Route path="/travel" element={<Slide />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/manga" element={<Manga />} />
             <Route path="/spotify" element={<Spotify />} />
+            <Route path="/restaurants" element={<Restaurants />} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
