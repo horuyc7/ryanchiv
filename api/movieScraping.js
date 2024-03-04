@@ -1,14 +1,14 @@
-const chromium = require('@sparticuz/chromium-min');
-const puppeteer = require('puppeteer-core');
+const CHROMIUM = require('@sparticuz/chromium-min');
+const PUPPETEER = require('puppeteer-core');
 
 async function getBrowser() {
-  return puppeteer.launch({
-    args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(
+  return PUPPETEER.launch({
+    args: [...CHROMIUM.args, '--hide-scrollbars', '--disable-web-security'],
+    defaultViewport: CHROMIUM.defaultViewport,
+    executablePath: await CHROMIUM.executablePath(
       'https://github.com/Sparticuz/chromium/releases/download/v122.0.0/chromium-v122.0.0-pack.tar'
     ),
-    headless: chromium.headless,
+    headless: CHROMIUM.headless,
     ignoreHTTPSErrors: true,
   });
 }

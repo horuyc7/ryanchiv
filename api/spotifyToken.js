@@ -1,5 +1,5 @@
 // Import necessary libraries
-const axios = require('axios');
+const AXIOS = require('axios');
 let tokenExpirationTime = null;
 let accessToken = null;
 
@@ -9,7 +9,7 @@ let accessToken = null;
 async function fetchAccessToken() {
     try {
         // Make POST request to Spotify API token endpoint
-        const response = await axios.post('https://accounts.spotify.com/api/token', null, {
+        const response = await AXIOS.post('https://accounts.spotify.com/api/token', null, {
             params: {
                 grant_type: 'authorization_code',
             },
