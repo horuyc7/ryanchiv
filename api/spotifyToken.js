@@ -2,8 +2,6 @@
 const axios = require('axios');
 let tokenExpirationTime = null;
 let accessToken = null;
-const client_id = '6198fcf6f4eb4eda9e9bca8527177fd4';
-const client_secret = '5f3e5221e42d4ca695c2c1be5910747f';
 
 //Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
 
@@ -16,7 +14,7 @@ async function fetchAccessToken() {
                 grant_type: 'authorization_code',
             },
             headers: {
-                Authorization: `Basic ${Buffer.from(`${client_id}:${client_secret}`).toString('base64')}`,
+                Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
             },
         });
 

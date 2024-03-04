@@ -14,8 +14,6 @@ async function fetchSpotifyClientId() {
 }
 
 const clientId = await fetchSpotifyClientId();
-//const clientId = '6198fcf6f4eb4eda9e9bca8527177fd4';
-//const accessToken = 'BQAKSb9hO5WOOZk2WhYPy3UdGlshnd1p7vK8d_2rvYvl1UFy67Q7DBDZI_rsQ7wzaJITyODR6zswtAciuk1Q8It5rFZc60smnGNQMODWbHLk9qNUcDJIU_55jmoFRh-A1M0QneDtwd4gI2PHNgsmT02HErBcFqtf8CfD50HN6VPUfJv1SXxuIN3k4mnl';
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 

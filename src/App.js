@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Profile from "./component/Profile";
-import Travel from "./component/Travel";
 import Movies from "./component/Movies";
 import Manga from "./component/Manga";
 import Spotify from "./component/Spotify";
@@ -10,20 +9,15 @@ import Slide from "./component/Slide";
 import './App.css';
 import Restaurants from './component/Restaurants';
 
-
-function importAll(r) {
-  return r.keys().map(r);
-}
-
 const ExternalLink = ({ to, children }) => (
+
   <a href={to} target="_blank" rel="noopener noreferrer">
+
     {children}
+
   </a>
+
 );
-
-// Import all images from the './images' directory
-//const images = importAll(require.context('./images/', false, /\.(png|jpeg|JPG|JPEG|svg)$/));
-
 
 export default function App() {
   

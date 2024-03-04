@@ -8,9 +8,8 @@ async function fetchAccessToken() {
 }
 
 async function fetchWebApi(endpoint, method, body) {
-  //const accessToken = await fetchAccessToken();
-  const accessToken = 'BQAt4GvrjkVtta5_z4S0gT2ZAIg8xZlNS7p6cl397g_DZjsjsQSNeo1tc-saCbVsffus_nmw6HINoCz7WWu4wwO9GbVgeCFlVKiNPcaShfYekkZDzr7eigJmajUk94QAl4emW-B8XeDeohcPTBfPSkVk9IpE6TBk9AEpCaEeQVwaODk1nbTp3lZQ_Rki9npW9aVrbP8C5zaKLlDo8u3ewh-d9vJqBl1qW7mw2MzgpBXmLSFan8_i_2dy1yUw3RlzUhqSXP4';
-  
+  const accessToken = await fetchAccessToken();
+
   try {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
       headers: {
