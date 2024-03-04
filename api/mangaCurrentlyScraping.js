@@ -1,6 +1,7 @@
 const CHROMIUM = require('@sparticuz/chromium-min');
 const PUPPETEER = require('puppeteer-core');
 
+/*
 async function getBrowser() {
   return PUPPETEER.launch({
     args: [...CHROMIUM.args, '--hide-scrollbars', '--disable-web-security'],
@@ -11,6 +12,21 @@ async function getBrowser() {
     headless: CHROMIUM.headless,
     ignoreHTTPSErrors: true,
   });
+} */
+
+
+async function getBrowser() {
+  const browser = await PUPPETEER.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--hide-scrollbars',
+      '--disable-web-security'
+    ],
+    defaultViewport: { width: 1920, height: 1080 },
+    ignoreHTTPSErrors: true,
+  });
+  return browser;
 }
 
 module.exports = async (req, res) => {
