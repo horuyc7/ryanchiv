@@ -36,7 +36,7 @@ const Manga = () => {
     setLoading(true);
     };
 
-
+/*
     const observer = useRef(null);
         useEffect(() => {
             if (!loading) {
@@ -55,8 +55,7 @@ const Manga = () => {
                     observer.current.observe(img);
                 });
             }
-}, [loading]);
-
+}, [loading]); */
 
     return (
         <div>
