@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import "./Manga.css";
 
+const CLIENTID='d046c26ab619c40b8edb79ee90210538';
+const CLIENTS='c685ab9acf741efec72db5efaf0f36a47ac670b9742f54da40a8ef8dfa0951e5';
+
 const Manga = () => {
 
     
@@ -75,9 +78,8 @@ const Manga = () => {
                         <div key={index} className="manga">
                             <a href={`https://myanimelist.net${manga.title}`} target="_blank" rel="noopener noreferrer">
                                 <img
-                                                data-src={manga.imageUrl} // Lazy load image
+                                                src={manga.imageUrl} // Lazy load image
                                                 alt={manga.title}
-                                                className="lazy-load"
                                             />
                             </a>
                         </div>
