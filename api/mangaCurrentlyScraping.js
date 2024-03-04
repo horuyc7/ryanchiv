@@ -17,6 +17,7 @@ async function getBrowser() {
 
 async function getBrowser() {
   const browser = await PUPPETEER.launch({
+    executablePath: require('puppeteer').executablePath(),
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
