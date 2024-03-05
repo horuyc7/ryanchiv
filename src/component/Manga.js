@@ -40,7 +40,7 @@ const Manga = () => {
         const fetchData = async () => {
             try {
                 const response = await fetch(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
-                    next: { revalidate: 60 },
+                    next: { revalidate: 10000 },
                   }.then(res => res.json()));
 
                   setMangaData({ ...mangaData, [activeSection]: response.data });
