@@ -10,7 +10,7 @@ const Manga = () => {
     const [activeSection, setActiveSection] = useState('currently');
     const [loading, setLoading] = useState(true);
 
-    /*
+
     useEffect(() => {
 
         if (activeSection !== '') {
@@ -18,7 +18,11 @@ const Manga = () => {
             const fetchData = async () => {
 
                 try {
-                    const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`);
+                    const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
+                        next: {
+                            revalidate: 3600, // 1 hour
+                          },
+                    });
                     setMangaData({ ...mangaData, [activeSection]: response.data });
 
                    
@@ -32,30 +36,7 @@ const Manga = () => {
             fetchData();
         }
 
-    }, [activeSection, mangaData]); */
-
-
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
-                    next: { revalidate: 10000 },
-                  }.then(res => res.json()));
-
-                  setMangaData({ ...mangaData, [activeSection]: response.data });
-                  
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-
-    }, [activeSection, mangaData]); // Only fetch data when activeSection changes
-
+    }, [activeSection, mangaData]);
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
