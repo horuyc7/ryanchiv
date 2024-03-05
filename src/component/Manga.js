@@ -10,6 +10,7 @@ const Manga = () => {
     const [activeSection, setActiveSection] = useState('currently');
     const [loading, setLoading] = useState(true);
 
+    /*
     useEffect(() => {
 
         if (activeSection !== '') {
@@ -17,16 +18,10 @@ const Manga = () => {
             const fetchData = async () => {
 
                 try {
-                    //const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`);
-                    //setMangaData({ ...mangaData, [activeSection]: response.data });
+                    const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`);
+                    setMangaData({ ...mangaData, [activeSection]: response.data });
 
-                    const static2 = await fetch(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
-                        next: {
-                        revalidate: 3600, // 1 hour
-                        },
-                    });
-
-                    setMangaData({ ...mangaData, [activeSection]: static2.data });
+                   
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 } finally {
@@ -37,7 +32,37 @@ const Manga = () => {
             fetchData();
         }
 
-    }, [activeSection, mangaData]);
+    }, [activeSection, mangaData]); */
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetchMangaData(activeSection);
+                setMangaData({ ...mangaData, [activeSection]: response.data });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [activeSection]); // Only fetch data when activeSection changes
+
+    const fetchMangaData = async (section) => {
+        const response = await fetch(`/api/manga${section.charAt(0).toUpperCase() + section.slice(1)}Scraping`, {
+            method: 'GET',
+            headers: {
+                'Cache-Control': 's-maxage=10000, stale-while-revalidate' // Cache for 1 hour, revalidate in the background
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        return await response.json();
+    };
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
