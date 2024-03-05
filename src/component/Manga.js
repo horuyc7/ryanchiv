@@ -40,7 +40,10 @@ const Manga = () => {
         const fetchData = async () => {
             try {
                 const response = await fetchMangaData(activeSection);
-                setMangaData({ ...mangaData, [activeSection]: response.data });
+                setMangaData((prevData) => ({
+                    ...prevData,
+                    [activeSection]: response.data || [], // Ensure that the response data is an array
+                }));
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -49,7 +52,7 @@ const Manga = () => {
         };
 
         fetchData();
-    }, [activeSection]); // Only fetch data when activeSection changes
+    }, [activeSection, mangaData]); // Only fetch data when activeSection changes
 
     const fetchMangaData = async (section) => {
         const response = await fetch(`/api/manga${section.charAt(0).toUpperCase() + section.slice(1)}Scraping`, {
