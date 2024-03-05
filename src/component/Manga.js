@@ -39,11 +39,12 @@ const Manga = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetchMangaData(activeSection);
-                setMangaData((prevData) => ({
-                    ...prevData,
-                    [activeSection]: response.data || [], // Ensure that the response data is an array
-                }));
+                const response = await fetch(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
+                    next: { revalidate: 60 },
+                  }.then(res => res.json()));
+
+                  setMangaData({ ...mangaData, [activeSection]: response.data });
+                  
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -52,20 +53,9 @@ const Manga = () => {
         };
 
         fetchData();
+
     }, [activeSection, mangaData]); // Only fetch data when activeSection changes
 
-    const fetchMangaData = async (section) => {
-        const response = await fetch(`/api/manga${section.charAt(0).toUpperCase() + section.slice(1)}Scraping`, {
-            method: 'GET',
-            headers: {
-                'Cache-Control': 's-maxage=10000, stale-while-revalidate' // Cache for 1 hour, revalidate in the background
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch data');
-        }
-        return await response.json();
-    };
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
