@@ -1,0 +1,32 @@
+
+.artists {
+    display: flex;
+    flex-direction: column; /* Ensure tracks are displayed in a column */
+    margin-left: 50px;
+    
+}
+
+.artist {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+}
+
+.artist img {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column; /* Arrange track details vertically */
+}
+
+.detail p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left; /* Align text to the left */
+}
