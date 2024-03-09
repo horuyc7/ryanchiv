@@ -5,11 +5,22 @@
 
 .playlist {
     border-bottom: 2px solid #8be7ae;
-    margin-bottom: 20px;
+    height: 120px;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     text-align: left; /* Align text to the left */
 }
+
+.playlist img
+  {
+    transition: all 1s;
+  }
+
+.playlist img:hover {
+    transition: all 1s;
+    transform:scale(1.2);
+  }
 
 
 .tracks {
@@ -31,6 +42,16 @@
     height: 70px;
     margin-right: 20px;
 }
+
+.track img
+  {
+    transition: all 1s;
+  }
+
+.track img:hover {
+    transition: all 1s;
+    transform:scale(1.2);
+  }
 
 .detail {
     display: flex;
