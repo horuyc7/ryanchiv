@@ -1,0 +1,25 @@
+
+  
+  .spotify-item a {
+    text-decoration: none;
+    color: inherit; 
+    font-size: 20px;
+  }
+  
+  
+  
+  .nav-link{
+    transition: 1.4s;
+    transform: scale(.7);
+  }
+  
+  .nav-link:hover::before {
+    transform: scale(0);
+    /*box-shadow: 0 0 0px #60f4a0; */
+  }
+  
+  .nav-link:hover {
+    color: #bbf3d0;
+    transition: .6s;
+    text-shadow: 0 0 5px #35efe9;
+  }

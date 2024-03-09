@@ -8,6 +8,7 @@ import Spotify from "./component/Spotify";
 import Slide from "./component/Slide";
 import './App.css';
 import Restaurants from './component/Restaurants';
+import SpotifyDashboard from './component/SpotifyDashboard';
 
 const ExternalLink = ({ to, children }) => (
 
@@ -36,7 +37,7 @@ export default function App() {
             <Link className="nav-link" to="/" style={{ marginRight: '10px'}}>Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/spotify" style={{ marginRight: '10px' }} >Spotify</Link>
+            <Link className="nav-link" to="/spotifydashboard" style={{ marginRight: '10px' }} >Spotify</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/movies" style={{ marginRight: '10px' }} >Movies</Link>
@@ -61,7 +62,7 @@ export default function App() {
             <Route path="/travel" element={<Slide />} />
             <Route path="/movies" element={<Movies />} />
             <Route path="/manga" element={<Manga />} />
-            <Route path="/spotify" element={<Spotify />} />
+            <Route path="/spotifydashboard/*" element={<SpotifyDashboard />} />
             <Route path="/restaurants" element={<Restaurants />} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
