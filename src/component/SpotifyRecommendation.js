@@ -150,7 +150,7 @@ export default function SpotifyRecommendation() {
   return (
     <div className='recommendation'> 
       <div className="input-container">
-              <input className='textbox' type="text" maxLength="20" placeholder="Input Artists (max 5) " value={inputValue} onChange={handleInputChange} />
+              <input className='textbox' type="text" maxLength="30" placeholder="Input Artists (max 5) " value={inputValue} onChange={handleInputChange} />
               <button className="input" onClick={handleInputClick}>Input</button>
               
       </div>
@@ -180,7 +180,6 @@ export default function SpotifyRecommendation() {
 
                     <div className='artist-detail'>
                       <p>{id.name}</p>
-                      <p>{id.id}</p>
                     </div>
                   </div>
                 ))}
