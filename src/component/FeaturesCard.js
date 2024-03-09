@@ -8,7 +8,8 @@ export default function FeaturesCard() {
         <div className="features-card-body">
           <ul className="features-card-items">
             
-          
+              <li className="feature-item">Refactor</li>
+              <li className="feature-item">Comment code</li>
               <li className="feature-item">Make recommendation more specific</li>
               <li className="feature-item">Add options to recommendation</li>
               <li className="feature-item">Make manga dynamic, use myanimelist API</li>
