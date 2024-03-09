@@ -9,7 +9,6 @@ import './SpotifyDashboard.css';
 export default function SpotifyDashboard() {
   
   return (
-    <Router>
     <div>
       <nav className="spotify-navbar">
           <ul className="spotify-navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
@@ -38,6 +37,5 @@ export default function SpotifyDashboard() {
         </Routes>
       </div>
     </div>
-    </Router>
   );
 }
