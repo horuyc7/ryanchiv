@@ -3,7 +3,6 @@ const AXIOS = require('axios');
 let tokenExpirationTime = null;
 let accessToken = null;
 
-//Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
 
 // Function to fetch access token from Spotify API
 async function fetchAccessToken() {
@@ -11,7 +10,7 @@ async function fetchAccessToken() {
         // Make POST request to Spotify API token endpoint
         const response = await AXIOS.post('https://accounts.spotify.com/api/token', null, {
             params: {
-                grant_type: 'authorization_code',
+                grant_type: 'client_credentials',
             },
             headers: {
                 Authorization: `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,

@@ -29,6 +29,7 @@ const Movies = () => {
     fetchData();
   }, []);
 
+  /*
   const observer = useRef(null);
   useEffect(() => {
     if (!loading) {
@@ -47,7 +48,7 @@ const Movies = () => {
             observer.current.observe(img);
         });
     }
-}, [loading]);
+}, [loading]); */
 
   return (
     <div className='movies'>
@@ -62,9 +63,9 @@ const Movies = () => {
                       <div key={index} className="movie">
                           <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
                               <img
-                                        data-src={movie.imageUrl} // Lazy load image
+                                        src={movie.imageUrl} // Lazy load image
                                         alt={movie.title}
-                                        className="lazy-load"
+                              
                                     />
                               </a>
                       </div>

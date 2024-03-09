@@ -43,26 +43,24 @@ export default function SpotifyPlaylist() {
       async function fetchAndSetPlaylists() {
         try {
 
-          setLoading(true);
-            if(activeSection === 'playlist')
-            {
+              setLoading(true);
+ 
               const accessToken = await fetchAccessToken();
 
               console.log(accessToken);
 
-                const playlist = await getPlaylist(accessToken);
-                const playlistTracks = await getPlaylistTracks(accessToken);
-                setPlaylist(playlist);
-                setPlaylistTracks(playlistTracks);
+              const playlist = await getPlaylist(accessToken);
+              const playlistTracks = await getPlaylistTracks(accessToken);
+              setPlaylist(playlist);
+              setPlaylistTracks(playlistTracks);
 
-                console.log(playlist);
-                console.log(playlistTracks);
+              console.log(playlist);
+              console.log(playlistTracks);
 
-                setLoading(false);
+              setLoading(false);
                 
   
-            }
-
+      
         } catch (error) {
           console.error('Error fetching playlists:', error);
           setLoading(false);
@@ -70,18 +68,11 @@ export default function SpotifyPlaylist() {
   
       }
       fetchAndSetPlaylists();
-    }, [activeSection]);
+    }, []);
   
-    const handleSectionClick = (section) => {
-      setActiveSection(section);
-    };
   
     return (
       <div>
-        <div className="handle-container">
-            <p onClick={() => handleSectionClick('playlist')} className={activeSection === 'playlist' ? 'active' : ''}>playlist</p>
-          </div>
-
 
         {loading ? (
           <p>Loading...</p>

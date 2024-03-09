@@ -46,7 +46,7 @@ async function redirectToAuthCodeFlow() {
     const params = new URLSearchParams();
     params.append("client_id", clientId);
     params.append("response_type", "code");
-    params.append("redirect_uri", "http://localhost:3000/spotify");
+    params.append("redirect_uri", "https://ryanchiv.vercel.app/spotify");
     params.append("scope", "user-top-read");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
@@ -66,7 +66,7 @@ async function getAccessToken() {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "http://localhost:3000/spotify");
+    params.append("redirect_uri", "https://ryanchiv.vercel.app/spotify");
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -80,16 +80,9 @@ async function getAccessToken() {
     return access_token;
 }
 
-/*
-async function fetchAccessToken() {
-  const response = await fetch('/api/spotifyToken2'); // Make request to serverless function endpoint
-  const data = await response.json();
-  return data.access_token; // Extract access token from response
-} */
 
 async function fetchWebApi(endpoint, method, body) {
 
-  //const clientId = '6198fcf6f4eb4eda9e9bca8527177fd4';
   const accessToken = await getAccessToken();
 
   if (!accessToken) {
@@ -117,20 +110,6 @@ async function fetchWebApi(endpoint, method, body) {
   }
 }
 
-
-async function getShortTermTracks() {
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
-  return (await fetchWebApi(
-    'v1/me/top/tracks?time_range=short_term&limit=10', 'GET'
-  )).items;
-}
-
-async function getMediumTermTracks() {
-    // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
-    return (await fetchWebApi(
-      'v1/me/top/tracks?time_range=medium_term&limit=10', 'GET'
-    )).items;
-}
 
 async function getTopTracks(timeRange, limit) {
   const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${limit}`;
