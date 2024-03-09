@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate, useNavigate, useLocation } from "react-router-dom";
-import SpotifyPlaylist from "./component/SpotifyPlaylist";
-import SpotifyRecommendation from './component/SpotifyRecommendation';
-import Spotify from './component/Spotify';
+import SpotifyPlaylist from "./SpotifyPlaylist";
+import SpotifyRecommendation from './SpotifyRecommendation';
+import Spotify from './Spotify';
 import './SpotifyDashboard.css';
 
 
