@@ -1,0 +1,107 @@
+
+.recommendation-artists-input-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.textbox{
+  margin-right: 20px;
+  width: 140px;
+  border-width: 0;
+  text-align: center;
+}
+
+
+
+.get-container{
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+
+  margin-bottom: 30px;
+}
+
+.get{
+  width: 60px;
+}
+
+.get {
+  font-weight: 500;
+  --c:  #a2f0c0; /* the color*/
+  
+  box-shadow: 0 0 0 .1em inset var(--c); 
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
+  background: 
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
+  background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+  outline-offset: .1em;
+  transition: background-size .7s, background-position 0s .7s;
+  border-radius: 5px;
+}
+.get:hover {
+  --_p: 100%;
+  transition: background-position .7s, background-size 0s;
+}
+.get:active {
+  box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
+  background-color: var(--c);
+  color: #fff;
+}
+
+.get {
+  cursor: pointer;
+  padding: .1em .6em;
+  border: none;
+  color: #fff;
+}
+
+
+.artists {
+  display: flex;
+  flex-direction: column; /* Ensure tracks are displayed in a column */
+  margin-left: 50px;
+  
+}
+
+
+.artist {
+border-bottom: 1px solid #8be7ae;
+padding-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+}
+
+.artist img {
+  width: 70px;
+  height: 70px;
+  margin-right: 20px;
+  transition: all 1s;
+}
+
+
+.artist img:hover {
+  transition: all 1s;
+  transform:scale(1.2);
+}
+
+.artist-detail {
+  display: flex;
+  flex-direction: column; /* Arrange track details vertically */
+}
+
+.artist-detail p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  text-align: left; /* Align text to the left */
+}

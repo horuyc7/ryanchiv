@@ -1,5 +1,5 @@
 
-.input-container {
+.recommendation-tracks-input-container {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -8,11 +8,11 @@
     margin-left: 20px;
   }
 
-.textbox{
+.recommendation-tracks-inbox{
     margin-right: 20px;
-    width: 140px;
-   
+    width: 200px;
     border-width: 0;
+    text-align: center;
 }
 
 .input {

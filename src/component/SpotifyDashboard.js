@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate, useNavigate, us
 import SpotifyPlaylist from "./SpotifyPlaylist";
 import SpotifyRecommendation from './SpotifyRecommendation';
 import Spotify from './Spotify';
+import SpotifyRecommendationArtists from './SpotifyRecommendationArtists';
 import './SpotifyDashboard.css';
 
 
@@ -14,15 +15,19 @@ export default function SpotifyDashboard() {
           <ul className="spotify-navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
        
             <li className="spotify-item">
-                <Link className="nav-link" to="spotify" style={{ marginRight: '10px' }} >Top Tracks</Link>
+                <Link className="nav-link" to="spotify">Top Tracks</Link>
             </li>
 
             <li className="spotify-item">
-                <Link className="nav-link" to="recommendation" style={{ marginRight: '10px' }} >Recommendation</Link>
+                <Link className="nav-link" to="recommendationtracks">Tracks Recommendation</Link>
             </li>
 
             <li className="spotify-item">
-                <Link className="nav-link" to="playlist" style={{ marginRight: '10px' }} >Playlist</Link>
+                <Link className="nav-link" to="recommendationartists">Artists Recommendation</Link>
+            </li>
+
+            <li className="spotify-item">
+                <Link className="nav-link" to="playlist">Playlist</Link>
             </li>
             
           </ul>
@@ -30,7 +35,8 @@ export default function SpotifyDashboard() {
       <div className="container">
         <Routes>
 
-                  <Route path="recommendation" element={<SpotifyRecommendation/>} />
+                  <Route path="recommendationtracks" element={<SpotifyRecommendation/>} />
+                  <Route path="recommendationartists" element={<SpotifyRecommendationArtists />} />
                   <Route path="playlist" element={<SpotifyPlaylist />} />
                   <Route path="spotify" element={<Spotify />} />
            

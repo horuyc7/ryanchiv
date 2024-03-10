@@ -148,8 +148,8 @@ export default function SpotifyRecommendation() {
     }
 
   return (
-    <div className='recommendation'> 
-      <div className="input-container">
+    <div className='recommendation-tracks'> 
+      <div className="recommendation-tracks-input-container">
               <input className='textbox' type="text" maxLength="30" placeholder="Input Artists (max 5) " value={inputValue} onChange={handleInputChange} />
               <button className="input" onClick={handleInputClick}>Input</button>
               
