@@ -17,16 +17,11 @@
     text-shadow: 0 0 3px #35efe9;
   }
   
-  .active:hover::before {
+.active:hover::before {
     transform: scale(0);
-    /*box-shadow: 0 0 0px #60f4a0; */
-  }
-  /*
-  .active:hover {
-    color: #bbf3d0;
-    transition: .6s;
-    text-shadow: 0 0 5px #35efe9;
-  } */
+    box-shadow: 0 0 0px #60f4a0;
+}
+  
 
 .manga-container {
     display: grid;
@@ -42,9 +37,13 @@
     position: relative; /* Enable relative positioning for the image */
 }
 
+.manga p {
+    text-align: center;
+}
+
 .manga img {
     width: 100%; /* Ensure the image fills the container */
-    height: auto; /* Maintain aspect ratio */
+    height: 80%; /* Maintain aspect ratio */
     display: block;
     border-radius: 5px; /* Optional: Add border-radius for rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow effect */

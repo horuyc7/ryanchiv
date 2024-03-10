@@ -1,119 +1,101 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import "./Manga.css";
+import React, { useState, useEffect } from 'react';
+import './Manga.css';
+
+
+async function getManga(status) {
+    try {
+
+    const response = await fetch(`/api/mangaAPI?status=${status}`);
+
+    return await response.json();
+
+
+  
+    } catch (error) {
+      console.error('Error fetching manga data:', error.message);
+      throw error;
+    }
+  }
+
 
 const Manga = () => {
+    const [mangalist, setMangaList] = useState([]);
+    const [activeSection, setActiveSection] = useState('reading');
+
+    useEffect(() => {
+        const fetchData = async () => {
+        try {
+
+            const response = await getManga(activeSection);
+
+            console.log(response.data);
+
+            setMangaList(response.data);
+
+            
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
 
     
 
-    const [mangaData, setMangaData] = useState({ currently: [], completed: [], plan: [] });
-    const [activeSection, setActiveSection] = useState('currently');
-    const [loading, setLoading] = useState(true);
-
-
-    useEffect(() => {
-
-        if (activeSection !== '') {
-
-            const fetchData = async () => {
-
-                try {
-                    const response = await axios.get(`/api/manga${activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}Scraping`, {
-                        next: {
-                            revalidate: 3600, // 1 hour
-                          },
-                    });
-                    setMangaData({ ...mangaData, [activeSection]: response.data });
-
-                   
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                } finally {
-                    setLoading(false);
-                }
-            };
-
-            fetchData();
-        }
-
-    }, [activeSection, mangaData]);
+    fetchData();
+  }, [activeSection]);
 
   const handleSectionClick = (section) => {
     setActiveSection(section);
-    setLoading(true);
     };
 
-/*
-    const observer = useRef(null);
-        useEffect(() => {
-            if (!loading) {
-                observer.current = new IntersectionObserver((entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            const lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            observer.current.unobserve(lazyImage);
-                        }
-                    });
-                });
 
-                // Start observing each lazy-load image
-                document.querySelectorAll('.lazy-load').forEach((img) => {
-                    observer.current.observe(img);
-                });
-            }
-}, [loading]); */
-
-    return (
-        <div>
+return (
+    <div>
             <div className="section-container">
-                <p onClick={() => handleSectionClick('currently')} className={activeSection === 'currently' ? 'active' : ''}>Currently Reading</p>
+                <p onClick={() => handleSectionClick('reading')} className={activeSection === 'reading' ? 'active' : ''}>Currently Reading</p>
                 <p onClick={() => handleSectionClick('completed')} className={activeSection === 'completed' ? 'active' : ''}>Completed</p>
-                <p onClick={() => handleSectionClick('plan')} className={activeSection === 'plan' ? 'active' : ''}>Plan to Read</p>
+                <p onClick={() => handleSectionClick('plan_to_read')} className={activeSection === 'plan_to_read' ? 'active' : ''}>Plan to Read</p>
             </div>
 
-            {loading ? (
-                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                 <p>Loading... web scraping :( </p>
-                </div>
-            ) : (
-                <div className="manga-container">
-                    {activeSection === 'currently' && mangaData.currently.map((manga, index) => (
+            <div className="manga-container">
+                {activeSection === 'reading' && (
+                    mangalist.map((manga, index) => (
                         <div key={index} className="manga">
-                            <a href={`https://myanimelist.net${manga.title}`} target="_blank" rel="noopener noreferrer">
-                                <img
-                                                src={manga.imageUrl} // Lazy load image
-                                                alt={manga.title}
-                                            />
+                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
+                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
                             </a>
-                        </div>
-                    ))}
-                    {activeSection === 'completed' && mangaData.completed.map((manga, index) => (
-                        <div key={index} className="manga">
-                            <a href={`https://myanimelist.net${manga.title}`} target="_blank" rel="noopener noreferrer">
-                                <img
-                                                src={manga.imageUrl} // Lazy load image
-                                                alt={manga.title}
-                                            />
-                            </a>
-                            <p style={{ marginTop: '5px', textAlign: 'center' }}> ☆ {manga.rating}</p>
-                        </div>
-                    ))}
-                    {activeSection === 'plan' && mangaData.plan.map((manga, index) => (
-                        <div key={index} className="manga">
-                            <a href={`https://myanimelist.net${manga.title}`} target="_blank" rel="noopener noreferrer">
-                                <img
-                                                data-src={manga.imageUrl} // Lazy load image
-                                                alt={manga.title}
-                                                className="lazy-load"
-                                            />
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-};
 
+                            <p>{manga.node.title}</p>
+                        </div>
+                    ))
+                )}
+
+                {activeSection === 'completed' && (
+                    mangalist.map((manga, index) => (
+                        <div key={index} className="manga">
+                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
+                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
+                            </a>
+
+                            <p className="score" style={{ marginTop: '5px', textAlign: 'center' }}> ☆ {manga.list_status.score}</p>
+                        </div>
+                    ))
+                )}
+
+                {activeSection === 'plan_to_read' && (
+                    mangalist.map((manga, index) => (
+                        <div key={index} className="manga">
+                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
+                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
+                            </a>
+
+                            <p>{manga.node.title}</p>
+                        </div>
+                    ))
+                )}
+            </div>
+    </div>
+);
+}
+  
 export default Manga;
