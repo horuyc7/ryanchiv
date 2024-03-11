@@ -101,8 +101,8 @@ async function fetchWebApi(endpoint, method, body, accessToken) {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-      method,
-      body: JSON.stringify(body)
+      // method,
+      //body: JSON.stringify(body)
     });
 
     return await res.json();
@@ -169,7 +169,7 @@ export default function Spotify() {
     const getToken = async () => {
 
       const token = await getAccessToken();
-      
+
       setAccessToken(token);
     };
 
