@@ -81,9 +81,9 @@ async function getAccessToken() {
 }
 
 
-async function fetchWebApi(endpoint, method, body) {
+async function fetchWebApi(endpoint, method, body, accessToken) {
 
-  const accessToken = await getAccessToken();
+  
 
   if (!accessToken) {
     console.error("Spotify client ID is not defined in the environment variables.");
@@ -111,9 +111,9 @@ async function fetchWebApi(endpoint, method, body) {
 }
 
 
-async function getTopTracks(timeRange, limit) {
+async function getTopTracks(accessToken, timeRange, limit) {
   const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${limit}`;
-  return (await fetchWebApi(endpoint, 'GET')).items;
+  return (await fetchWebApi(endpoint, 'GET', null, accessToken)).items;
 }
 
 
@@ -131,6 +131,7 @@ export default function Spotify() {
     const [loading, setLoading] = useState(true);
     const [timeRange, setTimeRange] = useState('short_term');
     const [limit, setLimit] = useState(''); 
+    const [accessToken, setAccessToken] = useState();
 
  /*
     useEffect(() => {
@@ -163,15 +164,30 @@ export default function Spotify() {
   }, [activeSection]); */
 
 
+  useEffect(() => {
+
+    const getToken = async () => {
+
+      const token = await getAccessToken();
+      
+      setAccessToken(token);
+    };
+
+    getToken();
+
+
+
+  }, []);
 
 
 const fetchData = async () => {
   try {
+    
       setLoading(true);
-      const data = await getTopTracks(timeRange, limit);
+
+      const data = await getTopTracks(accessToken, timeRange, limit);
       setTracks(data);
 
-      console(data);
   } catch (error) {
       console.error('Error fetching data:', error);
   } finally {
