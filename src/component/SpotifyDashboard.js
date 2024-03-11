@@ -4,6 +4,7 @@ import SpotifyPlaylist from "./SpotifyPlaylist";
 import SpotifyRecommendation from './SpotifyRecommendation';
 import Spotify from './Spotify';
 import SpotifyRecommendationArtists from './SpotifyRecommendationArtists';
+import SpotifyTracks from './SpotifyTracks';
 import './SpotifyDashboard.css';
 
 
@@ -38,7 +39,7 @@ export default function SpotifyDashboard() {
                   <Route path="recommendationtracks" element={<SpotifyRecommendation/>} />
                   <Route path="recommendationartists" element={<SpotifyRecommendationArtists />} />
                   <Route path="playlist" element={<SpotifyPlaylist />} />
-                  <Route path="spotify" element={<Spotify />} />
+                  <Route path="spotify" element={<SpotifyTracks />} />
            
         </Routes>
       </div>
