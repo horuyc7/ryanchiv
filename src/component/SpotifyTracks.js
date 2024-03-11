@@ -40,16 +40,19 @@ export default function SpotifyTracks() {
 
 
   useEffect(() => {
-    authHelpers.checkCookie();
+    /*authHelpers.checkCookie();
     let hashCode = authHelpers.getHashCode();
     //let token = authHelpers.getCookie();
-    let token = authHelpers.getAuth();
+    
     if (!token && hashCode) {
       token = authHelpers.getHashCode();
     }
     else if (token && hashCode) {
       token = authHelpers.getHashCode();
-    }
+    } */
+
+
+    let token = authHelpers.getAuth();
     window.location.hash = "";
     if (token) {
         setAccessToken(token);
