@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef} from 'react';
 import axios from 'axios';
-import './Movies.css';
+import './Movies.css'
 
 const Movies = () => {
 
@@ -13,10 +13,11 @@ const Movies = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/movieScraping');
-        const { listDetails, moviesData } = response.data;
 
-        setListDetails(listDetails);
+        const { listDetails, moviesData} = response.data;
+
         setMovies(moviesData);
+        setListDetails(listDetails);
 
 
       } catch (error) {
@@ -52,22 +53,19 @@ const Movies = () => {
 
   return (
     <div className='movies'>
-        <h2 className ="list-name"> {listDetails.title}</h2>
+
+        <h2 className ="list-title"> {listDetails.title}</h2>
         <p className ="list-description">{listDetails.description}</p>
 
         {loading ? (
-                <p>Loading...</p> // Show loading indicator while data is being fetched
+                <p className='loading'>Loading... web scraping :( </p> // Show loading indicator while data is being fetched
             ) : (
               <div className="movies-container">
                   {movies.map((movie, index) => (
                       <div key={index} className="movie">
-                          <a href={`https://letterboxd.com${movie.title}`} target="_blank" rel="noopener noreferrer">
-                              <img
-                                        src={movie.imageUrl} // Lazy load image
-                                        alt={movie.title}
-                              
-                                    />
-                              </a>
+                          <a href={`https://letterboxd.com${movie.href}`} target="_blank" rel="noopener noreferrer">
+                              <img src={movie.imageUrl} alt={movie.href}/>
+                            </a>
                       </div>
                   ))}
               </div>
