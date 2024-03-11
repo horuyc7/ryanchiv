@@ -60,11 +60,11 @@
     margin-bottom: 30px;
 }
 
-.get{
-    width: 80px;
+.get-button{
+    width: 100px;
 }
 
-.get {
+.get-button {
     font-weight: 500;
     --c:  #a2f0c0; /* the color*/
     
@@ -80,17 +80,17 @@
     transition: background-size .7s, background-position 0s .7s;
     border-radius: 5px;
   }
-  .get:hover {
+  .get-button:hover {
     --_p: 100%;
     transition: background-position .7s, background-size 0s;
   }
-  .get:active {
+  .get-button:active {
     box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
     background-color: var(--c);
     color: #fff;
   }
 
-  .get {
+  .get-button {
     cursor: pointer;
     padding: .1em .6em;
     border: none;
@@ -106,7 +106,8 @@
 .artists {
     display: flex;
     flex-direction: column; /* Ensure tracks are displayed in a column */
-    margin-left: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
     
 }
 
@@ -118,6 +119,8 @@
     align-items: center;
     margin-bottom: 20px;
     width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+
+
 }
 
 .artist img {
@@ -150,6 +153,8 @@
 .tracks {
     display: flex;
     flex-direction: column; /* Ensure tracks are displayed in a column */
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 

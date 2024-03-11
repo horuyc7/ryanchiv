@@ -1,0 +1,41 @@
+
+.vinyl-container {
+    display: flex;
+    flex-direction: column; /* Ensure tracks are displayed in a column */
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+.vinyl {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+    border-bottom: 1px solid #8be7ae;
+    padding-bottom: 16px;
+}
+
+.vinyl img {
+    width: 90px;
+    height: 90px;
+    margin-right: 20px;
+}
+
+.vinyl img:hover {
+    transition: all 1s;
+    transform:scale(1.2);
+  }
+  
+
+.vinyl-detail {
+    display: flex;
+    flex-direction: column; /* Arrange track details vertically */
+}
+
+.vinyl-detail p {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: left; /* Align text to the left */
+}

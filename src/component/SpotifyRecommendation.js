@@ -156,7 +156,7 @@ export default function SpotifyRecommendation() {
       </div>
 
       <div className="get-container">
-        <button className="get" onClick={handleGetClick} >Get rec</button>
+        <button className="get-button" onClick={handleGetClick} >Get rec</button>
       </div>
 
       {already ?(

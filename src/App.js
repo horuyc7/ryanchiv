@@ -4,11 +4,14 @@ import Dashboard from "./Dashboard";
 import Profile from "./component/Profile";
 import Movies from "./component/Movies";
 import Manga from "./component/Manga";
-import Spotify from "./component/Spotify";
 import Slide from "./component/Slide";
-import './App.css';
 import Restaurants from './component/Restaurants';
 import SpotifyDashboard from './component/SpotifyDashboard';
+import Vinyl from './component/Vinyl';
+
+import './App.css';
+
+
 
 const ExternalLink = ({ to, children }) => (
 
@@ -52,6 +55,9 @@ export default function App() {
             <Link className="nav-link" to="/restaurants" style={{ marginRight: '10px' }} >Restaurants</Link>
           </li>
           <li className="nav-item">
+            <Link className="nav-link" to="/vinyl" style={{ marginRight: '10px' }} >Vinyl</Link>
+          </li>
+          <li className="nav-item">
             <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
           </li>
         </ul>
@@ -64,6 +70,7 @@ export default function App() {
             <Route path="/manga" element={<Manga />} />
             <Route path="/spotifydashboard/*" element={<SpotifyDashboard />} />
             <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/vinyl" element={<Vinyl />} />
             <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
