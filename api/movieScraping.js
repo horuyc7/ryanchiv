@@ -1,74 +1,46 @@
-const CHROMIUM = require('@sparticuz/chromium-min');
-const PUPPETEER = require('puppeteer-core');
+const axios = require('axios');
+const cheerio = require('cheerio');
 
-async function getBrowser() {
-  return PUPPETEER.launch({
-    args: [...CHROMIUM.args, '--hide-scrollbars', '--disable-web-security'],
-    defaultViewport: CHROMIUM.defaultViewport,
-    executablePath: await CHROMIUM.executablePath(
-      'https://github.com/Sparticuz/chromium/releases/download/v122.0.0/chromium-v122.0.0-pack.tar'
-    ),
-    headless: CHROMIUM.headless,
-    ignoreHTTPSErrors: true,
-  });
+module.exports = async (req, res) => {
+    try {
+        const response = await axios.get('https://letterboxd.com/stoopidass/list/roman-empire');
+        const $ = cheerio.load(response.data);
+
+        const listDetails = {
+            title: $('.title-1').text().trim(),
+            description: $('.body-text p').text().trim(),
+        };
+
+
+
+        const moviesData = [];
+        const posterPromises = [];
+
+        $('.poster-container').each(async  (index, element) => {
+            const href = $(element).find('[data-target-link]').attr('data-target-link');
+  
+            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/150x200/`;
+
+            posterPromises.push(
+                axios.get(posterUrl)
+                    .then(posterResponse => {
+                        const posterData = posterResponse.data;
+                        const imageUrl = $(posterData).find('img').attr('src') || $(posterData).find('img').attr('srcset');
+                        moviesData.push({ href, imageUrl });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching poster:', error);
+                    })
+            );
+    
+        });
+
+        await Promise.all(posterPromises);
+
+        res.json({ listDetails, moviesData });
+    } catch (error) {
+        console.error('Error scraping movies:', error);
+        throw error;
+    }
 }
 
-module.exports = async (req, res) =>{
-        try {
-          
-         /*
-          const browser = await puppeteer.launch({
-            executablePath: require('puppeteer').executablePath(),
-          });  */
-
-          const browser = await getBrowser();
-
-          const page = await browser.newPage();
-          await page.goto('https://letterboxd.com/stoopidass/list/fav/');
-      
-          // Wait for the list to load
-          //await page.waitForSelector('.poster-container', { timeout: 10000 });
-          await page.waitForSelector('.list-title-intro');
-      
-          const listDetails = await page.evaluate(() => {
-              const titleElement = document.querySelector('.title-1');
-              const descriptionElement = document.querySelector('.body-text');
-        
-              const title = titleElement ? titleElement.textContent.trim() : '';
-              const description = descriptionElement ? descriptionElement.textContent.trim() : '';
-        
-              return { title, description };
-            });
-      
-          // Scraping logic to get movie titles and image URLs
-          const moviesData = await page.evaluate(() => {
-            
-              const movieElements = document.querySelectorAll('.poster-container');
-              const movies = [];
-              movieElements.forEach(element => {
-                  const titleElement = element.querySelector('.frame');
-                  const title = titleElement ? titleElement.getAttribute('href') : '';
-      
-      
-                  const imageElement = element.querySelector('img');
-                  const imageUrl = imageElement ? imageElement.getAttribute('src') : '';
-      
-          
-      
-                  movies.push({ title, imageUrl });
-              });
-      
-        
-              
-              return movies;
-          });
-      
-          await browser.close();
-          
-      
-          res.json({ listDetails, moviesData });
-        } catch (error) {
-          console.error('Error scraping:', error);
-          res.status(500).json({ error: 'Failed to scrape data' });
-        }
-}
