@@ -1,10 +1,24 @@
 import axios from "axios";
 
+async function fetchSpotifyClientId() {
+    try {
+      const response = await fetch('/api/SpotifyClientID');
+      const data = await response.json();
+      console.log('Response:', data); // Log the response
+      return data.clientId;
+    } catch (error) {
+      console.error('Error fetching Spotify client ID:', error);
+      return null;
+    }
+  }
+
+const clientId = await fetchSpotifyClientId();
+
 const authHelpers = {
   getAuth: function () {
     let url = 'https://accounts.spotify.com/authorize'
       + '?response_type=token'
-      + '&client_id=' + encodeURIComponent(process.env.SPOTIFY_CLIENT_ID)
+      + '&client_id=' + encodeURIComponent(clientId)
       + '&scope=' + encodeURIComponent("user-top-read")
       + '&redirect_uri=' + encodeURIComponent("https://ryanchiv.vercel.app/spotifydashboard/spotify")
     window.location.href = url;
