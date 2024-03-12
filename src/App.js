@@ -28,7 +28,7 @@ export default function App() {
   return (
     <Router>
     <div>
-        <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px', marginBottom: '20px'}}>
+        <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px'}}>
           <Profile />
         </ul>
     
@@ -37,28 +37,28 @@ export default function App() {
         
         <ul className="navbar-nav ml-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginBottom: '30px'}}>
           <li className="nav-item">
-            <Link className="nav-link" to="/" style={{ marginRight: '10px'}}>Home</Link>
+            <Link className="nav-link" to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/spotifydashboard" style={{ marginRight: '10px' }} >Spotify</Link>
+            <Link className="nav-link" to="/spotifydashboard">Spotify</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/movies" style={{ marginRight: '10px' }} >Movies</Link>
+            <Link className="nav-link" to="/movies">Movies</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/travel" style={{ marginRight: '10px' }} >Travel</Link>
+            <Link className="nav-link" to="/travel">Travel</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/manga" style={{ marginRight: '10px' }} >Manga</Link>
+            <Link className="nav-link" to="/manga">Manga</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/restaurants" style={{ marginRight: '10px' }} >Restaurants</Link>
+            <Link className="nav-link" to="/restaurants">Restaurants</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/vinyl" style={{ marginRight: '10px' }} >Vinyl</Link>
+            <Link className="nav-link" to="/vinyl">Vinyl</Link>
           </li>
           <li className="nav-item">
-            <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv" style={{ marginRight: '10px' }}>Git</ExternalLink>
+            <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv">Git</ExternalLink>
           </li>
         </ul>
       </nav>
