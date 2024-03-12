@@ -5,6 +5,8 @@
 body {
   background-color: #9c4a26;
     color: white;
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
 }
 
 
@@ -59,6 +61,12 @@ body {
   transition: .5s;
 } */
 
+.navbar {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0; /* Add some padding to the navbar */
+}
+
 
 .nav-item a{
   text-decoration: none;
@@ -85,6 +93,8 @@ body {
   transform: scale(.7);
   text-decoration: none;
   color: #ffffff; 
+  font-size: 18px;
+  margin-right: 10px;
 
 }
 
@@ -97,6 +107,12 @@ body {
   color: #bbf3d0;
   transition: .6s;
   text-shadow: 0 0 5px #35efe9;
+}
+
+@media (max-width: 768px) {
+  .nav-link {
+    font-size: 16px; /* Decrease font size on smaller screens */
+  }
 }
 
 
