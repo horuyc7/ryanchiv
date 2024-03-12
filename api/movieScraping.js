@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 
 module.exports = async (req, res) => {
     try {
-        const response = await axios.get('https://letterboxd.com/stoopidass/list/roman-empire');
+        const response = await axios.get(process.env.LETTERBOXD_LIST);
         const $ = cheerio.load(response.data);
 
         const listDetails = {
