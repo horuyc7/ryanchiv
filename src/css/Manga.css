@@ -1,0 +1,27 @@
+.manga__features {
+    display: flex;
+    justify-content: center;
+}
+
+.manga__features p {
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.loading {
+    text-align: center;
+}
+
+.active{
+    transition: 1s;
+    transform: scale(1.1);
+    color: #bbf3d0;
+    text-shadow: 0 0 3px #35efe9;
+  }
+  
+.active:hover::before {
+    transform: scale(0);
+    box-shadow: 0 0 0px #60f4a0;
+}
+  

@@ -1,0 +1,13 @@
+.avatar {
+    width: 180px;
+    height: 180px;
+    cursor: 'pointer';
+    border-radius: 100px;
+    transition: all 1.6s;
+}
+
+
+.avatar:hover {
+    transition:linear 1s;
+    transform:rotateZ(360deg);
+}

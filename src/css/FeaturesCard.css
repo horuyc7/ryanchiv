@@ -1,0 +1,29 @@
+.featurescard {
+  border-top: 4px solid #193825;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+}
+  
+  .featurescard__header {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #b9e5ca;
+  }
+  
+  .featurescard__body {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .featurescard__item {
+    padding: 10px;
+    border-bottom: 1px solid #7dbd96;
+    width: 92%;
+    color: #ffffff;
+    
+  }
+  

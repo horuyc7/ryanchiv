@@ -1,0 +1,29 @@
+.spotify-dashboard__navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+ .spotify-feature a {
+    text-decoration: none;
+    color: inherit; 
+    font-size: 18px;
+    margin-right: 20px;
+  }
+
+  
+  .active{
+    transition: 1s;
+    transform: scale(1.1);
+    color: #bbf3d0;
+    text-shadow: 0 0 3px #35efe9;
+  }
+  
+.active:hover::before {
+    transform: scale(0);
+    box-shadow: 0 0 0px #60f4a0;
+}

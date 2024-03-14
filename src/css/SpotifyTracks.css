@@ -1,0 +1,78 @@
+.spotifytracks__input-component {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.spotifytracks__input-component p {
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+  .textbox{
+    background-color: #a2f0c0;
+    border-radius: 5px;
+    margin-right: 20px;
+    width: 150px;
+    border-width: 0;
+    text-align: center;
+  }
+
+
+  .get-button {
+    --c:  #a2f0c0; /* the color*/
+    
+    box-shadow: 0 0 0 .1em inset var(--c); 
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background: 
+      var(--_g) calc(var(--_p,0%) - 100%) 0%,
+      var(--_g) calc(200% - var(--_p,0%)) 0%,
+      var(--_g) calc(var(--_p,0%) - 100%) 100%,
+      var(--_g) calc(200% - var(--_p,0%)) 100%;
+    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .4s, background-position 0s .4s;
+    border-radius: 5px;
+  }
+  .get-button:hover {
+    --_p: 100%;
+    transition: background-position .4s, background-size 0s;
+  }
+  .get-button:active {
+    box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
+    background-color: var(--c);
+    color: #fff;
+  }
+
+  .get-button {
+    cursor: pointer;
+    margin-left: 10px;
+    padding: .1em .6em;
+    border: none;
+    color: #fff;
+  }
+
+
+.track-container {
+  display: flex;
+  align-items: center;
+
+  padding-top: 14px; /* Optional: Add padding */
+
+  border-radius: 0px; /* Optional: Add border radius for rounded corners */
+  
+  margin-bottom: 10px;
+}
+
+.track-container img
+{
+  transition: all 1.75s;
+}
+
+.track-container img:hover {
+  transition: all 1.85s;
+  transform: rotateZ(360deg);
+}
+ 
+
+  

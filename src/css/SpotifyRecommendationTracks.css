@@ -1,0 +1,186 @@
+.spotify-recommendation-tracks {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.spotify-recommendation-tracks__input-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+    margin-bottom: 20px;
+
+  }
+
+  .textbox{
+      margin-right: 20px;
+      width: 200px;
+      border-width: 0;
+      text-align: center;
+  }
+
+  .input-button {
+      font-weight: 500;
+      --c:  #a2f0c0; /* the color*/
+      
+      box-shadow: 0 0 0 .1em inset var(--c); 
+      --_g: linear-gradient(var(--c) 0 0) no-repeat;
+      background: 
+        var(--_g) calc(var(--_p,0%) - 100%) 0%,
+        var(--_g) calc(200% - var(--_p,0%)) 0%,
+        var(--_g) calc(var(--_p,0%) - 100%) 100%,
+        var(--_g) calc(200% - var(--_p,0%)) 100%;
+      background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+      outline-offset: .1em;
+      transition: background-size .4s, background-position 0s .4s;
+      border-radius: 5px;
+  }
+  .input-button:hover {
+    --_p: 100%;
+    transition: background-position .4s, background-size 0s;
+  }
+  .input-button:active {
+    box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
+    background-color: var(--c);
+    color: #fff;
+  }
+
+  .input-button {
+    cursor: pointer;
+    padding: .1em .6em;
+    border: none;
+    color: #fff;
+  }
+
+
+
+
+.spotify-recommendation-tracks__get-container{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+
+    margin-bottom: 30px;
+}
+
+  .getrec-button{
+      width: 100px;
+  }
+
+  .getrec-button {
+    font-weight: 500;
+    --c:  #a2f0c0; /* the color*/
+    
+    box-shadow: 0 0 0 .1em inset var(--c); 
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background: 
+      var(--_g) calc(var(--_p,0%) - 100%) 0%,
+      var(--_g) calc(200% - var(--_p,0%)) 0%,
+      var(--_g) calc(var(--_p,0%) - 100%) 100%,
+      var(--_g) calc(200% - var(--_p,0%)) 100%;
+    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .7s, background-position 0s .7s;
+    border-radius: 5px;
+  }
+  .getrec-button:hover {
+    --_p: 100%;
+    transition: background-position .7s, background-size 0s;
+  }
+  .getrec-button:active {
+    box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
+    background-color: var(--c);
+    color: #fff;
+  }
+
+  .getrec-button {
+    cursor: pointer;
+    padding: .1em .6em;
+    border: none;
+    color: #fff;
+    width: 100px;
+  }
+
+
+.error {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+  
+
+.spotify-recommendation-tracks__artists {
+    display: flex;
+    flex-direction: column; /* Ensure tracks are displayed in a column */
+    
+}
+
+
+.artist-container {
+  border-bottom: 1px solid #8be7ae;
+  padding-bottom: 16px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+
+
+}
+
+  .artist-container img {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+      transition: all 1s;
+  }
+
+
+  .artist-container img:hover {
+      transition: all 1s;
+      transform:scale(1.2);
+    }
+
+  .artist-detail {
+      display: flex;
+      flex-direction: column; /* Arrange track details vertically */
+  }
+
+  .artist-detail p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 400;
+      text-align: left; /* Align text to the left */
+  }
+
+
+.spotify-recommendation-tracks__tracks {
+    display: flex;
+    flex-direction: column; /* Ensure tracks are displayed in a column */
+}
+
+  .track-container {
+    border-bottom: 1px solid #8be7ae;
+    padding-bottom: 16px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+  }
+
+  .track-container img {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+  }
+
+  .track-detail {
+      display: flex;
+      flex-direction: column; /* Arrange track details vertically */
+  }
+
+  .track-detail p {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 400;
+      text-align: left; /* Align text to the left */
+  }
