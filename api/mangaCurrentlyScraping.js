@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
       }); */
       
       const page = await browser.newPage();
-      await page.goto('https://myanimelist.net/mangalist/hunchojhuncho99?status=1');
+      await page.goto('https://myanimelist.net/mangalist/sdfsdfs/?status=1');
   
       // Wait for the list to load
       //await page.waitForSelector('.poster-container', { timeout: 10000 });

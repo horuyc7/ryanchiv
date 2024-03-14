@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
             executablePath: require('puppeteer').executablePath(),
           }); */
           const page = await browser.newPage();
-          await page.goto('https://myanimelist.net/mangalist/hunchojhuncho99?status=6');
+          await page.goto('https://myanimelist.net/mangalist/dfsfd/?status=6');
       
           await page.waitForSelector('.list-table');
       

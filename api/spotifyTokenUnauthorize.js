@@ -1,10 +1,9 @@
-// Import necessary libraries
 const AXIOS = require('axios');
 let tokenExpirationTime = null;
 let accessToken = null;
 
 
-// Function to fetch access token from Spotify API
+// fetch access token from Spotify API
 async function fetchAccessToken() {
     try {
         // Make POST request to Spotify API token endpoint
@@ -20,7 +19,6 @@ async function fetchAccessToken() {
           tokenExpirationTime = Date.now() + (response.data.expires_in * 1000); // Convert expiration time to milliseconds
 
           accessToken = response.data.access_token;
-          //return response.data.access_token;
   
     } catch (error) {
         console.error('Error fetching access token from Spotify API:', error);

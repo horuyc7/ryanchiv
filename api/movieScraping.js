@@ -3,23 +3,26 @@ const cheerio = require('cheerio');
 
 module.exports = async (req, res) => {
     try {
+        //get letterboxd link from vercel env var
         const response = await axios.get(process.env.LETTERBOXD_LIST);
+
+        //load html from link
         const $ = cheerio.load(response.data);
 
+        //get list title and description from html
         const listDetails = {
             title: $('.title-1').text().trim(),
             description: $('.body-text p').text().trim(),
         };
 
-
-
         const moviesData = [];
         const posterPromises = [];
 
+        //get every movies from list
         $('.poster-container').each(async  (index, element) => {
             const href = $(element).find('[data-target-link]').attr('data-target-link');
   
-            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/150x200/`;
+            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/300x450/`;
 
             posterPromises.push(
                 axios.get(posterUrl)

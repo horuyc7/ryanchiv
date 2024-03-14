@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
           }); */
           
           const page = await browser.newPage();
-          await page.goto('https://myanimelist.net/mangalist/hunchojhuncho99?status=2&order=4&order2=0');
+          await page.goto('https://myanimelist.net/mangalist/sdfsdfs?status=2&order=4&order2=0');
       
           await page.waitForSelector('.list-table');
       
