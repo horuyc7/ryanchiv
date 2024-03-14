@@ -28,8 +28,6 @@ const Manga = () => {
 
             const response = await getManga(activeSection);
 
-            console.log(response.data);
-
             setMangaList(response.data);
 
             
@@ -50,17 +48,17 @@ const Manga = () => {
 
 
 return (
-    <div>
-            <div className="section-container">
+    <div className='manga'>
+            <div className="manga__features">
                 <p onClick={() => handleSectionClick('reading')} className={activeSection === 'reading' ? 'active' : ''}>Currently Reading</p>
                 <p onClick={() => handleSectionClick('completed')} className={activeSection === 'completed' ? 'active' : ''}>Completed</p>
                 <p onClick={() => handleSectionClick('plan_to_read')} className={activeSection === 'plan_to_read' ? 'active' : ''}>Plan to Read</p>
             </div>
-
-            <div className="manga-container">
+            
+            <div className='manga__mangas'>
                 {activeSection === 'reading' && (
                     mangalist.map((manga, index) => (
-                        <div key={index} className="manga">
+                        <div key={index} className="manga-container">
                             <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
                                 <img src={manga.node.main_picture.large} alt={manga.node.title} />
                             </a>
@@ -69,22 +67,23 @@ return (
                         </div>
                     ))
                 )}
-
+            
+     
                 {activeSection === 'completed' && (
                     mangalist.map((manga, index) => (
-                        <div key={index} className="manga">
+                        <div key={index} className="manga-container">
                             <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
                                 <img src={manga.node.main_picture.large} alt={manga.node.title} />
                             </a>
 
-                            <p className="score" style={{ marginTop: '5px', textAlign: 'center' }}> ☆ {manga.list_status.score}</p>
+                            <p className="score"> ☆ {manga.list_status.score}</p>
                         </div>
                     ))
                 )}
 
                 {activeSection === 'plan_to_read' && (
                     mangalist.map((manga, index) => (
-                        <div key={index} className="manga">
+                        <div key={index} className="manga-container">
                             <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
                                 <img src={manga.node.main_picture.large} alt={manga.node.title} />
                             </a>
@@ -93,6 +92,7 @@ return (
                         </div>
                     ))
                 )}
+
             </div>
     </div>
 );
