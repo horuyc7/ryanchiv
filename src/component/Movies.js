@@ -1,21 +1,23 @@
 import React, { useState, useEffect, useRef} from 'react';
 import axios from 'axios';
-import './Movies.css'
+
+import '../css/Movies.css'
 
 const Movies = () => {
 
-    
-    const [listDetails, setListDetails] = useState({});
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [listDetails, setListDetails] = useState({});
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchAndSetData = async () => {
       try {
+
+        //call api
         const response = await axios.get('/api/movieScraping');
 
+        //save response
         const { listDetails, moviesData} = response.data;
-
         setMovies(moviesData);
         setListDetails(listDetails);
 
@@ -23,46 +25,29 @@ const Movies = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       }finally {
-          setLoading(false); // Update loading status once data fetching is complete
+          setLoading(false);
       }
     };
 
-    fetchData();
+    fetchAndSetData();
   }, []);
 
-  /*
-  const observer = useRef(null);
-  useEffect(() => {
-    if (!loading) {
-        observer.current = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const lazyImage = entry.target;
-                    lazyImage.src = lazyImage.dataset.src;
-                    observer.current.unobserve(lazyImage);
-                }
-            });
-        });
-
-        // Start observing each lazy-load image
-        document.querySelectorAll('.lazy-load').forEach((img) => {
-            observer.current.observe(img);
-        });
-    }
-}, [loading]); */
 
   return (
     <div className='movies'>
 
-        <h2 className ="list-title"> {listDetails.title}</h2>
-        <p className ="list-description">{listDetails.description}</p>
+        <div className='movies__detail'>
+          <h2 className ='movies__list-title'> {listDetails.title}</h2>
+          <p className ='movies__list-description'>{listDetails.description}</p>
+        </div>
 
-        {loading ? (
-                <p className='loading'>Loading... web scraping :( </p> // Show loading indicator while data is being fetched
+        
+        { loading ? (
+                <p className='loading'>Loading...</p>
             ) : (
-              <div className="movies-container">
+              <div className='movies__movies'>
                   {movies.map((movie, index) => (
-                      <div key={index} className="movie">
+                      <div key={index} className="movie-container">
                           <a href={`https://letterboxd.com${movie.href}`} target="_blank" rel="noopener noreferrer">
                               <img src={movie.imageUrl} alt={movie.href}/>
                             </a>
@@ -71,7 +56,7 @@ const Movies = () => {
               </div>
             )}
     </div>
-);
+  );
 }
   
   export default Movies;
