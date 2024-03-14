@@ -3,8 +3,11 @@ import axios from "axios";
 async function fetchSpotifyClientId() {
     try {
       const response = await fetch('/api/SpotifyClientID');
+
       const data = await response.json();
+
       console.log('Response:', data); // Log the response
+
       return data.clientId;
     } catch (error) {
       console.error('Error fetching Spotify client ID:', error);
@@ -15,6 +18,7 @@ async function fetchSpotifyClientId() {
 const clientId = await fetchSpotifyClientId();
 
 const authHelpers = {
+
   getAuth: function () {
     let url = 'https://accounts.spotify.com/authorize'
       + '?response_type=token'
@@ -23,11 +27,15 @@ const authHelpers = {
       + '&redirect_uri=' + encodeURIComponent("https://ryanchiv.vercel.app/spotifydashboard/spotify")
     window.location.href = url;
   },
+
+
   getHashCode: function () {
     let hashParams = new URLSearchParams(window.location.hash.replace("#", "?"));
     let queryParams = new URLSearchParams(window.location.search.replace("#", "?"));
+
     let token = hashParams.get('access_token');
     let err = queryParams.get('error');
+
     if (token) {
       document.cookie = "spotiToken=" + token + ";max-age=3600;samesite=lax;Secure";
       this.setUserID(token);
@@ -40,6 +48,8 @@ const authHelpers = {
       return null;
     }
   },
+
+
   setUserID: async function (token) {
     await axios({
         method: 'GET',
@@ -51,13 +61,17 @@ const authHelpers = {
         json: true
     }).then(res => {
       if (res) {
+        
         document.cookie = "spotiUID=" + res.data.id + ";max-age=3600;samesite=lax;Secure";
+        
         if (res.data.display_name) {
           document.cookie = "spotiUN=" + res.data.display_name + ";max-age=3600;samesite=lax;Secure";
         }
       }
     })
   },
+
+
   getUserID: function () {
     if (document.cookie) {
       return document.cookie
@@ -69,6 +83,8 @@ const authHelpers = {
       return null;
     }
   },
+
+
   getUsername: function () {
     if (document.cookie) {
       return document.cookie
@@ -80,6 +96,8 @@ const authHelpers = {
       return null;
     }
   },
+
+
   getCookie: function () {
     if (document.cookie) {
       return document.cookie
@@ -91,6 +109,8 @@ const authHelpers = {
       return null;
     }
   },
+
+
   checkCookie: function () {
     if (document.cookie.split(';').some((item) => item.trim().startsWith('spotiToken='))) {
       document.cookie = "selection=;max-age=0;samesite=lax;Secure";
@@ -102,6 +122,8 @@ const authHelpers = {
       return false;
     }
   },
+
+   
   logout: function () {
     document.cookie = "spotiToken=;max-age=0;samesite=lax;Secure";
     document.cookie = "spotiUID=;max-age=0;samesite=lax;Secure";

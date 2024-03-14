@@ -1,43 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import "./SpotifyPlaylist.css";
+import FetchSpotifyToken from './FetchSpotifyToken';
 
-async function fetchAccessToken() {
-  const response = await fetch('/api/spotifyTokenUnauthorize');
-  const data = await response.json();
-  return data.access_token;
+import "../css/SpotifyPlaylist.css";
+
+async function fetchWebApi(endpoint, method, accessToken) {
+  
+  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+    method,
+  });
+  return await res.json();
+
 }
 
-  async function fetchWebApi(endpoint, method, body, accessToken) {
-    
-    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-      method,
-      //body: JSON.stringify(body)
-    });
-    return await res.json();
-  }
-
 async function getPlaylist(accessToken) {
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
   return await fetchWebApi(
-    'v1/playlists/2ySWfzSMWPol6dyrVP8XF1?fields=description%2C+external_urls%2C+followers%2C+images%2C+owner%2C+name', 'GET', null, accessToken
+    'v1/playlists/2ySWfzSMWPol6dyrVP8XF1?fields=description%2C+external_urls%2C+followers%2C+images%2C+owner%2C+name', 'GET', accessToken
   );
 }
 
 async function getPlaylistTracks(accessToken) {
-  // Endpoint reference : https://developer.spotify.com/documentation/web-api/reference/get-users-top-artists-and-tracks
   return await fetchWebApi(
-    'v1/playlists/2ySWfzSMWPol6dyrVP8XF1/tracks?fields=items%28track.name%2C+track.artists%2C+track.album.images%2C+track.external_urls%29&limit=5&offset=1759', 'GET', null, accessToken
+    'v1/playlists/2ySWfzSMWPol6dyrVP8XF1/tracks?fields=items%28track.name%2C+track.artists%2C+track.album.images%2C+track.external_urls%29&limit=5&offset=1765', 'GET', accessToken
   );
 }
 
 export default function SpotifyPlaylist() {
+
     const [playlist, setPlaylist] = useState([]);
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeSection, setActiveSection] = useState('');
   
     useEffect(() => {
       async function fetchAndSetPlaylists() {
@@ -45,29 +39,29 @@ export default function SpotifyPlaylist() {
 
               setLoading(true);
  
-              const accessToken = await fetchAccessToken();
-
-              console.log(accessToken);
+              const accessToken = await FetchSpotifyToken();
 
               const playlist = await getPlaylist(accessToken);
+
               const playlistTracks = await getPlaylistTracks(accessToken);
+
               setPlaylist(playlist);
               setPlaylistTracks(playlistTracks);
 
-              console.log(playlist);
-              console.log(playlistTracks);
-
-              setLoading(false);
-                
-  
+              
       
         } catch (error) {
           console.error('Error fetching playlists:', error);
           setLoading(false);
         }
+        finally {
+          setLoading(false);
+        }
   
       }
+
       fetchAndSetPlaylists();
+
     }, []);
   
   
@@ -77,9 +71,10 @@ export default function SpotifyPlaylist() {
         {loading ? (
           <p>Loading...</p>
         ) : (
-            <div className="playlist-container">
-                <div className="playlists">
-                    <div className="playlist">
+            <div className="spotify-playlist">
+                <div className="spotify-playlist__playlists">
+                    <div className="playlist-container">
+
                         <a href={playlist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                           <img style={{ marginRight: '20px', width: '100px', height: '100px' }} src={playlist.images[0].url} alt={playlist.name} />
                         </a>
@@ -88,22 +83,24 @@ export default function SpotifyPlaylist() {
                           <p style={{ fontSize: '18px', fontWeight: '500' }}>{playlist.name}</p>
                           <p style={{ fontSize: '18px', fontWeight: '500' }}>Likes: {playlist.followers.total}</p>
                         </div>
+
                     </div>
                 </div>
 
     
-                <div className="tracks" >
+                <div className="spotify-playlist__tracks" >
                   {playlistTracks.items.map((e, index) => (
-                      <div key={index} className="track">
+                      <div key={index} className="track-container">
 
                         <a href={e.track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                           <img src={e.track.album.images[0].url} alt={e.track.name} />
                         </a>
 
-                        <div className='detail'>
+                        <div className='track-detail'>
                           <p>{e.track.name}</p>
                           <p>{e.track.artists[0].name}</p>
                         </div>
+                        
                       </div>
                     ))}
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import "./Spotify.css";
+import "../css/Spotify.css";
 
 async function fetchSpotifyClientId() {
   try {
@@ -120,57 +120,22 @@ async function getTopTracks(accessToken, timeRange, limit) {
 
 export default function Spotify() {
 
-    //const [tracksData, setTracksData] = useState({ shortTermTracks: [], mediumTermTracks: []});
-    /*
-    const [shortTermTracks, setShortTermTracks] = useState();
-    const [mediumTermTracks, setMediumTermTracks] = useState();
-    const [loading, setLoading] = useState(true);
-    const [activeSection, setActiveSection] = useState(''); */
- 
-    const [tracks, setTracks] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [timeRange, setTimeRange] = useState('short_term');
-    const [limit, setLimit] = useState(''); 
-    const [accessToken, setAccessToken] = useState();
-
- /*
-    useEffect(() => {
-
-      if (activeSection !== '') {
-
-        const fetchData = async () => {
-          try {
-            let response;
-            if (activeSection === 'shortTermTracks') {
-              response = await getShortTermTracks();
-              setShortTermTracks(response); // Update shortTermTracks state
-
-            }
-            else if (activeSection === 'mediumTermTracks') {
-              response = await getMediumTermTracks();
-              setMediumTermTracks(response); // Update shortTermTracks state
-
-            } 
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          } finally {
-            setLoading(false);
-          }
-        };
-
-          fetchData();
-      }
-
-  }, [activeSection]); */
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [timeRange, setTimeRange] = useState('short_term');
+  const [limit, setLimit] = useState(''); 
+  const [accessToken, setAccessToken] = useState();
 
 
   useEffect(() => {
 
+    //fetch token when 
     const getToken = async () => {
 
       const token = await getAccessToken();
 
       setAccessToken(token);
+
     };
 
     getToken();

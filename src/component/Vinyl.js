@@ -1,57 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import './Vinyl.css';
+
+import '../css/Vinyl.css';
 
 async function getVinyl(status) {
+
     try {
 
-    const response = await fetch('/api/discogAPI');
+        const response = await fetch('/api/discogAPI');
 
-    if (!response.ok) {
-        throw new Error('Failed to fetch vinyl data');
-      }
+        if (!response.ok) {
+            throw new Error('Failed to fetch vinyl data');
+        }
 
-    return await response.json();
-  
+        return await response.json();
+    
     } catch (error) {
-      console.error('Error fetching manga data:', error.message);
-      throw error;
+        console.error('Error fetching manga data:', error.message);
+        throw error;
     }
-  }
+}
 
 
 const Vinyl = () => {
+
     const [vinylList, setVinylList] = useState({ releases: [] });
-    //const [activeSection, setActiveSection] = useState('reading');
 
     useEffect(() => {
-        const fetchData = async () => {
-        try {
 
-            const response = await getVinyl();
+        const fetchVinyl = async () => {
 
-            console.log(response);
+            try {
 
-            setVinylList(response);
+                const response = await getVinyl();
 
-            
+                setVinylList(response);
+                
 
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
 
-    
+        fetchVinyl();
 
-    fetchData();
-  }, []);
+    }, []);
 
 
-return (
-    <div>
-            <div className="vinyl-container">
+    return (
+        <div className='vinyl'>
+            <h2 className='vinyl__header'> Collection </h2>
+
+            <div className="vinyl__vinyls">
+
                 {vinylList && (
                     vinylList.releases.map((vinyl, index) => (
-                        <div key={index} className="vinyl">
+                        <div key={index} className="vinyl-container">
                             <a href={`https://discogs.com/release/${vinyl.id}`}target="_blank" rel="noopener noreferrer">
                                 <img src={vinyl.basic_information.cover_image} alt={vinyl.basic_information.title} />
                             </a>
@@ -67,8 +70,9 @@ return (
                 )}
 
             </div>
-    </div>
-);
+        </div>
+
+    );
 }
   
 export default Vinyl;

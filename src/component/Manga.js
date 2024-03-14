@@ -1,101 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import './Manga.css';
+import MangaCompleted from './MangaCompleted';
+import MangaPlan from './MangaPlan';
+import MangaReading from './MangaReading';
 
+import '../css/Manga.css';
 
+//fetch manga with active section
 async function getManga(status) {
     try {
 
-    const response = await fetch(`/api/mangaAPI?status=${status}`);
+        const response = await fetch(`/api/mangaAPI?status=${status}`);
 
-    return await response.json();
-
-
+        return await response.json();
   
     } catch (error) {
       console.error('Error fetching manga data:', error.message);
       throw error;
     }
-  }
+}
 
 
 const Manga = () => {
+
     const [mangalist, setMangaList] = useState([]);
     const [activeSection, setActiveSection] = useState('reading');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-        try {
+        const FetchAndSetData = async () => {
+            try {
 
-            const response = await getManga(activeSection);
+                setLoading(true);
 
-            setMangaList(response.data);
+                const response = await getManga(activeSection);
 
-            
+                setMangaList(response.data);
 
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+            finally{
+                setLoading(false);
+            }
+
         };
 
-    
-
-    fetchData();
+        FetchAndSetData();
   }, [activeSection]);
 
+
+  //set current option when clicked
   const handleSectionClick = (section) => {
     setActiveSection(section);
     };
 
 
-return (
-    <div className='manga'>
+    return (
+        <div className='manga'>
+
             <div className="manga__features">
                 <p onClick={() => handleSectionClick('reading')} className={activeSection === 'reading' ? 'active' : ''}>Currently Reading</p>
                 <p onClick={() => handleSectionClick('completed')} className={activeSection === 'completed' ? 'active' : ''}>Completed</p>
                 <p onClick={() => handleSectionClick('plan_to_read')} className={activeSection === 'plan_to_read' ? 'active' : ''}>Plan to Read</p>
             </div>
-            
-            <div className='manga__mangas'>
-                {activeSection === 'reading' && (
-                    mangalist.map((manga, index) => (
-                        <div key={index} className="manga-container">
-                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
-                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
-                            </a>
+        
+            {loading ? (
+              <p className='loading'>Loading...</p>
+             ) : (
+                <div>
+                    {activeSection === 'reading' && <MangaReading mangalist={mangalist} />}
+                    {activeSection === 'completed' && <MangaCompleted mangalist={mangalist} />}
+                    {activeSection === 'plan_to_read' && <MangaPlan mangalist={mangalist} />}
+                </div>
+            )}
 
-                            <p>{manga.node.title}</p>
-                        </div>
-                    ))
-                )}
-            
-     
-                {activeSection === 'completed' && (
-                    mangalist.map((manga, index) => (
-                        <div key={index} className="manga-container">
-                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
-                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
-                            </a>
-
-                            <p className="score"> ☆ {manga.list_status.score}</p>
-                        </div>
-                    ))
-                )}
-
-                {activeSection === 'plan_to_read' && (
-                    mangalist.map((manga, index) => (
-                        <div key={index} className="manga-container">
-                            <a href={`https://myanimelist.net/manga/${manga.node.id}`}target="_blank" rel="noopener noreferrer">
-                                <img src={manga.node.main_picture.large} alt={manga.node.title} />
-                            </a>
-
-                            <p>{manga.node.title}</p>
-                        </div>
-                    ))
-                )}
-
-            </div>
-    </div>
-);
+        </div>
+    );
 }
   
 export default Manga;
