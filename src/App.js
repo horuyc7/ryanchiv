@@ -8,6 +8,7 @@ import Slide from "./component/Slide";
 import Restaurants from './component/Restaurants';
 import SpotifyDashboard from './component/SpotifyDashboard';
 import Vinyl from './component/Vinyl';
+import ImageClassifier from './component/ImageClassifier';
 
 import './App.css';
 
@@ -65,6 +66,10 @@ export default function App() {
               </li>
 
               <li className="nav-item">
+                <Link className="nav-link" to="/imageclassifier">Image</Link>
+              </li>
+
+              <li className="nav-item">
                 <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv">Git</ExternalLink>
               </li>
 
@@ -81,6 +86,7 @@ export default function App() {
                 <Route path="/spotifydashboard/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/vinyl" element={<Vinyl />} />
+                <Route path="/imageclassifier" element={<ImageClassifier />} />
                 <Route path="*" element={<Navigate to="/" />} />
 
             </Routes>
