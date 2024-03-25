@@ -40,11 +40,12 @@ const Movies = () => {
 
   const handleMovieClick = (movie) => {
     setSelectedMovie(movie+1);
-    toggleSynopsis();
+    setExpandedSynopsis(false);
   };
 
   const closeModal = () => {
     setSelectedMovie(null);
+    toggleSynopsis();
   };
 
   const toggleSynopsis = () => {
@@ -95,6 +96,17 @@ const Movies = () => {
                               <p className="details-description" onClick={toggleSynopsis}>
                                   {expandedSynopsis ? MovieDetails[selectedMovie-1].description : MovieDetails[selectedMovie-1].description.slice(0, 200) + '....'}
                               </p>
+
+
+
+                                    {MovieDetails[selectedMovie - 1].userReviews.map((review, index) => (
+                                        <div key={index} className='review-container'>
+                                            <p className='user'>{review.name}</p>
+                                            <p className='user-rating'>{review.rating}</p>
+                                            <p className='user-text'>{review.text}</p>
+                                        </div>
+                                    ))}
+            
                               
 
                               
