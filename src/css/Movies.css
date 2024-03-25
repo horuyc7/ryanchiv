@@ -51,24 +51,25 @@
 
     .movie-container:hover img {
         border-color: #8be7ae; /* Change the border color on hover */
-        transform: scale(1.05);
+        transform: scale(1.06);
         transition: .6s;
         
     }
 
     .modal {
         position: fixed;
-        top: 40%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 9999;
-        background-color: rgba(112, 233, 126, 0.875);
+        background-color: #8be7aef3;
         width: 50%;
         max-width: 450px; /* Adjust the width as needed */
         padding: 15px;
         max-height: auto;
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
     }
     
     .modal-content {
@@ -112,6 +113,13 @@
         cursor: pointer;
         margin-top: 10px;
     }
+
+    .review-container {
+        width: 100%;
+        border-bottom: .1px solid #94411d;
+        font-size: 13px;
+    }
+
     
     .close {
         position: absolute;
