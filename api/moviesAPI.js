@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
         // Get every movie from list
         $list('.poster-container').each(async (index, element) => {
             const href = $list(element).find('[data-target-link]').attr('data-target-link');
-            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/300x450/`;
+            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/1000x1300/`;
 
             posterPromises.push(
                 axios.get(posterUrl)
@@ -53,10 +53,31 @@ module.exports = async (req, res) => {
             const $rating = cheerio.load(responseRating.data);
             const rating = $rating('.average-rating a').text().trim();
 
-            return { title, rating, tagline, description, genres };
+
+            const userReviews = [];
+            $movie('.film-detail').each((index, element) => {
+                if (index < 3) { // Only extract bodyText for the first two movies
+                    const $detail = $movie(element);
+                    const bodyText = $detail.find('.body-text p').text().trim();
+                    const name = $detail.find('.attribution-block .name').text().trim();
+                    const rating = $detail.find('.rating.-green').text().trim();
+                    
+                    const review = {
+                        name: name,
+                        rating: rating,
+                        text: bodyText
+                    };
+                    
+                    
+                    userReviews.push(review);
+                }
+            });
+
+            return { title, rating, tagline, description, genres, userReviews};
         });
 
         const moviesDetails = await Promise.all(moviesDetailsPromises);
+
 
         res.json({ moviesData, listDetails, moviesDetails });
     } catch (error) {
