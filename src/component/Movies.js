@@ -7,23 +7,28 @@ const Movies = () => {
 
   const [listDetails, setListDetails] = useState({});
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [MovieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  
+  const [expandedSynopsis, setExpandedSynopsis] = useState(false);
+
 
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
 
         //call api
-        const response = await axios.get('/api/movieScraping');
+        const response = await axios.get('/api/moviesAPI');
 
         //save response
-        const { listDetails, moviesData} = response.data;
+        const {moviesData, listDetails, moviesDetails} = response.data;
         setMovies(moviesData);
         setListDetails(listDetails);
-
+        setMovieDetails(moviesDetails);
 
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching movies data:', error);
       }finally {
           setLoading(false);
       }
@@ -31,6 +36,20 @@ const Movies = () => {
 
     fetchAndSetData();
   }, []);
+
+
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie+1);
+    toggleSynopsis();
+  };
+
+  const closeModal = () => {
+    setSelectedMovie(null);
+  };
+
+  const toggleSynopsis = () => {
+    setExpandedSynopsis(!expandedSynopsis);
+  };
 
 
   return (
@@ -48,15 +67,45 @@ const Movies = () => {
               <div className='movies__movies'>
                   {movies.map((movie, index) => (
                       <div key={index} className="movie-container">
-                          <a href={`https://letterboxd.com${movie.href}`} target="_blank" rel="noopener noreferrer">
-                              <img src={movie.imageUrl} alt={movie.href}/>
-                            </a>
+                            <img src={movie.imageUrl} alt={movie.href} onClick={() => handleMovieClick(index)}/>
                       </div>
                   ))}
+
+
+                  {selectedMovie && (
+                          <div className="modal">
+                            <div className="modal-content">
+                              <span className="close" onClick={closeModal}>&times;</span>
+
+
+                              
+                              <div className="details-container">
+                                  <a href={`https://letterboxd.com${movies[selectedMovie-1].href}`} target="_blank" rel="noopener noreferrer">
+                                    <img className='details-image' src={movies[selectedMovie-1].imageUrl} alt={movies[selectedMovie-1].href}/>
+                                  </a>
+
+                                  <div className="details-info">
+                                      <p className='details-title'>{MovieDetails[selectedMovie-1].title}</p>
+                                      <p className='details-rating'>{MovieDetails[selectedMovie-1].rating} ★</p>
+                                      <p className='details-genres'>{MovieDetails[selectedMovie-1].genres.slice(0,2).join(', ')}</p>
+                                  </div>
+                                  
+                              </div>
+
+                              <p className="details-description" onClick={toggleSynopsis}>
+                                  {expandedSynopsis ? MovieDetails[selectedMovie-1].description : MovieDetails[selectedMovie-1].description.slice(0, 200) + '....'}
+                              </p>
+                              
+
+                              
+                              
+                            </div>
+                          </div>
+                        )}
               </div>
             )}
     </div>
   );
 }
   
-  export default Movies;
+export default Movies;
