@@ -5,7 +5,7 @@
 }
 
 
-.movies__detail {
+.movies__list {
     margin-bottom: 20px;
 }
 
@@ -56,7 +56,7 @@
         
     }
 
-    .modal {
+    .details {
         position: fixed;
         top: 50%;
         left: 50%;
@@ -72,14 +72,14 @@
 
     }
     
-    .modal-content {
+    .details-content {
         color: #000000;
         display: flex;
         flex-direction: column;
         align-items: flex-start; /* Align items to the left */
     }
     
-    .details-container {
+    .detail-container {
         display: flex;
         align-items: center; /* Align items vertically */
     }
@@ -95,9 +95,11 @@
     }
     
     .details-title {
+        color: #dc5318;
         font-size: 16px;
         font-weight: bold;
         margin-bottom: 5px;
+
     }
     
     .details-rating {
@@ -108,16 +110,28 @@
         font-size: 14px;
     }
     
-    .details-description {
+    .description {
         font-size: 14px;
         cursor: pointer;
         margin-top: 10px;
     }
 
+
+    .reviews-header {
+        font-size: 15px;
+        font-weight: 500;
+        color: #d9571f;
+        margin-bottom: 5px;
+    }
+
     .review-container {
         width: 100%;
-        border-bottom: .1px solid #94411d;
+        border-bottom: .1px solid #d9571f;
         font-size: 13px;
+    }
+
+    .user-text {
+        cursor: pointer;
     }
 
     
