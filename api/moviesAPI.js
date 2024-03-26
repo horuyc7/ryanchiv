@@ -57,8 +57,23 @@ module.exports = async (req, res) => {
             const userReviews = [];
             $movie('.film-detail').each((index, element) => {
                 if (index < 3) { // Only extract bodyText for the first two movies
+                    
+                    
                     const $detail = $movie(element);
-                    const bodyText = $detail.find('.body-text p').text().trim();
+
+                    const hiddenSpoilersExist = $detail.find('.hidden-spoilers').length > 0;
+                    
+                    
+                    
+                    let bodyText;
+                    if (hiddenSpoilersExist) {
+                        bodyText = $detail.find('.hidden-spoilers p').text().trim();
+                    } else {
+                        bodyText = $detail.find('.body-text p').text().trim();
+                    }
+
+                    //const  bodyText = $detail.find('.body-text p').text().trim();
+                   
                     const name = $detail.find('.attribution-block .name').text().trim();
                     const rating = $detail.find('.rating.-green').text().trim();
                     
