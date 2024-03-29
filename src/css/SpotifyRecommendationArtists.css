@@ -1,5 +1,4 @@
 .spotify-recommendation-artists {
-  margin-left: 20px;
   margin-right: 20px;
 }
 
@@ -71,6 +70,38 @@
   flex-direction: column; /* Ensure tracks are displayed in a column */
 }
   .artist-container {
+    
+
+    padding-bottom: 16px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    
+    margin-bottom: 40px;
+    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+  }
+
+  .artist-container img {
+    width: 110px;
+    height: 110px;
+    transition: all 1s;
+  }
+
+  .artist-container img:hover {
+    transition: all 1s;
+    transform:scale(1.15);
+  }
+
+    .artist-detail p{
+      display: flex;
+      flex-direction: column; /* Arrange track details vertically */
+      margin-left: 10px;
+      font-size: 18px;
+    }
+
+
+
+  .artists-container {
     border-bottom: 1px solid #8be7ae;
     padding-bottom: 16px;
     display: flex;
@@ -79,25 +110,33 @@
     width: 100%; /* Set width to 100% to force tracks to display in rows of one */
   }
 
-  .artist-container img {
+  .artists-container img {
     width: 100px;
     height: 100px;
     transition: all 1s;
   }
 
-  .artist-container img:hover {
+  .artists-container img:hover {
     transition: all 1s;
     transform:scale(1.2);
   }
 
-  .artist-detail {
-    display: flex;
-    flex-direction: column; /* Arrange track details vertically */
-  }
 
-  .artist-detail p {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 400;
-    text-align: left; /* Align text to the left */
-  }
+    .artists-detail {
+      display: flex;
+      flex-direction: column; /* Arrange track details vertically */
+    }
+
+      .name{
+        margin-bottom: 5px;
+        font-size: 18px;
+        font-weight: 400;
+        text-align: left; /* Align text to the left */
+      }
+
+      .genres {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 400;
+        text-align: left; /* Align text to the left */
+      }

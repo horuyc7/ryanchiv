@@ -36,7 +36,7 @@
 
   .skill-bar {
       background: rgba(0, 0, 0, 0.884);
-      background: linear-gradient(90deg,rgba(0, 0, 0, 0.67),rgba(28,28,28,.267) 50%,#366b4e88 0,rgba(44, 116, 77, 0.533));
+      background: linear-gradient(90deg,rgba(174, 99, 33, 0.67),rgba(88, 36, 36, 0.267) 50%,#366b4e88 0,rgba(44, 116, 77, 0.533));
         background-position-x: 0%;
         background-position-y: 0%;
         background-size: auto;
@@ -68,7 +68,7 @@
 
   .skill-loader {
     background: #1fcfcc;
-    background: linear-gradient(90deg,#b67544,#bd7843 50%,#95e9b5 0,#95e9b5);
+    background: linear-gradient(90deg,#d0691a,#bd7843 50%,#95e9b5 0,#95e9b5);
       background-position-x: 0%;
       background-position-y: 0%;
       background-size: auto;

@@ -21,7 +21,16 @@
   
   .featurescard__item {
     padding: 10px;
-    border-bottom: 1px solid #7dbd96;
+    border-image: linear-gradient(to right, #cb5928, #8fe1afc7) 1;
+
+  /* Ensure the border image is repeated to fill the border */
+  border-image-slice: 1;
+
+  /* Set border width */
+  border-width: 0 0 1px 0;
+
+  /* Optionally, you can set other border properties */
+  border-style: solid;
     width: 92%;
     color: #ffffff;
     

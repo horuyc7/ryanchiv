@@ -6,7 +6,6 @@
     grid-auto-rows: minmax(auto, 1fr);
     
     margin-top: 30px;
-    margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 20px;
 }
@@ -23,7 +22,7 @@
 
     .reading-img {
         width: 100%; /* Ensure the image fills the container */
-        height: 220px; /* Maintain aspect ratio */
+        height: 230px; /* Maintain aspect ratio */
         display: block;
         border-radius: 5px; /* Optional: Add border-radius for rounded corners */
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow effect */
