@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 
@@ -8,6 +9,11 @@ body {
     color: white;
     margin: 0; /* Remove default body margin */
     padding: 0; /* Remove default body padding */
+}
+
+.container {
+  margin-top: 80px;
+  margin-left: 70px;
 }
 
 
