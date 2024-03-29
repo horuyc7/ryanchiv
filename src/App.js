@@ -9,6 +9,7 @@ import Restaurants from './component/Restaurants';
 import SpotifyDashboard from './component/SpotifyDashboard';
 import Vinyl from './component/Vinyl';
 import ImageClassifier from './component/ImageClassifier';
+import TemporaryDrawer from './component/TemporaryDrawer'; 
 
 import './App.css';
 
@@ -29,52 +30,10 @@ export default function App() {
   return (
     <Router>
       <div>
-          <ul className="profilepic" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', listStyleType: 'none', margin: 0, padding: 0, marginTop: '20px'}}>
-            <Profile />
-          </ul>
+          <div className='drawer'>
+                <TemporaryDrawer /> {/* Render the TemporaryDrawer component */}
+          </div>
         
-
-          <nav className="navbar">
-            <ul className="navbar-nav ml-auto">
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/spotifydashboard">Spotify</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/movies">Movies</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/travel">Travel</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/manga">Manga</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/restaurants">Restaurants</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/vinyl">Vinyl</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/imageclassifier">Image</Link>
-              </li>
-
-              <li className="nav-item">
-                <ExternalLink className="nav-link" to="https://github.com/horuyc7/ryanchiv">Git</ExternalLink>
-              </li>
-
-            </ul>
-          </nav>
 
           <div className="container">
             <Routes>
@@ -83,10 +42,10 @@ export default function App() {
                 <Route path="/travel" element={<Slide />} />
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/manga" element={<Manga />} />
-                <Route path="/spotifydashboard/*" element={<SpotifyDashboard />} />
+                <Route path="/spotify/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/vinyl" element={<Vinyl />} />
-                <Route path="/imageclassifier" element={<ImageClassifier />} />
+                <Route path="/image" element={<ImageClassifier />} />
                 <Route path="*" element={<Navigate to="/" />} />
 
             </Routes>
