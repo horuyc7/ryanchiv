@@ -13,8 +13,8 @@ export default function SpotifyDashboard() {
 
   useEffect(() => {
     //Load recommendation tracks on load
-    if (location.pathname === '/spotifydashboard') {
-      window.location.href = '/spotifydashboard/recommendationtracks';
+    if (location.pathname === '/spotify') {
+      window.location.href = '/spotify/recommendationtracks';
     }
   }, [location]);
 
@@ -25,15 +25,15 @@ export default function SpotifyDashboard() {
           <ul className="spotify-dashboard__navbar">
        
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotifydashboard/spotify' ? 'active' : ''} to="spotify">Top Tracks</Link>
+                <Link className={location.pathname === '/spotify/spotifytracks' ? 'active' : ''} to="spotifytracks">Top Tracks</Link>
             </li>
 
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotifydashboard/recommendationtracks' ? 'active' : ''} to="recommendationtracks">Tracks Rec</Link>
+                <Link className={location.pathname === '/spotify/recommendationtracks' ? 'active' : ''} to="recommendationtracks">Tracks Rec</Link>
             </li>
 
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotifydashboard/recommendationartists' ? 'active' : ''} to="recommendationartists">Artists Rec</Link>
+                <Link className={location.pathname === '/spotify/recommendationartists' ? 'active' : ''} to="recommendationartists">Artists Rec</Link>
             </li>
             
           </ul>
@@ -45,7 +45,7 @@ export default function SpotifyDashboard() {
 
           <Route path="recommendationtracks" element={<SpotifyRecommendationTracks/>} />
           <Route path="recommendationartists" element={<SpotifyRecommendationArtists />} />
-          <Route path="spotify" element={<SpotifyTracks />} />
+          <Route path="spotifytracks" element={<SpotifyTracks />} />
            
         </Routes>
       </div>
