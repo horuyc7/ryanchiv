@@ -66,6 +66,8 @@ const ImageClassifier = () => {
         ) : (
             <div className='imageclassifier'>
 
+                <h2 className='title'>Image Classifier</h2>
+
                 <div className='imageclassifier__input-container'> 
                     <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
                     <button className='upload-button' onClick={triggerImageUpload}>Upload Image</button>
