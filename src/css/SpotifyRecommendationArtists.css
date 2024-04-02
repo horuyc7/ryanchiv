@@ -125,6 +125,7 @@
     .artists-detail {
       display: flex;
       flex-direction: column; /* Arrange track details vertically */
+      margin-left: 20px;
     }
 
       .name{
