@@ -28,6 +28,7 @@ export default function SpotifyRecommendation() {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [artist, setArtist] = useState();
   const [artists, setArtists] = useState();
   const [accessToken, setAccessToken] = useState('');
 
@@ -79,7 +80,10 @@ export default function SpotifyRecommendation() {
         const endpoint2 = `v1/artists/${response.artists.items[0].id}/related-artists`;
         const response2 = await getArtist(endpoint2, accessToken);
 
+
+        setArtist(response);
         setArtists(response2);
+
 
         //reset text box
         setInputValue('');
@@ -114,17 +118,34 @@ export default function SpotifyRecommendation() {
             {activeSection === 'get' && (
               
               <div className="spotify-recommendation-artists__artists">
+                
+                <div className='artist-container'>
+
+                    <a href={artist.artists.items[0].external_urls.spotify} target="_blank" rel="noopener noreferrer">
+                      <img src={artist.artists.items[0].images[0].url} alt={artist.artists.items[0].name} />
+                    </a>
+
+                    <div className='artist-detail'>
+                      <p className='name'>{artist.artists.items[0].name}</p>
+
+                      <p className="genres">Genres: {artist.artists.items[0].genres.join(', ')}</p>
+                    </div>
+                </div>
+                
+                
+                
                 {artists.artists.map((artist, index) => (
-                  <div key={index} className='artist-container'>
+                  <div key={index} className='artists-container'>
 
                     <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
                       <img src={artist.images[0].url} alt={artist.name} />
                     </a>
 
-                    <div className='artist-detail'>
-                      <p>{artist.name}</p>
-                    </div>
+                    <div className='artists-detail'>
+                      <p className='name'>{artist.name}</p>
 
+                      <p className="genres">Genres: {artist.genres.join(', ')}</p>
+                    </div>
                   </div>
                 ))}
               </div>
