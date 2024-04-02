@@ -1,12 +1,13 @@
 .spotify-recommendation-tracks {
   margin-right: 20px;
+  
 }
 .spotify-recommendation-tracks__input-container {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 
   }
 
@@ -50,6 +51,35 @@
     color: #fff;
   }
 
+
+
+.spotify-recommendation-tracks__genres {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 20px;
+  margin-bottom: 30px;
+  
+}
+
+
+.spotify-recommendation-tracks__sliders-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+
+  .spotify-recommendation-tracks__sliders {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
 
 
 
@@ -106,34 +136,34 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
 }
-  
+
+
 
 .spotify-recommendation-tracks__artists {
-  display: flex;
-  flex-direction:row;
-  justify-content:center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+    display: flex;
+    flex-direction: column; /* Ensure tracks are displayed in a column */
     
 }
 
 
 .artist-container {
-  border-bottom: 3px solid #8be7ae;
+  border-bottom: 1px solid #8be7ae;
   padding-bottom: 16px;
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  align-items: center;
   margin-bottom: 20px;
   width: 100%; /* Set width to 100% to force tracks to display in rows of one */
+
 
 }
 
   .artist-container img {
-      width: 110px;
-      height: 110px;
-      margin-right: 10px;
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
       transition: all 1s;
   }
+
 
   .artist-container img:hover {
       transition: all 1s;
@@ -145,7 +175,7 @@
       flex-direction: column; /* Arrange track details vertically */
   }
 
-  .name{
+  .artist-detail p {
       margin: 0;
       font-size: 18px;
       font-weight: 400;

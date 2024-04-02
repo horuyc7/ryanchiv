@@ -1,6 +1,7 @@
 .movies{
     margin-right: 20px;
     margin-bottom: 20px;
+    
 }
 
 
@@ -25,6 +26,7 @@
 .loading
 {
     text-align: center;
+    color: #8be7ae;
 }
 
 
