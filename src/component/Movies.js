@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Loading from './Loading';
+
 import '../css/Movies.css';
 
 const Movies = () => {
@@ -76,7 +78,9 @@ const Movies = () => {
       </div>
 
       {loading ? (
-        <p className="loading">Loading...</p>
+          <div className='loading'>
+            <Loading/>
+          </div>
       ) : (
         <div className="movies__movies">
           {movies.map((movie, index) => (
