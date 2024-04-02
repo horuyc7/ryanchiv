@@ -3,6 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-cpu';
 import '@tensorflow/tfjs-backend-webgl';
 import { load } from '@tensorflow-models/mobilenet';
+import Loading from './Loading';
 
 import "../css/ImageClassifier.css"
 
@@ -62,7 +63,9 @@ const ImageClassifier = () => {
     <div>
 
     {loading ? (
-          <p className='loading'>Loading model...</p>
+          <div className='loading'>
+            <Loading/>
+          </div>
         ) : (
             <div className='imageclassifier'>
 
