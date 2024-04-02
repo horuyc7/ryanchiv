@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Loading from './Loading';
 
 import '../css/Vinyl.css';
 
@@ -22,10 +23,11 @@ async function getVinyl(status) {
 
 
 const Vinyl = () => {
-
+    const [loading, setLoading] = useState(false);
     const [vinylList, setVinylList] = useState({ releases: [] });
 
     useEffect(() => {
+        setLoading(true);
 
         const fetchVinyl = async () => {
 
@@ -39,6 +41,9 @@ const Vinyl = () => {
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
+            finally {
+                setLoading(false);
+            }
         };
 
         fetchVinyl();
@@ -48,9 +53,18 @@ const Vinyl = () => {
 
     return (
         <div className='vinyl'>
-            <h2 className='vinyl__header'> Collection </h2>
+        
+            
+            
 
+            {loading ? (
+                <div className='loading'>
+                    <Loading/>
+                </div>
+            ) : (
             <div className="vinyl__vinyls">
+
+            <h2 className='vinyl__header'> Collection </h2>
 
                 {vinylList && (
                     vinylList.releases.map((vinyl, index) => (
@@ -70,7 +84,10 @@ const Vinyl = () => {
                 )}
 
             </div>
+
+            )}          
         </div>
+       
 
     );
 }
