@@ -1,12 +1,6 @@
-.movies{
-    margin-right: 20px;
-    margin-bottom: 20px;
-    
-}
-
-
 .movies__list {
     margin-bottom: 20px;
+    margin-right: 20px;
 }
 
     .movies__list-title {
@@ -23,18 +17,12 @@
     }
 
 
-.loading
-{
-    text-align: center;
-    color: #8be7ae;
-}
-
-
 .movies__movies {
     display: grid;
     min-height: 300px;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid with minimum width of 200px */
     grid-gap: 20px; /* Spacing between grid items */
+    margin-right: 20px;
 }
     .movie-container {
         position: relative; /* Enable relative positioning for the image */
