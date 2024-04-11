@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import MangaCompleted from './MangaCompleted';
 import MangaPlan from './MangaPlan';
 import MangaReading from './MangaReading';
+import LoadingCircle from './LoadingCircle';
 
 import '../css/Manga.css';
+
 
 //fetch manga with active section
 async function getManga(status) {
@@ -65,7 +67,9 @@ const Manga = () => {
             </div>
         
             {loading ? (
-              <p className='loading'>Loading...</p>
+                <div className='loading'>
+                    <LoadingCircle/>
+                </div>
              ) : (
                 <div>
                     {activeSection === 'reading' && <MangaReading mangalist={mangalist} />}
