@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FetchSpotifyToken from './FetchSpotifyToken';
+import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationArtists.css';
 
@@ -25,7 +26,7 @@ async function getArtistId(endpoint, accessToken) {
 
 export default function SpotifyRecommendation() {
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   const [activeSection, setActiveSection] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [artist, setArtist] = useState();
@@ -43,7 +44,7 @@ export default function SpotifyRecommendation() {
         setAccessToken(Token);
 
       } catch (error) {
-        console.error('Error fetching playlists:', error);
+        console.error('Error fetching Token:', error);
         setLoading(false);
       }
 
@@ -62,6 +63,8 @@ export default function SpotifyRecommendation() {
     
   const handleGetClick = async () => {
 
+    setLoading(true);
+    
     //if noting is in text box, do nothing
     if(inputValue === '')
     {
@@ -112,7 +115,11 @@ export default function SpotifyRecommendation() {
 
 
       {loading ? (
-          <p></p>
+
+          <div className='loading'>
+            <LoadingCircle/>
+          </div>
+
         ) : (
           <div>
             {activeSection === 'get' && (
