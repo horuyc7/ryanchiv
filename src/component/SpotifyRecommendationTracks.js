@@ -5,7 +5,7 @@ import EnergySlider from './EnergySlider';
 import PopularitySlider from './PopularitySlider';
 import DanceabilitySlider from './DanceabilitySlider';
 import ValenceSlider from './ValenceSlider';
-import Loading from './Loading';
+import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationTracks.css';
 
@@ -57,7 +57,7 @@ export default function SpotifyRecommendationTracks() {
         setAccessToken(token);
 
       } catch (error) {
-        console.error('Error fetching playlists:', error);
+        console.error('Error fetching Token:', error);
         setLoading(false);
       }
 
@@ -187,7 +187,7 @@ export default function SpotifyRecommendationTracks() {
     else
     {
       setIsError(true);
-      setErrorText('No artist added');
+      setErrorText('No artists/genres added');
       setLoading(false);
       setActiveSection('');
     }
@@ -267,7 +267,7 @@ export default function SpotifyRecommendationTracks() {
       { loading ? (
 
         <div className='loading'>
-            <Loading/>
+            <LoadingCircle/>
         </div>
 
         ) : (
