@@ -25,7 +25,7 @@ export default function SpotifyDashboard() {
           <ul className="spotify-dashboard__navbar">
        
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotify/spotify' ? 'active' : ''} to="spotifytracks">Top Tracks</Link>
+                <Link className={location.pathname === '/spotify/spotifytracks' ? 'active' : ''} to="spotifytracks">Top Tracks</Link>
             </li>
 
             <li className="spotify-feature">
@@ -45,7 +45,7 @@ export default function SpotifyDashboard() {
 
           <Route path="recommendationtracks" element={<SpotifyRecommendationTracks/>} />
           <Route path="recommendationartists" element={<SpotifyRecommendationArtists />} />
-          <Route path="spotify" element={<Spotify />} />
+          <Route path="spotifytracks" element={<Spotify />} />
            
         </Routes>
       </div>
