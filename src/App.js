@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
 import Dashboard from "./Dashboard";
-import Profile from "./component/Profile";
 import Movies from "./component/Movies";
 import Manga from "./component/Manga";
 import Slide from "./component/Slide";
