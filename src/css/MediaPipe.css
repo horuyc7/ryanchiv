@@ -1,0 +1,23 @@
+
+
+.image-wrapper img {
+  width: 700px; /* Ensure the image fills the container */
+}
+
+.object-detection-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.highlighter {
+  background: #f97f2d34;
+  border: 1px dashed #f97f2d;
+  z-index: 1;
+  position: absolute;
+}
+
+.info {
+  font-size: 8px;
+  color: #53f9a6;
+}
