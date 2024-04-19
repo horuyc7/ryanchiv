@@ -9,8 +9,10 @@ import SpotifyDashboard from './component/SpotifyDashboard';
 import Vinyl from './component/Vinyl';
 import ImageClassifier from './component/ImageClassifier';
 import TemporaryDrawer from './component/TemporaryDrawer'; 
+import MediaPipe from './component/MediaPipe';
 
 import './App.css';
+
 
 
 const ExternalLink = ({ to, children }) => (
@@ -45,6 +47,7 @@ export default function App() {
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/vinyl" element={<Vinyl />} />
                 <Route path="/image" element={<ImageClassifier />} />
+                <Route path="/object" element={<MediaPipe />} />
                 <Route path="*" element={<Navigate to="/" />} />
 
             </Routes>
