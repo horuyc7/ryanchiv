@@ -68,39 +68,55 @@ const MediaPipe = ({ imageUrl }) => {
         <p>Loading...</p>
       ) : (
         <div className="image-container">
-          <div style={{ marginBottom: '40px'}}>
-            <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
-            <button onClick={triggerImageUpload}>Upload Image</button>
-          </div>
 
-          <div className="image-wrapper">
-            {image && <img src={image.src} alt="Uploaded" />}
-          </div>
+            <div className='confidence'>
+                {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).slice(0, 10).map((detection, index) => (
+                      <div>
+                          <p>
+                              {detection.categories[0].categoryName} {index}: {Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.
+                          </p>
+                      </div>  
+                  ))}
+            </div>
 
-          {objects.length === 0 && <p>No object detected</p>}
+            <div className="image-wrapper">
+              
+
+              {image && <img src={image.src} alt="Uploaded" />}
+
+
+              {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).length === 0 &&image && <p>No object detected</p>}
+            
+            
+              {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).slice(0,10).map((detection, index) => (
+                    <React.Fragment key={index}>
+                        <div
+                            className="highlighter"
+                            style={{
+                                left: `${(detection.boundingBox.originX / image.width) * 100}%`,
+                                top: `${(detection.boundingBox.originY / image.height) * 100}%`,
+                                width: `${(detection.boundingBox.width / image.width) * 100}%`,
+                                height: `${(detection.boundingBox.height / image.height) * 99.6}%`
+                            }}>
+
+                            <p className="info">
+                                {detection.categories[0].categoryName}{" "}{index}
+                            </p>
+                        </div>  
+                    </React.Fragment>
+
+                    
+                ))}
+            </div>
+
+            <div className='input'>
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none', marginBottom: '20xp'}} />
+              <button onClick={triggerImageUpload}>Upload Image</button>
+            </div>
+
           
 
-
-          {objects.slice(0, 3).map((detection, index) => (
-                <React.Fragment key={index}>
-                    <div
-                        className="highlighter"
-                        style={{
-                            left: `${(detection.boundingBox.originX / image.width) * 100}%`,
-                            top: `${(detection.boundingBox.originY / image.height) * 100}%`,
-                            width: `${(detection.boundingBox.width / image.width) * 100}%`,
-                            height: `${(detection.boundingBox.height / image.height) * 100}%`
-                        }}
-                        >
-                        <p className="info" style={{ position: "absolute", top: "-20px" }}>
-                            {detection.categories[0].categoryName} - {" "}
-                            {Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.
-                        </p>
-                    </div>
-                </React.Fragment>
-            ))}
-
-            </div>
+          </div>
         )}
     </div>
   );
