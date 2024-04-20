@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import {
     ObjectDetector,
     FilesetResolver,
   } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.2";
+
+import Loading from './Loading';
   
 
   
@@ -65,7 +68,9 @@ const MediaPipe = ({ imageUrl }) => {
   return (
     <div className="object-detection-container">
       {loading ? (
-        <p>Loading...</p>
+        <div className='loading'>
+          <Loading/>
+        </div>
       ) : (
         <div className="image-container">
 
@@ -111,7 +116,7 @@ const MediaPipe = ({ imageUrl }) => {
 
             <div className='input'>
               <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none', marginBottom: '20xp'}} />
-              <button onClick={triggerImageUpload}>Upload Image</button>
+              <button className='upload-button' onClick={triggerImageUpload}>Upload Image</button>
             </div>
 
           
