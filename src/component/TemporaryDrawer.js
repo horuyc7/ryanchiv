@@ -27,7 +27,7 @@ import ModeOfTravelIcon from '@mui/icons-material/ModeOfTravel';
 import RestaurantIcon from '@mui/icons-material/Restaurant'; // Import the RestaurantIcon
 import AlbumIcon from '@mui/icons-material/Album';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
-
+import ImageIcon from '@mui/icons-material/Image';
 
 import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -84,7 +84,7 @@ const iconMap = {
     'Travel': <ModeOfTravelIcon />,
     'Restaurants': <RestaurantIcon />,
     'Vinyl': <AlbumIcon />,
-    'Image': <ImageSearchIcon />,
+    'Image': <ImageIcon />,
     'Object': <ImageSearchIcon />,
   };
 
