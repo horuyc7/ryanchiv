@@ -74,6 +74,8 @@ const MediaPipe = ({ imageUrl }) => {
       ) : (
         <div className="image-container">
 
+            <h2 className='title'>Object Detection</h2>
+
             <div className='confidence'>
                 {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).slice(0, 10).map((detection, index) => (
                       <div>
