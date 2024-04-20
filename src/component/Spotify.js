@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Alerts from './Alerts';
+
 import "../css/Spotify.css";
 
 async function fetchSpotifyClientId() {
@@ -129,7 +131,7 @@ export default function Spotify() {
 
   useEffect(() => {
 
-    //fetch token when 
+    /*
     const getToken = async () => {
 
       const token = await getAccessToken();
@@ -138,7 +140,7 @@ export default function Spotify() {
 
     };
 
-    getToken();
+    getToken(); */
 
 
 
@@ -176,7 +178,9 @@ const handleFetchClick = () => {
 
 
 return (
-    <div>
+    <div className='spotify'>
+      <Alerts/>
+
        <div className="section-container">
                 <p>
                     <label>
