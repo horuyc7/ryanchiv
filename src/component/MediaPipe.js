@@ -22,6 +22,7 @@ const MediaPipe = ({ imageUrl }) => {
 
   useEffect(() => {
     let runningMode = "IMAGE";
+    setLoading(true);
 
     const initializeObjectDetector = async () => {
         const vision = await FilesetResolver.forVisionTasks(
@@ -42,7 +43,6 @@ const MediaPipe = ({ imageUrl }) => {
       const result = objectDetector.detect(img);
       setObjects(result.detections);
 
-      console.log(result);
       setLoading(false);
     }
   };
@@ -50,6 +50,7 @@ const MediaPipe = ({ imageUrl }) => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
+
     reader.onload = async () => {
       const img = new Image();
       img.src = reader.result;
@@ -72,19 +73,17 @@ const MediaPipe = ({ imageUrl }) => {
           <Loading/>
         </div>
       ) : (
+        
         <div className="image-container">
+            
 
             <h2 className='title'>Object Detection</h2>
 
-            <div className='confidence'>
-                {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).slice(0, 10).map((detection, index) => (
-                      <div>
-                          <p>
-                              {detection.categories[0].categoryName} {index}: {Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.
-                          </p>
-                      </div>  
-                  ))}
+            <div className='input'>
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none', marginBottom: '20xp'}} />
+              <button className='upload-button' onClick={triggerImageUpload}>Upload Image</button>
             </div>
+
 
             <div className="image-wrapper">
               
@@ -116,9 +115,15 @@ const MediaPipe = ({ imageUrl }) => {
                 ))}
             </div>
 
-            <div className='input'>
-              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} style={{ display: 'none', marginBottom: '20xp'}} />
-              <button className='upload-button' onClick={triggerImageUpload}>Upload Image</button>
+            
+            <div className='confidence'>
+                {objects.filter(detection => parseFloat(detection.categories[0].score) > 0.2).slice(0, 10).map((detection, index) => (
+                      <div>
+                          <p>
+                              {detection.categories[0].categoryName} {index}: {Math.round(parseFloat(detection.categories[0].score) * 100)}% confidence.
+                          </p>
+                      </div>  
+                  ))}
             </div>
 
           
