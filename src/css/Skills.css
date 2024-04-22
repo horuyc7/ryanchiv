@@ -45,7 +45,7 @@
       -webkit-clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
       clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
       overflow: hidden;
-      padding: 6px 24px;
+      padding: 6px 20px;
       position: relative;
       transition: .8s;
       -webkit-transition: .8s;
