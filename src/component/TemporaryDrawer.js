@@ -235,7 +235,7 @@ export default function TemporaryDrawer() {
                         <HomeIcon/>
                     </ListItemIcon>
 
-                <ListItemText primary={'Home'} primaryTypographyProps={{fontSize: '20px'}} />
+                <ListItemText primary={'Home'} primaryTypographyProps={{fontSize: '20px', marginTop: '3px'}} />
 
                 </ListItemButton>
             </ListItem>
@@ -250,7 +250,7 @@ export default function TemporaryDrawer() {
                         {iconMap[text] }
                     </ListItemIcon>
 
-                    <ListItemText primary={text} primaryTypographyProps={{fontSize: '16px'}}/>
+                    <ListItemText primary={text} primaryTypographyProps={{fontSize: '17px', marginTop: '3px'}}/>
 
                 </ListItemButton>
             </ListItem>
