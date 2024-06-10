@@ -10,8 +10,10 @@ import Vinyl from './component/Vinyl';
 import ImageClassifier from './component/ImageClassifier';
 import TemporaryDrawer from './component/TemporaryDrawer'; 
 import MediaPipe from './component/MediaPipe';
+import Hobbies from './component/Hobbies';
 
 import './App.css';
+import FeaturesCard from './component/FeaturesCard';
 
 
 
@@ -40,6 +42,8 @@ export default function App() {
             <Routes>
 
                 <Route path="/" element={<Dashboard />} />
+                <Route path="/hobbies" element={<Hobbies />} />
+                <Route path="/features" element={<FeaturesCard />} />
                 <Route path="/travel" element={<Slide />} />
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/manga" element={<Manga />} />
