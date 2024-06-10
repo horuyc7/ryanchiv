@@ -4,7 +4,8 @@ import "../css/Skills.css";
 export default function Skills() {
   return (
     <div className="skills">
-      <div className="skills__header1">Skills</div>
+        
+        <div className="skills__header1">Skills</div>
 
         <div className="skills__header2">Scripts
             <div className="skills__body">
@@ -84,7 +85,7 @@ export default function Skills() {
                         <div className="skill-name">Selenium
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "67%"}}></div>
+                        <div className="skill-loader" style={{width: "64%"}}></div>
                     </div>
                 </div>
 
@@ -93,7 +94,7 @@ export default function Skills() {
                         <div className="skill-name">Junit
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "65%"}}></div>
+                        <div className="skill-loader" style={{width: "60%"}}></div>
                     </div> 
                 </div>
 
@@ -104,7 +105,7 @@ export default function Skills() {
             
             <div className="skills__body">
 
-                <div className="skill-container" style={{width:"67%"}}>
+                <div className="skill-container" style={{width:"66%"}}>
                     <div className="skill-bar">
                         <div className="skill-name">VS
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
@@ -154,7 +155,7 @@ export default function Skills() {
                         <div className="skill-name">Eclipse
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
+                        <div className="skill-loader" style={{width: "76%"}}></div>
                     </div>
                 </div>
 
