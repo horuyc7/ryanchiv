@@ -64,7 +64,7 @@ const Vinyl = () => {
             ) : (
             <div className="vinyl__vinyls">
 
-            <h2 className='vinyl__header'> Collection </h2>
+            <h2 className='vinyl__header'> Vinyl Collection </h2>
 
                 {vinylList && (
                     vinylList.releases.map((vinyl, index) => (
