@@ -14,12 +14,14 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+
+
+import InterestsIcon from '@mui/icons-material/Interests';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-
-
+import UpdateIcon from '@mui/icons-material/Update';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import MangaIcon from '@mui/icons-material/MenuBook'; // Import the MangaIcon
@@ -78,6 +80,9 @@ const Theme = createTheme({
 });
 
 const iconMap = {
+
+    'Features': <UpdateIcon />,
+    'Hobbies': <InterestsIcon />,
     'Spotify': <MusicNoteIcon /> ,
     'Movies': <TheatersIcon />,
     'Manga': <MangaIcon />,
@@ -86,6 +91,7 @@ const iconMap = {
     'Vinyl': <AlbumIcon />,
     'Image': <ImageIcon />,
     'Object': <ImageSearchIcon />,
+    
   };
 
 
@@ -241,7 +247,7 @@ export default function TemporaryDrawer() {
             </ListItem>
 
         <List sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        {['Spotify', 'Movies', 'Manga', 'Travel', 'Restaurants', 'Vinyl', 'Image', 'Object'].map((text) => (
+        {['Features', 'Hobbies', 'Spotify', 'Movies', 'Manga', 'Travel', 'Restaurants', 'Vinyl', 'Image', 'Object'].map((text) => (
             
             <ListItem disablePadding>
                 <ListItemButton component={Link} to={`/${text.toLowerCase()}`} >
