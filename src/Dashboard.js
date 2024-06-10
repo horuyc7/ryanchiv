@@ -1,6 +1,7 @@
 import React from "react";
-import FeaturesCard from "./component/FeaturesCard";
+import Description from "./component/Description";
 import Skills from "./component/Skills";
+import Hobbies from "./component/Hobbies";
 
 import "./Dashboard.css";
 
@@ -8,10 +9,8 @@ export default function Dashboard() {
   return (
     <div className="dashboard">
 
-        <h2 className="dashboard__header">Dashboard</h2>
-    
         <div className="dashboard__components">
-            <FeaturesCard/>
+            <Description/>
             <Skills/>
         </div>
         
