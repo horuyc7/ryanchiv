@@ -1,16 +1,15 @@
 .skills {
-    border-top: 4px solid #193825;
-    border-radius: 5px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-
+  border-top: 4px solid #193825;
+  border-radius: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 .skills__header1 {
   margin-bottom: 10px;
-  padding: 10px; /* Optional: Add padding */
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #b9e5ca;
 }
@@ -20,7 +19,7 @@
   padding: 10px; /* Optional: Add padding */
   font-size: 16px;
   font-weight:500;
-  color: #95e9b5;
+  color: #d3ffe3;
 }
 
 

@@ -1,14 +1,11 @@
 .vinyl__header {
     font-size: 24px;
     color: #8be7ae;
-    padding-bottom: 10px;
 }
 
 
 .vinyl__vinyls {
-    display: flex;
-    flex-direction: column; /* Ensure tracks are displayed in a column */
-    margin-left: 20px;
+
     margin-right: 20px;
 }
     .vinyl-container {
