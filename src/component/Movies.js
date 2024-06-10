@@ -107,7 +107,7 @@ const Movies = () => {
                       {MovieDetails[selectedMovie - 1].title}
                     </p>
                     <p className="details-rating">
-                      {MovieDetails[selectedMovie - 1].rating} ★
+                      {MovieDetails[selectedMovie - 1].rating} / 5 ★ 
                     </p>
                     <p className="details-genres">
                       {MovieDetails[selectedMovie - 1].genres.slice(0, 2).join(', ')}
@@ -116,7 +116,7 @@ const Movies = () => {
                 </div>
 
                 <p className="description" onClick={toggleSynopsis}>
-                  {expandedSynopsis ? MovieDetails[selectedMovie - 1].description : MovieDetails[selectedMovie - 1].description.slice(0, 200) + '....'}
+                  {expandedSynopsis ? MovieDetails[selectedMovie - 1].description : MovieDetails[selectedMovie - 1].description.slice(0, 150) + '....'}
                 </p>
 
                 <p className="reviews-header">Reviews</p>
