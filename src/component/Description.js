@@ -121,7 +121,7 @@ const Description = ({}) => {
 
 
           <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: Theme.palette.secondary.main}} variant="body2">
+            <TimelineOppositeContent sx={{ mt: 1.6, mb: 'auto', fontSize: "14px", color: Theme.palette.secondary.main}}>
               '24 - Present
             </TimelineOppositeContent>
 
