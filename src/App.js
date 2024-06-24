@@ -37,11 +37,15 @@ const actions = [
  // { icon: <SaveIcon />, name: 'Save'},
 ];
 
+const pdfUrl = `${process.env.PUBLIC_URL}/RyanChivResume.pdf`;
+
 function handleDownloadPDF() {
   // Create a link element
+
+
   const link = document.createElement('a');
   // Set the href to the URL of your PDF file
-  link.href = '${process.env.PUBLIC_URL}/RyanChivResume.pdf';
+  link.href = pdfUrl;
   // Set the download attribute to the desired file name
   link.download = 'RyanChivResume.pdf';
 
