@@ -41,7 +41,7 @@ function handleDownloadPDF() {
   // Create a link element
   const link = document.createElement('a');
   // Set the href to the URL of your PDF file
-  link.href = '/src/data/RyanChivResume.pdf';
+  link.href = 'ryanchiv.com/data/RyanChivResume.pdf';
   // Set the download attribute to the desired file name
   link.download = 'RyanChivResume.pdf';
 
