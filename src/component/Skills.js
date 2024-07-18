@@ -21,10 +21,19 @@ export default function Skills() {
 
                 <div className="skill-container" style={{width:"100%"}}>
                     <div className="skill-bar">
+                        <div className="skill-name">JS
+                            <span className="skill-line" style={{width: "14.8333%"}}></span>
+                        </div>
+                        <div className="skill-loader" style={{width: "75%"}}></div>
+                    </div>
+                </div>
+
+                <div className="skill-container" style={{width:"100%"}}>
+                    <div className="skill-bar">
                         <div className="skill-name">Python
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "70%"}}></div>
+                        <div className="skill-loader" style={{width: "65%"}}></div>
                     </div>
                 </div>
 
@@ -39,19 +48,19 @@ export default function Skills() {
 
                 <div className="skill-container" style={{width:"100%"}}>
                     <div className="skill-bar">
-                        <div className="skill-name">JS
+                        <div className="skill-name">C++
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
+                        <div className="skill-loader" style={{width: "55%"}}></div>
                     </div>
                 </div>
 
                 <div className="skill-container" style={{width:"100%"}}>
                     <div className="skill-bar">
-                        <div className="skill-name">C++
+                        <div className="skill-name">Bash
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "60%"}}></div>
+                        <div className="skill-loader" style={{width: "50%"}}></div>
                     </div>
                 </div>
 
@@ -105,16 +114,34 @@ export default function Skills() {
             
             <div className="skills__body">
 
-                <div className="skill-container" style={{width:"66%"}}>
+                 <div className="skill-container" style={{width:"45%"}}>
                     <div className="skill-bar">
-                        <div className="skill-name">VS
+                        <div className="skill-name">AWX/Ansible
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "85%"}}></div>
+                        <div className="skill-loader" style={{width: "60%"}}></div>
                     </div>
                 </div>
 
                 <div className="skill-container" style={{width:"35%"}}>
+                    <div className="skill-bar">
+                        <div className="skill-name">RHEL
+                            <span className="skill-line" style={{width: "14.8333%"}}></span>
+                        </div>
+                        <div className="skill-loader" style={{width: "70%"}}></div>
+                    </div>
+                </div>
+
+                <div className="skill-container" style={{width:"70%"}}>
+                    <div className="skill-bar">
+                        <div className="skill-name">VS
+                            <span className="skill-line" style={{width: "14.8333%"}}></span>
+                        </div>
+                        <div className="skill-loader" style={{width: "80%"}}></div>
+                    </div>
+                </div>
+
+                <div className="skill-container" style={{width:"33%"}}>
                     <div className="skill-bar">
                         <div className="skill-name">Intellij
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
@@ -167,14 +194,16 @@ export default function Skills() {
                         <div className="skill-loader" style={{width: "70%"}}></div>
                     </div>
                 </div>
+
                 <div className="skill-container" style={{width:"75%"}}>
                     <div className="skill-bar">
                         <div className="skill-name">Cisco Routers
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
+                            <span className="skill-line" style={{width: "12.8333%"}}></span>
                         </div>
                         <div className="skill-loader" style={{width: "60%"}}></div>
                     </div>
                 </div>
+
 
             </div>
         </div>
@@ -198,7 +227,7 @@ export default function Skills() {
                         <div className="skill-name">Japanese
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "65%"}}></div>
+                        <div className="skill-loader" style={{width: "55%"}}></div>
                     </div>
                 </div>
 
@@ -207,7 +236,7 @@ export default function Skills() {
                         <div className="skill-name">Khmer
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "55%"}}></div>
+                        <div className="skill-loader" style={{width: "50%"}}></div>
                     </div>
                 </div>
 
