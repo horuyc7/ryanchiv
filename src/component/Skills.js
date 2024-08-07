@@ -119,7 +119,7 @@ export default function Skills() {
                         <div className="skill-name">AWX/Ansible
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "60%"}}></div>
+                        <div className="skill-loader" style={{width: "65%"}}></div>
                     </div>
                 </div>
 
