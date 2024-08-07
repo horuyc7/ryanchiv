@@ -9,7 +9,7 @@ export default function Hobbies() {
         <div className="hobbiescard__body">
             <ul className="hobbiescard__items">
 
-                <li className="hobbiescard__item">Pool (Snooker, 9/10 ball, Straight)</li>
+                <li className="hobbiescard__item">Snooker</li>
                 <li className="hobbiescard__item">Manga</li>
                 <li className="hobbiescard__item">Movies</li>
                 <li className="hobbiescard__item">Soccer</li>
