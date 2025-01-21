@@ -141,6 +141,15 @@ export default function Skills() {
                     </div>
                 </div>
 
+                <div className="skill-container" style={{width:"60%"}}>
+                    <div className="skill-bar">
+                        <div className="skill-name">AWS
+                            <span className="skill-line" style={{width: "14.8333%"}}></span>
+                        </div>
+                        <div className="skill-loader" style={{width: "50%"}}></div>
+                    </div>
+                </div>
+
                 <div className="skill-container" style={{width:"33%"}}>
                     <div className="skill-bar">
                         <div className="skill-name">Intellij
