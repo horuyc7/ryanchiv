@@ -9,16 +9,15 @@ export default function FeaturesCard() {
         <div className="featurescard__body">
             <ul className="featurescard_items">
 
-                <li className="featurescard__item">Boba ratings with orders and places</li>
-                <li className="featurescard__item">Manga collection</li>
+                <li className="featurescard__item">Restaurant/Cafe ratings with orders and places</li>
+                <li className="featurescard__item">Book collection</li>
                 <li className="featurescard__item">Train model for object detection(more index)</li>
                 <li className="featurescard__item">Clean up code</li>
                 <li className="featurescard__item">Refactor</li>
-                <li className="featurescard__item">Comment code</li>
-                <li className="featurescard__item">Make recommendation more specific</li>
+                <li className="featurescard__item">More comments</li>
+                <li className="featurescard__item">Make Spotify recommendation more specific</li>
                 <li className="featurescard__item">Favorite places</li>
-                <li className="featurescard__item">Show photo locations, drives API</li>
-                <li className="featurescard__item">Favorite restaurants, places API</li>
+
 
        
                 <li className="featurescard__item">Make object detection table checkable to show specific objects</li>

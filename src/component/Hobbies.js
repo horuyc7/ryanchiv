@@ -10,6 +10,7 @@ export default function Hobbies() {
             <ul className="hobbiescard__items">
 
                 <li className="hobbiescard__item">Snooker</li>
+                <li className="hobbiescard__item">Novel</li>
                 <li className="hobbiescard__item">Manga</li>
                 <li className="hobbiescard__item">Movies</li>
                 <li className="hobbiescard__item">Soccer</li>
@@ -17,7 +18,6 @@ export default function Hobbies() {
                 <li className="hobbiescard__item">Tennis</li>
                 <li className="hobbiescard__item">Pickleball</li>
                 <li className="hobbiescard__item">Video Games</li>
-                <li className="hobbiescard__item">Cubing</li>
                 <li className="hobbiescard__item">Coding</li>
                 <li className="hobbiescard__item">Baking</li>
                 <li className="hobbiescard__item">Video Editing</li>
