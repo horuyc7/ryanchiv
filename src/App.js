@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from '@vercel/analytics/react';
 
 import Dashboard from "./Dashboard";
 import Movies from "./component/Movies";
@@ -155,6 +155,8 @@ export default function App() {
   return (
     <Router>
       <div>
+          <Analytics mode="production" />
+
           <div className='drawer'>
                 <TemporaryDrawer /> {/* Render the TemporaryDrawer component */}
           </div>
