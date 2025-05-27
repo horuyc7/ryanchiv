@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react"
+
 import Dashboard from "./Dashboard";
 import Movies from "./component/Movies";
 import Manga from "./component/Manga";
@@ -11,6 +13,7 @@ import ImageClassifier from './component/ImageClassifier';
 import TemporaryDrawer from './component/TemporaryDrawer'; 
 import MediaPipe from './component/MediaPipe';
 import Hobbies from './component/Hobbies';
+
 
 import './App.css';
 import FeaturesCard from './component/FeaturesCard';
