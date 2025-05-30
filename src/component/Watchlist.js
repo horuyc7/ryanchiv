@@ -5,19 +5,24 @@ import Loading from './Loading';
 import '../css/Watchlist.css';
 
 const Watchlist = () => {
-  const [watchlists, setWatchlists] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null); // { listIndex, movieIndex }
+  const [listDetails, setListDetails] = useState({});
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [MovieDetails, setMovieDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
   const [expandedReviews, setExpandedReviews] = useState({});
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
         const response = await axios.get('/api/watchlistAPI');
-        setWatchlists(response.data.watchlists);
+        const { moviesData, listDetails, moviesDetails } = response.data;
+        setMovies(moviesData);
+        setListDetails(listDetails);
+        setMovieDetails(moviesDetails);
       } catch (error) {
-        console.error('Error fetching watchlists:', error);
+        console.error('Error fetching movies data:', error);
       } finally {
         setLoading(false);
       }
@@ -26,16 +31,14 @@ const Watchlist = () => {
     fetchAndSetData();
   }, []);
 
-  const handleMovieClick = (listIndex, movieIndex) => {
-    setSelectedMovie({ listIndex, movieIndex });
+  const handleMovieClick = (movie) => {
+    setSelectedMovie(movie + 1);
     setExpandedSynopsis(false);
-    setExpandedReviews({});
   };
 
   const closeModal = () => {
     setSelectedMovie(null);
-    setExpandedSynopsis(false);
-    setExpandedReviews({});
+    toggleSynopsis();
   };
 
   const toggleSynopsis = () => {
@@ -43,11 +46,12 @@ const Watchlist = () => {
   };
 
   const toggleReview = (index) => {
-    setExpandedReviews((prev) => ({
-      ...prev,
-      [index]: !prev[index],
+    setExpandedReviews((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
     }));
   };
+
 
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
@@ -56,94 +60,81 @@ const Watchlist = () => {
         closeModal();
       }
     };
-
+  
     document.body.addEventListener('mousedown', handleClickOutsideModal);
+    
     return () => {
       document.body.removeEventListener('mousedown', handleClickOutsideModal);
     };
   }, []);
 
+  
+  
   return (
     <div className="watchlist">
+      <div className="movies__list">
+        <h2 className="movies__list-title">"Watchlist"</h2>
+      </div>
+
       {loading ? (
-        <div className="loading">
-          <Loading />
-        </div>
-      ) : (
-        watchlists.map((watchlist, listIndex) => (
-          <div key={listIndex} className="movies__list">
-            <h2 className="movies__list-title">{watchlist.listDetails.title || `Watchlist ${listIndex + 1}`}</h2>
-            <p className="movies__list-description">{watchlist.listDetails.description}</p>
-            <div className="movies__movies">
-              {watchlist.movies.map((movie, movieIndex) => (
-                <div key={movieIndex} className="movie-container">
-                  <img
-                    src={movie.imageUrl}
-                    alt={movie.href}
-                    onClick={() => handleMovieClick(listIndex, movieIndex)}
-                  />
-                </div>
-              ))}
-            </div>
+          <div className='loading'>
+            <Loading/>
           </div>
-        ))
-      )}
+      ) : (
+        <div className="movies__movies">
+          {movies.map((movie, index) => (
+            <div key={index} className="movie-container">
+              <img src={movie.imageUrl} alt={movie.href} onClick={() => handleMovieClick(index)}/>
+            </div>
+          ))}
 
-      {selectedMovie && (
-        <div className="details">
-          <div className="details-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
+          {selectedMovie && (
+          
+            <div className="details">
+              <div className="details-content">
+                <span className="close" onClick={closeModal}>
+                  &times;
+                </span>
 
-            {(() => {
-              const { listIndex, movieIndex } = selectedMovie;
-              const movie = watchlists[listIndex].movies[movieIndex];
-              const details = watchlists[listIndex].moviesDetails[movieIndex];
+                <div className="detail-container">
+                  <a href={`https://letterboxd.com${movies[selectedMovie - 1].href}`} target="_blank" rel="noopener noreferrer">
+                    <img className="details-image" src={movies[selectedMovie - 1].imageUrl} alt={movies[selectedMovie - 1].href}/>
+                  </a>
 
-              return (
-                <>
-                  <div className="detail-container">
-                    <a
-                      href={`https://letterboxd.com${movie.href}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img className="details-image" src={movie.imageUrl} alt={movie.href} />
-                    </a>
-
-                    <div className="details-info">
-                      <p className="details-title">{details.title}</p>
-                      <p className="details-rating">{details.rating} / 5 ★</p>
-                      <p className="details-genres">{details.genres.slice(0, 2).join(', ')}</p>
-                    </div>
+                  <div className="details-info">
+                    <p className="details-title">
+                      {MovieDetails[selectedMovie - 1].title}
+                    </p>
+                    <p className="details-rating">
+                      {MovieDetails[selectedMovie - 1].rating} / 5 ★ 
+                    </p>
+                    <p className="details-genres">
+                      {MovieDetails[selectedMovie - 1].genres.slice(0, 2).join(', ')}
+                    </p>
                   </div>
+                </div>
 
-                  <p className="description" onClick={toggleSynopsis}>
-                    {expandedSynopsis
-                      ? details.description
-                      : `${details.description.slice(0, 150)}...`}
-                  </p>
+                <p className="description" onClick={toggleSynopsis}>
+                  {expandedSynopsis ? MovieDetails[selectedMovie - 1].description : MovieDetails[selectedMovie - 1].description.slice(0, 150) + '....'}
+                </p>
 
-                  <p className="reviews-header">Reviews</p>
-                  {details.userReviews.map((review, index) => (
+                <p className="reviews-header">Reviews</p>
+
+                {MovieDetails[selectedMovie - 1].userReviews.map(
+                  (review, index) => (
                     <div key={index} className="review-container">
                       <p className="user">{review.name}</p>
                       <p className="user-rating">{review.rating}</p>
-                      <p
-                        className="user-text"
-                        onClick={() => toggleReview(index)}
-                      >
-                        {expandedReviews[index] || review.text.length <= 200
-                          ? review.text
-                          : `${review.text.slice(0, 200)}...`}
+
+                      <p className="user-text" onClick={() => toggleReview(index)}>
+                        {expandedReviews[index] || review.text.length <= 200 ? review.text : review.text.slice(0, 200) + '....'}
                       </p>
                     </div>
-                  ))}
-                </>
-              );
-            })()}
-          </div>
+                  )
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
