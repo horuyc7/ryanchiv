@@ -3,18 +3,24 @@ const cheerio = require('cheerio');
 
 module.exports = async (req, res) => {
     try {
-        const watchlistUrls = process.env.LETTERBOXD_WATCHLIST.split(',');
+        const listUrls = process.env.LETTERBOXD_WATCHLIST.split(',').map(url => url.trim());
 
-        const allWatchlistData = [];
+        const allMoviesData = [];
+        const allMoviesDetails = [];
+        const listDetailsCombined = {
+            titles: [],
+            descriptions: []
+        };
 
-        for (const url of watchlistUrls) {
+        for (const url of listUrls) {
             const responseList = await axios.get(url);
             const $list = cheerio.load(responseList.data);
 
-            const listDetails = {
-                title: $list('.title-1').text().trim(),
-                description: $list('.body-text p').text().trim(),
-            };
+            const listTitle = $list('.title-1').text().trim();
+            const listDescription = $list('.body-text p').text().trim();
+
+            listDetailsCombined.titles.push(listTitle);
+            listDetailsCombined.descriptions.push(listDescription);
 
             const moviesData = [];
             const posterPromises = [];
@@ -37,6 +43,7 @@ module.exports = async (req, res) => {
             });
 
             await Promise.all(posterPromises);
+            allMoviesData.push(...moviesData);
 
             const moviesDetailsPromises = moviesData.map(async movie => {
                 const responseMovie = await axios.get(`https://letterboxd.com${movie.href}`);
@@ -45,9 +52,9 @@ module.exports = async (req, res) => {
                 const title = $movie('.headline-1').text().trim();
                 const tagline = $movie('.tagline').text().trim();
                 const description = $movie('.truncate p').text().trim();
-
                 const genres = [];
-                $movie('#tab-genres .text-sluglist a').each((i, el) => {
+
+                $movie('#tab-genres .text-sluglist a').each((_, el) => {
                     genres.push($movie(el).text());
                 });
 
@@ -56,13 +63,14 @@ module.exports = async (req, res) => {
                 const rating = $rating('.average-rating a').text().trim();
 
                 const userReviews = [];
-                $movie('.film-detail').each((index, element) => {
-                    if (index < 3) {
-                        const $detail = $movie(element);
-                        const hiddenSpoilers = $detail.find('.hidden-spoilers');
-                        const bodyText = hiddenSpoilers.length > 0 ?
-                            hiddenSpoilers.find('p').text().trim() :
-                            $detail.find('.body-text p').text().trim();
+                $movie('.film-detail').each((i, el) => {
+                    if (i < 3) {
+                        const $detail = $movie(el);
+                        const hiddenSpoilersExist = $detail.find('.hidden-spoilers').length > 0;
+
+                        const bodyText = hiddenSpoilersExist
+                            ? $detail.find('.hidden-spoilers p').text().trim()
+                            : $detail.find('.body-text p').text().trim();
 
                         const name = $detail.find('.attribution-block .name').text().trim();
                         const reviewRating = $detail.find('.rating.-green').text().trim();
@@ -75,17 +83,21 @@ module.exports = async (req, res) => {
             });
 
             const moviesDetails = await Promise.all(moviesDetailsPromises);
-
-            allWatchlistData.push({
-                listDetails,
-                movies: moviesData,
-                moviesDetails,
-            });
+            allMoviesDetails.push(...moviesDetails);
         }
 
-        res.json({ watchlists: allWatchlistData });
+        const listDetails = {
+            title: listDetailsCombined.titles.join(', '),
+            description: listDetailsCombined.descriptions.join('\n\n'),
+        };
+
+        res.json({
+            moviesData: allMoviesData,
+            listDetails,
+            moviesDetails: allMoviesDetails
+        });
     } catch (error) {
         console.error('Error scraping movies:', error);
-        res.status(500).json({ error: 'Failed to fetch watchlists' });
+        res.status(500).json({ error: 'Error scraping watchlists' });
     }
 };
