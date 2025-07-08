@@ -24,7 +24,7 @@ export default function Skills() {
                         <div className="skill-name">JS
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
+                        <div className="skill-loader" style={{width: "70%"}}></div>
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@ export default function Skills() {
                         <div className="skill-name">Bash
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "50%"}}></div>
+                        <div className="skill-loader" style={{width: "65%"}}></div>
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@ export default function Skills() {
                         <div className="skill-name">AWX/Ansible
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
+                        <div className="skill-loader" style={{width: "85%"}}></div>
                     </div>
                 </div>
 
@@ -128,7 +128,7 @@ export default function Skills() {
                         <div className="skill-name">RHEL
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "70%"}}></div>
+                        <div className="skill-loader" style={{width: "75%"}}></div>
                     </div>
                 </div>
 
@@ -236,7 +236,7 @@ export default function Skills() {
                         <div className="skill-name">Japanese
                             <span className="skill-line" style={{width: "14.8333%"}}></span>
                         </div>
-                        <div className="skill-loader" style={{width: "55%"}}></div>
+                        <div className="skill-loader" style={{width: "65%"}}></div>
                     </div>
                 </div>
 
