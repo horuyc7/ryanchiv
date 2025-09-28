@@ -85,7 +85,6 @@ const iconMap = {
     'Hobbies': <InterestsIcon />,
     'Spotify': <MusicNoteIcon /> ,
     'Movies': <TheatersIcon />,
-    'Watchlist': <TheatersIcon />,
     'Manga': <MangaIcon />,
     'Travel': <ModeOfTravelIcon />,
     'Restaurants': <RestaurantIcon />,
@@ -247,7 +246,7 @@ export default function TemporaryDrawer() {
             </ListItem>
 
         <List sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        {['Features', 'Hobbies', 'Spotify', 'Movies', 'Watchlist', 'Manga', 'Travel', 'Restaurants', 'Image', 'Object'].map((text) => (
+        {['Features', 'Hobbies', 'Spotify', 'Movies', 'Manga', 'Travel', 'Restaurants', 'Image', 'Object'].map((text) => (
             
             <ListItem disablePadding>
                 <ListItemButton component={Link} to={`/${text.toLowerCase()}`} >
