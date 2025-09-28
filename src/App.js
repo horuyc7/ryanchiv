@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Dashboard from "./Dashboard";
 import Movies from "./component/Movies";
-import Watchlist from "./component/Watchlist";
 import Manga from "./component/Manga";
 import Travel from "./component/Travel";
 import Restaurants from './component/Restaurants';
@@ -172,7 +171,6 @@ export default function App() {
                 <Route path="/features" element={<FeaturesCard />} />
                 <Route path="/travel" element={<Travel />} />
                 <Route path="/movies" element={<Movies />} />
-                <Route path="/watchlist" element={<Watchlist />} />
                 <Route path="/manga" element={<Manga />} />
                 <Route path="/spotify/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
