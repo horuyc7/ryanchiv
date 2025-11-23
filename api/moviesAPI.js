@@ -25,8 +25,6 @@ module.exports = async (req, res) => {
 
             // Try multiple attributes Letterboxd uses
             const imageUrl =
-                posterElement.attr('data-image') ||           // most common
-                posterElement.attr('data-film-poster') ||     // fallback
                 posterElement.find('img').attr('src') ||      // fallback
                 posterElement.find('img').attr('srcset');     // last fallback
 
