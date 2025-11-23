@@ -17,22 +17,25 @@ module.exports = async (req, res) => {
         const posterPromises = [];
 
         // Get every movie from list
-        $list('.poster-container').each(async (index, element) => {
+        $list('.poster-container').each((index, element) => {
             const href = $list(element).find('[data-target-link]').attr('data-target-link');
-            const posterUrl = `https://letterboxd.com/ajax/poster${href}std/1000x1300/`;
 
-            posterPromises.push(
-                axios.get(posterUrl)
-                    .then(posterResponse => {
-                        const posterData = posterResponse.data;
-                        const imageUrl = cheerio.load(posterData)('img').attr('src') || cheerio.load(posterData)('img').attr('srcset');
-                        moviesData.push({ href, imageUrl });
-                    })
-                    .catch(error => {
-                        console.error('Error fetching poster:', error);
-                    })
-            );
+            // NEW: Extract poster directly from the list HTML
+            const posterElement = $list(element).find('.film-poster');
+
+            // Try multiple attributes Letterboxd uses
+            const imageUrl =
+                posterElement.attr('data-image') ||           // most common
+                posterElement.attr('data-film-poster') ||     // fallback
+                posterElement.find('img').attr('src') ||      // fallback
+                posterElement.find('img').attr('srcset');     // last fallback
+
+            moviesData.push({
+                href,
+                imageUrl
+            });
         });
+
 
         await Promise.all(posterPromises);
 
