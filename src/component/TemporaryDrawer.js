@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -19,23 +18,18 @@ import ListItemButton from '@mui/material/ListItemButton';
 import InterestsIcon from '@mui/icons-material/Interests';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import UpdateIcon from '@mui/icons-material/Update';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import ModeOfTravelIcon from '@mui/icons-material/ModeOfTravel';
 import RestaurantIcon from '@mui/icons-material/Restaurant'; // Import the RestaurantIcon
-import AlbumIcon from '@mui/icons-material/Album';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ImageIcon from '@mui/icons-material/Image';
 
 import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {green} from '@mui/material/colors';
 
 import SvgIcon from '@mui/material/SvgIcon';
-import { DarkMode } from '@mui/icons-material';
 
 function HomeIcon(props) {
   return (

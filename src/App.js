@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Dashboard from "./Dashboard";
 import Movies from "./component/Movies";
-import Manga from "./component/Manga";
 import Travel from "./component/Travel";
 import Restaurants from './component/Restaurants';
 import SpotifyDashboard from './component/SpotifyDashboard';
@@ -15,20 +14,13 @@ import Hobbies from './component/Hobbies';
 
 
 import './App.css';
-import FeaturesCard from './component/FeaturesCard';
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import { createTheme } from '@mui/material/styles';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { colors } from '@mui/material';
-import { Save } from '@mui/icons-material';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 

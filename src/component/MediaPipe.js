@@ -6,7 +6,7 @@ import {
 import Loading from './Loading';
 import '../css/MediaPipe.css';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 const Theme = createTheme({
   palette: {

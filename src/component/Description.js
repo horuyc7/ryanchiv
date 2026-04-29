@@ -1,15 +1,13 @@
-import React from "react";
 import "../css/Description.css"
 
-import { Container, Typography, Box } from '@mui/material';
+import { Typography } from '@mui/material';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot, TimelineOppositeContent } from '@mui/lab';
 
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 import SchoolIcon from '@mui/icons-material/School';
 import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
 import WorkIcon from '@mui/icons-material/Work';
-import { Class } from "@mui/icons-material";
 
 const Theme = createTheme({
   palette: {
