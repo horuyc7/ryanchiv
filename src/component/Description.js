@@ -39,9 +39,6 @@ const Description = ({}) => {
 
     <div className="description">
 
-      <p className="description__header">Timeline</p>
-    
-
       <Timeline position="alternate">
 
           <TimelineItem>

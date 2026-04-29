@@ -1,0 +1,39 @@
+[
+        {
+            "id": 1,
+            "name": "Panya",
+            "lat": 11.5564,
+            "lng": 104.9282,
+            "rating": 4.5,
+            "review": "Great crust, fast service",
+            "address": "123 Street, Phnom Penh",
+            "image": "https://lh3.googleusercontent.com/p/AF1QipN6nMaNRSFLVXDgGHJLHUOk9Ul14qb7OD_s_cfC=s1001-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/ffVrxibmn3WjBT9L6",
+            "category": "bakery"
+        },
+        {
+            "id": 2,
+            "name": "Agong",
+            "lat": 11.5524,
+            "lng": 104.9202,
+            "rating": 4,
+            "review": "Great crust, fast service",
+            "address": "123 Street, Phnom Penh",
+            "image": "https://lh3.googleusercontent.com/p/AF1QipN6nMaNRSFLVXDgGHJLHUOk9Ul14qb7OD_s_cfC=s1001-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/ffVrxibmn3WjBT9L6",
+            "category": "restaurant"
+        },
+        {
+            "id": 3,
+            "name": "初麥手作烘焙",
+            "lat": 22.2790349,
+            "lng": 114.1794001,
+            "rating": 5,
+            "review": "Great salt bread, scone, and mochi ball",
+            "address": "123 Street, Phnom Penh",
+            "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAExic_TN2dGHq6NRII_aR4r3aQhgXzP-2Eb-Q4uk2PGIB-IhuWLONUKHeoAAJtiLGKrN2pchaOcxvVkQez7-ZsVbI03P9_CQSfM_xF7HtqbByMpg6VSRApD3Zhw3Hnk3Xob8EKW3XEc4IE=w408-h306-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/ffVrxibmn3WjBT9L6",
+            "category": "bakery"
+        }
+        
+]

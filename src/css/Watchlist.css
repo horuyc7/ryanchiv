@@ -7,16 +7,6 @@
         color: #8be7ae;
     }
 
-    .movies__list-description {
-        color: #ffffff;
-        font-size: 18px;
-        text-decoration: underline;
-        text-decoration-color: #b9f7d1;
-        text-decoration-thickness: .6px;
-        text-underline-offset: 4px;
-    }
-
-
 .movies__movies {
     display: grid;
     min-height: 300px;

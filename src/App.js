@@ -44,7 +44,6 @@ const pdfUrl = `${process.env.PUBLIC_URL}/RyanChivResume.pdf`;
 function handleDownloadPDF() {
   // Create a link element
 
-
   const link = document.createElement('a');
   // Set the href to the URL of your PDF file
   link.href = pdfUrl;
@@ -168,10 +167,8 @@ export default function App() {
 
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/hobbies" element={<Hobbies />} />
-                <Route path="/features" element={<FeaturesCard />} />
                 <Route path="/travel" element={<Travel />} />
                 <Route path="/movies" element={<Movies />} />
-                <Route path="/manga" element={<Manga />} />
                 <Route path="/spotify/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/image" element={<ImageClassifier />} />
