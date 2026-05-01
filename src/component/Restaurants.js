@@ -52,25 +52,14 @@ function FitBounds({ places }) {
   return null;
 }
 
-const defaultIcon = new L.Icon({
-  iconUrl: markerIconPng,
-  iconSize: [22, 34],
-  iconAnchor: [12, 41],
-});
-
 export default function Restaurants(){
 
     const [loading, setLoading] = useState(true);
     const [showIframe, setShowIframe] = useState(false);
 
-
     const [selectedCategory, setSelectedCategory] = useState("all");
 
-    const filteredStores =
-  selectedCategory === "all"
-    ? stores
-    : stores.filter(r => r.category === selectedCategory);
-
+    const filteredStores = selectedCategory === "all" ? stores : stores.filter(r => r.category === selectedCategory);
 
     return(
         <div className="restaurants">
@@ -119,51 +108,51 @@ export default function Restaurants(){
                         icon={createColoredIcon("#8be4a9")}
                     >
 
-                <Popup maxWidth={280} offset={[5, 5]} className="custom-popup">
-                    <div style={{ width: "240px" }}>
+                    <Popup maxWidth={280} offset={[5, 5]} className="custom-popup">
+                        <div style={{ width: "240px" }}>
 
-                    {/* Image */}
-                    <img
-                    src={r.image}
-                    alt={r.name}
-                    style={{
-                        width: "100%",
-                        height: "140px",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                        marginBottom: "8px"
-                    }}
-                    />
+                        {/* Image */}
+                        <img
+                        src={r.image}
+                        alt={r.name}
+                        style={{
+                            width: "100%",
+                            height: "140px",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                            marginBottom: "8px"
+                        }}
+                        />
 
-                    <h3 style={{ margin: "0 0 5px 0" }}>{r.name}</h3>
+                        <h3 style={{ margin: "0 0 5px 0" }}>{r.name}</h3>
 
-                    <div style={{ marginBottom: "5px" }}>
-                    ⭐ {r.rating}/5
-                    </div>
+                        <div style={{ marginBottom: "5px" }}>
+                        ⭐ {r.rating}/5
+                        </div>
 
-                    <div style={{ fontSize: "12px", color: "#ffffff", marginBottom: "5px" }}>
-                    📍 {r.address}
-                    </div>
+                        <div style={{ fontSize: "12px", color: "#ffffff", marginBottom: "5px" }}>
+                        📍 {r.address}
+                        </div>
 
-                    <p style={{ fontSize: "13px", marginBottom: "8px" }}>
-                    - {r.review}
-                    </p>
+                        <p style={{ fontSize: "13px", marginBottom: "8px" }}>
+                        - {r.review}
+                        </p>
 
-                    <a
-                    href={r.googleReviewUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                        color: "#8be4a9",
-                        fontSize: "13px",
-                        textDecoration: "none"
-                    }}
-                    >
-                    Google Maps →
-                    </a>
+                        <a
+                        href={r.googleReviewUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                            color: "#8be4a9",
+                            fontSize: "13px",
+                            textDecoration: "none"
+                        }}
+                        >
+                        Google Maps →
+                        </a>
 
-                </div>
-                </Popup>
+                        </div>
+                    </Popup>
 
                 </Marker>
                 ))}
