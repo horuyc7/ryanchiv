@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         // Get letterboxd link from Vercel env var
         const responseList = await axios.get(process.env.LETTERBOXD_LIST);
         const $list = cheerio.load(responseList.data);
-
+        
         // Get list title and description from HTML
         const listDetails = {
             title: $list('.title-1').text().trim(),
@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
         const posterPromises = [];
 
         // Get every movie from list
-        $list('.poster-container').each((index, element) => {
+        $list('.poster-list').each((index, element) => {
             const href = $list(element).find('[data-target-link]').attr('data-target-link');
 
             // NEW: Extract poster directly from the list HTML
@@ -96,6 +96,7 @@ module.exports = async (req, res) => {
 
 
         res.json({ moviesData, listDetails, moviesDetails });
+
     } catch (error) {
         console.error('Error scraping movies:', error);
         throw error;
