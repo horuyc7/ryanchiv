@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
         // Get letterboxd link from Vercel env var
         const responseList = await axios.get(process.env.LETTERBOXD_LIST);
         const $list = cheerio.load(responseList.data);
-        
+
         // Get list title and description from HTML
         const listDetails = {
             title: $list('.title-1').text().trim(),
@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
         $list('.poster-list').each((index, element) => {
             const href = $list(element).find('[data-target-link]').attr('data-target-link');
 
-            // NEW: Extract poster directly from the list HTML
+            // Extract poster directly from the list HTML
             const posterElement = $list(element).find('.film-poster');
 
             // Try multiple attributes Letterboxd uses
