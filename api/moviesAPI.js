@@ -1,5 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { cache } = require('react');
 
 module.exports = async (req, res) => {
     try {
@@ -17,20 +18,36 @@ module.exports = async (req, res) => {
         const posterPromises = [];
 
         // Get every movie from list
-        $list('.poster-list').each((index, element) => {
-            const href = $list(element).find('[data-target-link]').attr('data-target-link');
+        $list('.posteritem').each((i, el) => {
 
-            // Extract poster directly from the list HTML
-            const posterElement = $list(element).find('.film-poster');
+            const href = $list(el)
+                .find('[data-target-link]')
+                .attr('data-target-link');
 
-            // Try multiple attributes Letterboxd uses
-            const imageUrl =
-                posterElement.find('img').attr('src') ||      // fallback
-                posterElement.find('img').attr('srcset');     // last fallback
+            const raw = $list(el)
+    .find('.react-component')
+    .attr('data-resolvable-poster-path');
+
+            let cacheBustingKey = null;
+
+            if (raw) {
+                try {
+                    const decoded = raw
+                        .replace(/&quot;/g, '"');
+
+                    const parsed = JSON.parse(decoded);
+
+                    cacheBustingKey = parsed.cacheBustingKey;
+                } catch (err) {
+                    cacheBustingKey = null;
+                }
+            }
+
+            if (!href) return;
 
             moviesData.push({
                 href,
-                imageUrl
+                cacheBustingKey
             });
         });
 
@@ -50,55 +67,20 @@ module.exports = async (req, res) => {
                 genres.push($movie(element).text());
             });
 
-            const responseRating = await axios.get(`https://letterboxd.com/csi${movie.href}rating-histogram`);
-            const $rating = cheerio.load(responseRating.data);
-            const rating = $rating('.average-rating a').text().trim();
+            const imageUrl2 = `https://letterboxd.com${movie.href}poster/std/125/?k=${movie.cacheBustingKey}`;
 
+            const rating = $movie('.averagerating').text().trim();
 
-            const userReviews = [];
-            $movie('.film-detail').each((index, element) => {
-                if (index < 3) { // Only extract bodyText for the first two movies
-                    
-                    
-                    const $detail = $movie(element);
-
-                    const hiddenSpoilersExist = $detail.find('.hidden-spoilers').length > 0;
-                    
-                    
-                    
-                    let bodyText;
-                    if (hiddenSpoilersExist) {
-                        bodyText = $detail.find('.hidden-spoilers p').text().trim();
-                    } else {
-                        bodyText = $detail.find('.body-text p').text().trim();
-                    }
-
-                    //const  bodyText = $detail.find('.body-text p').text().trim();
-                   
-                    const name = $detail.find('.attribution-block .name').text().trim();
-                    const rating = $detail.find('.rating.-green').text().trim();
-                    
-                    const review = {
-                        name: name,
-                        rating: rating,
-                        text: bodyText
-                    };
-                    
-                    
-                    userReviews.push(review);
-                }
-            });
-
-            return { title, rating, tagline, description, genres, userReviews};
+            return { title, rating, tagline, description, genres, imageUrl2};
         });
 
         const moviesDetails = await Promise.all(moviesDetailsPromises);
-
 
         res.json({ moviesData, listDetails, moviesDetails });
 
     } catch (error) {
         console.error('Error scraping movies:', error);
         throw error;
+
     }
 }
