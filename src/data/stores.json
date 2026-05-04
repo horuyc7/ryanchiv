@@ -94,6 +94,30 @@
             "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHfj5B9x3yeQLmcWmrCT_KGgUETKEUCTrK5hnlCSmmeuALpFRZ1PUCxChiGn15ZAoIDYbgz4nx62BbIS2xk9Hs_qcyHAWBTObhp-zcy9qsbpXIQLzbp4buTgEHmygh2tyLeCtwv=w408-h305-k-no",
             "googleReviewUrl": "https://maps.app.goo.gl/oFVAhH2TsUaZD9YeA",
             "category": "bakery"
-        }
+        },
+        {
+            "id": 9,
+            "name": "បាយមាន់ស្រែ(មុតមុំ)",
+            "lat": 13.0966604,
+            "lng": 103.2018209,
+            "rating": 4.8,
+            "review": "Grilled pork, hainan rice>",
+            "address": "Street 207, Krong Battambang 21402",
+            "image": "https://lh3.googleusercontent.com/p/AF1QipOV3EautTkIJUuM6F3tjbsbtGcthqZYoWKofzs=w203-h152-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/HBt8tpMztAQJN8eHA",
+            "category": "restaurant"
+        },
+        {
+            "id": 10,
+            "name": "គុយទាវប្រហិតត្រី",
+            "lat": 13.1031147,
+            "lng": 103.1886024,
+            "rating": 4.9,
+            "review": "Dry noodle with meatball>",
+            "address": "454W+R7F, Krong Battambang",
+            "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAHac5E5WiMKYu0QS8xrbTUWEGgNiNM1wpXoIBSfZAtM3SLBpm3yviT2X7C3vylnsPXP4SSdJfR4a1bknx0wtgrlxEB0Am9cW6KHfAhybcJbjypeXbjuG6huNtMAXWzwpzf-ERpcEYdF2p0N=w203-h152-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/ybHytp643AqvRecG9",
+            "category": "restaurant"
+        } 
         
 ]
