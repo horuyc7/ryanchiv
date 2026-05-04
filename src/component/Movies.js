@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
 
@@ -11,14 +11,19 @@ const Movies = () => {
   const [MovieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
-  const [expandedReviews, setExpandedReviews] = useState({});
 
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
         const response = await axios.get('/api/moviesAPI');
         const { moviesData, listDetails, moviesDetails } = response.data;
-        setMovies(moviesData);
+        //setMovies(moviesData);
+        const merged = moviesData.map((m, i) => ({
+  ...m,
+  ...moviesDetails[i]
+}));
+
+setMovies(merged);
         setListDetails(listDetails);
         setMovieDetails(moviesDetails);
       } catch (error) {
@@ -44,14 +49,6 @@ const Movies = () => {
   const toggleSynopsis = () => {
     setExpandedSynopsis(!expandedSynopsis);
   };
-
-  const toggleReview = (index) => {
-    setExpandedReviews((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }));
-  };
-
 
   useEffect(() => {
     const handleClickOutsideModal = (event) => {
@@ -85,7 +82,7 @@ const Movies = () => {
         <div className="movies__movies">
           {movies.map((movie, index) => (
             <div key={index} className="movie-container">
-              <img src={movie.imageUrl} alt={movie.href} onClick={() => handleMovieClick(index)}/>
+              <img src={movie.imageUrl2} alt={movie.href} onClick={() => handleMovieClick(index)}/>
             </div>
           ))}
 
@@ -119,20 +116,6 @@ const Movies = () => {
                   {expandedSynopsis ? MovieDetails[selectedMovie - 1].description : MovieDetails[selectedMovie - 1].description.slice(0, 150) + '....'}
                 </p>
 
-                <p className="reviews-header">Reviews</p>
-
-                {MovieDetails[selectedMovie - 1].userReviews.map(
-                  (review, index) => (
-                    <div key={index} className="review-container">
-                      <p className="user">{review.name}</p>
-                      <p className="user-rating">{review.rating}</p>
-
-                      <p className="user-text" onClick={() => toggleReview(index)}>
-                        {expandedReviews[index] || review.text.length <= 200 ? review.text : review.text.slice(0, 200) + '....'}
-                      </p>
-                    </div>
-                  )
-                )}
               </div>
             </div>
           )}
