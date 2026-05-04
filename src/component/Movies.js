@@ -19,11 +19,11 @@ const Movies = () => {
         const { moviesData, listDetails, moviesDetails } = response.data;
         //setMovies(moviesData);
         const merged = moviesData.map((m, i) => ({
-  ...m,
-  ...moviesDetails[i]
-}));
+                          ...m,
+                          ...moviesDetails[i]
+                        }));
 
-setMovies(merged);
+        setMovies(merged);
         setListDetails(listDetails);
         setMovieDetails(moviesDetails);
       } catch (error) {
@@ -95,7 +95,7 @@ setMovies(merged);
 
                 <div className="detail-container">
                   <a href={`https://letterboxd.com${movies[selectedMovie - 1].href}`} target="_blank" rel="noopener noreferrer">
-                    <img className="details-image" src={movies[selectedMovie - 1].imageUrl} alt={movies[selectedMovie - 1].href}/>
+                    <img className="details-image" src={movies[selectedMovie - 1].imageUrl2} alt={movies[selectedMovie - 1].href}/>
                   </a>
 
                   <div className="details-info">
