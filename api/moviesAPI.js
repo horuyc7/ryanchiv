@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { cache } = require('react');
+const fs = require('fs');
 
 module.exports = async (req, res) => {
     try {
@@ -19,6 +20,8 @@ module.exports = async (req, res) => {
 
         // Get every movie from list
         $list('.posteritem').each((i, el) => {
+
+            const slug = $list(el).find('.react-component').attr('data-item-slug');
 
             const href = $list(el)
                 .find('[data-target-link]')
@@ -47,7 +50,7 @@ module.exports = async (req, res) => {
 
             moviesData.push({
                 href,
-                cacheBustingKey
+                slug
             });
         });
 
@@ -59,19 +62,38 @@ module.exports = async (req, res) => {
             const responseMovie = await axios.get(`https://letterboxd.com${movie.href}`);
             const $movie = cheerio.load(responseMovie.data);
 
+            fs.writeFileSync(
+            './letterboxd.html',
+            responseMovie.data,
+            'utf-8'
+            );
+
             const title = $movie('.headline-1').text().trim();
             const tagline = $movie('.tagline').text().trim();
-            const description = $movie('.truncate p').text().trim();
+            //const description = $movie('.truncate p').text().trim();
             const genres = [];
             $movie('#tab-genres .text-sluglist a').each((index, element) => {
                 genres.push($movie(element).text());
             });
 
-            const imageUrl2 = `https://letterboxd.com${movie.href}poster/std/125/?k=${movie.cacheBustingKey}`;
+            const jsonLd = $movie('script[type="application/ld+json"]').html();
+
+            const cleaned = jsonLd
+  .replace(/\/\*[\s\S]*?\*\//g, '') // remove /* ... */
+  .trim();
+
+            let imageUrl2 = null;
+
+            try {
+                const data = JSON.parse(cleaned);
+                imageUrl2 = data.image;
+            } catch (e) {
+                console.log('JSON parse failed', e);
+            }
 
             const rating = $movie('.averagerating').text().trim();
 
-            return { title, rating, tagline, description, genres, imageUrl2};
+            return { title, rating, tagline, genres, imageUrl2};
         });
 
         const moviesDetails = await Promise.all(moviesDetailsPromises);
