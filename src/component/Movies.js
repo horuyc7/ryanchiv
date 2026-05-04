@@ -71,7 +71,6 @@ setMovies(merged);
     <div className="movies">
       <div className="movies__list">
         <h2 className="movies__list-title">{listDetails.title}</h2>
-        <p className="movies__list-description">{listDetails.description}</p>
       </div>
 
       {loading ? (
