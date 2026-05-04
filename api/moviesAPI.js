@@ -1,7 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const { cache } = require('react');
-const fs = require('fs');
 
 module.exports = async (req, res) => {
     try {
@@ -27,25 +26,6 @@ module.exports = async (req, res) => {
                 .find('[data-target-link]')
                 .attr('data-target-link');
 
-            const raw = $list(el)
-    .find('.react-component')
-    .attr('data-resolvable-poster-path');
-
-            let cacheBustingKey = null;
-
-            if (raw) {
-                try {
-                    const decoded = raw
-                        .replace(/&quot;/g, '"');
-
-                    const parsed = JSON.parse(decoded);
-
-                    cacheBustingKey = parsed.cacheBustingKey;
-                } catch (err) {
-                    cacheBustingKey = null;
-                }
-            }
-
             if (!href) return;
 
             moviesData.push({
@@ -62,12 +42,6 @@ module.exports = async (req, res) => {
             const responseMovie = await axios.get(`https://letterboxd.com${movie.href}`);
             const $movie = cheerio.load(responseMovie.data);
 
-            fs.writeFileSync(
-            './letterboxd.html',
-            responseMovie.data,
-            'utf-8'
-            );
-
             const title = $movie('.headline-1').text().trim();
             const tagline = $movie('.tagline').text().trim();
             //const description = $movie('.truncate p').text().trim();
@@ -79,8 +53,8 @@ module.exports = async (req, res) => {
             const jsonLd = $movie('script[type="application/ld+json"]').html();
 
             const cleaned = jsonLd
-  .replace(/\/\*[\s\S]*?\*\//g, '') // remove /* ... */
-  .trim();
+                        .replace(/\/\*[\s\S]*?\*\//g, '') // remove /* ... */
+                        .trim();
 
             let imageUrl2 = null;
 
