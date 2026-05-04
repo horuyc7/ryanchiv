@@ -38,8 +38,8 @@
         {
             "id": 4,
             "name": "Aesop Bakery Honten",
-            "lat": 43.0778477,
-            "lng": 141.3373086,
+            "lat": 43.0786025,
+            "lng": 141.3397327,
             "rating": 4.5,
             "review": "Fresh, lots of options, taste good",
             "address": "2 Chome-2-5 Kita 13 Johigashi, Higashi Ward, Sapporo, Hokkaido 065-0013, Japan",
@@ -62,14 +62,14 @@
         {
             "id": 6,
             "name": "Niigata Katsudon Tarekatsu",
-            "lat": 43.0778477,
-            "lng": 141.3373086,
+            "lat": 35.6789253,
+            "lng": 139.6997662,
             "rating": 5,
             "review": "Aimori don >>, Sensational, multiple locations",
             "address": "Japan, 〒100-0006 Tokyo, Chiyoda City, Yurakucho, 1 Chome−6−10 Square Hibiya Bldg., 1階",
             "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEScKPCxj2w-4RAyIIwZcElEg5mCXyuiTrrxZG9ZTCkozDPgSkeWMYmzhDt43Vc0IFZnlxwoRI-nvPt9i97Arn9X2Olc-iKJwn7hH1KHLXJHmIJaKH-YH1YZ9h9xC7h2X-RA1zP=w408-h422-k-no",
             "googleReviewUrl": "https://maps.app.goo.gl/9STY7x43CgZKeFLr5",
-            "category": "bakery"
+            "category": "restaurant"
         },
         {
             "id": 7,
