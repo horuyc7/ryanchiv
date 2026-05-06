@@ -31,12 +31,21 @@
 }
 
 .expanded {
-    margin-top: 110px;
+    width: fit-content;
+    max-width: 95vw;
+
+    margin: 0 auto;
+    margin-top: 60px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .expanded-img {
-    max-width: 70vw;
-    max-height: 90vh;
+    max-width: 90vw;
+    max-height: 70vh;
 
     width: auto;
     height: auto;
@@ -47,10 +56,12 @@
 }
 
 .image-wrapper {
+    margin-left: 50px;
     position: relative;
     display: inline-block;
     line-height: 0;
-    transform: scale(1.12);
+
+    transform: scale(1.05);
     transform-origin: center;
     z-index: 2;
 }
@@ -81,6 +92,8 @@
 
 .spotify-iframe {
     margin-top: -56.8px;
+    width: 100%;
+    max-width: 90vw;
 }
 
 .image-wrapper.no-spotify {
