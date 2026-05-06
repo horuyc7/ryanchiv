@@ -1,6 +1,7 @@
 .gallery {
     margin-right: 20px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .grid {
@@ -53,6 +54,7 @@
     object-fit: contain;
     display: block;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .image-wrapper {
