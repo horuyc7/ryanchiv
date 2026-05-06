@@ -36,10 +36,17 @@ const Movies = () => {
     fetchAndSetData();
   }, []);
 
-  const handleMovieClick = (movie) => {
-    setSelectedMovie(movie + 1);
-    setExpandedSynopsis(false);
-  };
+  const handleMovieClick = (index, event) => {
+  const rect = event.target.getBoundingClientRect();
+
+  setSelectedMovie({
+    index,
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2,
+  });
+
+  setExpandedSynopsis(false);
+};
 
   const closeModal = () => {
     setSelectedMovie(null);
@@ -81,38 +88,49 @@ const Movies = () => {
         <div className="movies__movies">
           {movies.map((movie, index) => (
             <div key={index} className="movie-container">
-              <img src={movie.imageUrl2} alt={movie.href} onClick={() => handleMovieClick(index)}/>
+             <img
+              src={movie.imageUrl2}
+              alt={movie.href}
+              onClick={(e) => handleMovieClick(index, e)}
+            />
             </div>
           ))}
 
           {selectedMovie && (
-          
-            <div className="details">
+            <div
+                className="details"
+                style={{
+                  position: 'fixed',
+                  top: selectedMovie.y,
+                  left: selectedMovie.x,
+                  transform: 'translate(-50%, -50%)', // 🔥 THIS centers it
+                }}
+              >
               <div className="details-content">
                 <span className="close" onClick={closeModal}>
                   &times;
                 </span>
 
                 <div className="detail-container">
-                  <a href={`https://letterboxd.com${movies[selectedMovie - 1].href}`} target="_blank" rel="noopener noreferrer">
-                    <img className="details-image" src={movies[selectedMovie - 1].imageUrl2} alt={movies[selectedMovie - 1].href}/>
+                  <a href={`https://letterboxd.com${movies[selectedMovie.index].href}`} target="_blank" rel="noopener noreferrer">
+                    <img className="details-image" src={movies[selectedMovie.index].imageUrl2} alt={movies[selectedMovie.index].href}/>
                   </a>
 
                   <div className="details-info">
                     <p className="details-title">
-                      {MovieDetails[selectedMovie - 1].title}
+                      {MovieDetails[selectedMovie.index].title}
                     </p>
                     <p className="details-rating">
-                      {MovieDetails[selectedMovie - 1].rating} / 5 ★ 
+                      {MovieDetails[selectedMovie.index].rating} / 5 ★ 
                     </p>
                     <p className="details-genres">
-                      {MovieDetails[selectedMovie - 1].genres.slice(0, 2).join(', ')}
+                      {MovieDetails[selectedMovie.index].genres.slice(0, 2).join(', ')}
                     </p>
                   </div>
                 </div>
 
                 <p className="description" onClick={toggleSynopsis}>
-                  {expandedSynopsis ? MovieDetails[selectedMovie - 1].description : MovieDetails[selectedMovie - 1].description.slice(0, 150) + '....'}
+                  {expandedSynopsis ? MovieDetails[selectedMovie.index].description : MovieDetails[selectedMovie.index].description.slice(0, 150) + '....'}
                 </p>
 
               </div>
