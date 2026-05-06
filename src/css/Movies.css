@@ -21,7 +21,7 @@
     display: grid;
     min-height: 300px;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid with minimum width of 200px */
-    grid-gap: 20px; /* Spacing between grid items */
+    grid-gap: 15px; /* Spacing between grid items */
     margin-right: 20px;
 }
     .movie-container {
@@ -59,6 +59,23 @@
         border-radius: 10px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 
+    }
+
+    @media (max-width: 768px) {
+    .details  {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        background-color: #8be7aef3;
+        width: 50%;
+        max-width: 450px; /* Adjust the width as needed */
+        padding: 15px;
+        max-height: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
     }
     
     .details-content {
@@ -133,6 +150,3 @@
         font-size: 20px;
 
     }
-    
-    
-
