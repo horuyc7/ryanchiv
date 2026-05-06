@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import PhotoAlbum from "react-photo-album";
 import { motion, AnimatePresence } from "framer-motion";
 
 import '../css/Gallery.css';
@@ -50,27 +49,33 @@ const handleBack = () => {
       marginLeft: '0px',
     }}>
       {!activeAlbum && (
-  <div className="albums">
-    {albums.map((album, i) => (
-      <div
-        key={i}
-        className="album-card"
-        onClick={() => setActiveAlbum(album)}
-      >
-        <img src={album.cover} className="album-img" />
+      <div className="albums">
+        {albums.map((album, i) => (
+          <div
+            key={i}
+            className="album-card"
+            onClick={() => setActiveAlbum(album)}
+          >
+            <img src={album.cover} className="album-img" />
 
-        <div className="album-title">
-          {album.title}
-        </div>
+            <div className="album-title">
+              {album.title}
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-)}
+    )}
 
       {activeAlbum && (
   <>
-    <div className="back-btn" onClick={handleBack}>
-      ← back
+    <div className="album-header">
+      <div className="back-btn" onClick={() => setActiveAlbum(null)}>
+        ← back
+      </div>
+
+      <div className="album-header-title">
+        {activeAlbum.title}
+      </div>
     </div>
 
     <div className="grid">
