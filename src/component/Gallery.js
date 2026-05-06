@@ -29,14 +29,16 @@ export default function Gallery() {
             key={i}
             src={p.src}
             className="grid-img"
+            loading="lazy"
+            decoding="async"
             style={{
-  opacity: hideGridImage === p.src ? 0 : 1
-}}
+              opacity: hideGridImage === p.src ? 0 : 1
+            }}
             layoutId={p.src}
             onClick={() => {
-  setHideGridImage(p.src);
-  setActive(p);
-}}
+              setHideGridImage(p.src);
+              setActive(p);
+            }}
             whileHover={{ scale: 1.04, opacity: 0.8 }}
           />
         ))}
