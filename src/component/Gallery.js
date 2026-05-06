@@ -60,7 +60,7 @@ export default function Gallery() {
               <motion.div
                 layoutId={active.src}
                 className="expanded"
-                transition={{ type: "spring", stiffness: 200, damping: 30 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
 
                 <div
