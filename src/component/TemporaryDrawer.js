@@ -21,8 +21,8 @@ import ListItemText from '@mui/material/ListItemText';
 import UpdateIcon from '@mui/icons-material/Update';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import ModeOfTravelIcon from '@mui/icons-material/ModeOfTravel';
-import RestaurantIcon from '@mui/icons-material/Restaurant'; // Import the RestaurantIcon
+import LuggageIcon from '@mui/icons-material/Luggage';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ImageIcon from '@mui/icons-material/Image';
 
@@ -78,7 +78,7 @@ const iconMap = {
     'Hobbies': <InterestsIcon />,
     'Spotify': <MusicNoteIcon /> ,
     'Movies': <TheatersIcon />,
-    'Travel': <ModeOfTravelIcon />,
+    'Gallery': <LuggageIcon />,
     'Restaurants': <RestaurantIcon />,
     'Image': <ImageIcon />,
     'Object': <ImageSearchIcon />,
@@ -238,7 +238,7 @@ export default function TemporaryDrawer() {
             </ListItem>
 
         <List sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        {['Hobbies', 'Spotify', 'Movies', 'Travel', 'Restaurants', 'Image', 'Object'].map((text) => (
+        {['Hobbies', 'Spotify', 'Movies', 'Gallery', 'Restaurants', 'Image', 'Object'].map((text) => (
             
             <ListItem disablePadding>
                 <ListItemButton component={Link} to={`/${text.toLowerCase()}`} >
