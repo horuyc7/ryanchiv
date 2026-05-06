@@ -68,6 +68,12 @@
     z-index: 2;
 }
 
+@media (max-width: 768px) {
+  .image-wrapper  {
+    margin-left: -20px;
+  }
+}
+
 .image-caption {
     position: relative;
     bottom: 56px;
