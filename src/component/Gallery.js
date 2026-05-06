@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import '../css/Gallery.css';
 import photos from "../data/photos.json";
 
+
 function shuffle(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -19,9 +20,10 @@ export default function Gallery() {
   const [active, setActive] = useState(null);
   const [hideGridImage, setHideGridImage] = useState(null);
 
-
   return (
-    <div className="gallery ">
+    <div className="gallery" style={{
+      marginLeft: '10px',
+    }}>
       {/* GRID */}
       <div className="grid">
         {photosData.map((p, i) => (
@@ -50,9 +52,9 @@ export default function Gallery() {
           <motion.div
             className="overlay"
             onClick={() => {
-    setActive(null);
-    setHideGridImage(null);
-  }}
+              setActive(null);
+              setHideGridImage(null);
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -60,6 +62,7 @@ export default function Gallery() {
               <motion.div
                 layoutId={active.src}
                 className="expanded"
+                
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
 
