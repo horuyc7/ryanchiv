@@ -14,6 +14,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 
+
 import InterestsIcon from '@mui/icons-material/Interests';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -29,7 +30,6 @@ import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import SvgIcon from '@mui/material/SvgIcon';
-
 
 function HomeIcon(props) {
   return (
@@ -173,14 +173,6 @@ export default function TemporaryDrawer() {
     
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
-      <Box
-    component="main"
-    sx={{
-      flexGrow: 1,
-      width: '100%',
-      marginLeft: `${drawerWidth}px`,  // 🔥 key fix
-    }}
-  >
       <AppBar position="fixed" open={open} sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
         <Toolbar >
 
@@ -263,10 +255,8 @@ export default function TemporaryDrawer() {
             ))}
         </List>
       </Drawer>
+      
 
-      
-      
-    </Box>
     </Box>
     
     </ThemeProvider>
