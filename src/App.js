@@ -4,13 +4,13 @@ import { Analytics } from '@vercel/analytics/react';
 
 import Dashboard from "./Dashboard";
 import Movies from "./component/Movies";
-import Travel from "./component/Travel";
 import Restaurants from './component/Restaurants';
 import SpotifyDashboard from './component/SpotifyDashboard';
 import ImageClassifier from './component/ImageClassifier';
 import TemporaryDrawer from './component/TemporaryDrawer'; 
 import MediaPipe from './component/MediaPipe';
 import Hobbies from './component/Hobbies';
+import Gallery from "./component/Gallery";
 
 
 import './App.css';
@@ -159,7 +159,7 @@ export default function App() {
 
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/hobbies" element={<Hobbies />} />
-                <Route path="/travel" element={<Travel />} />
+                <Route path="/gallery" element={<Gallery />} />
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/spotify/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
