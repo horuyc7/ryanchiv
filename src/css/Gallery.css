@@ -24,7 +24,7 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,6 +71,7 @@
 @media (max-width: 768px) {
   .image-wrapper  {
     margin-left: 20px;
+    transform: no;
   }
 }
 
@@ -82,7 +83,7 @@
 
     padding: 10px;
 
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 13px;
     line-height: 1.4;
 
@@ -91,7 +92,7 @@
 
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.517),
+        rgba(0, 0, 0, 0.5),
         rgba(0,0,0,0)
     );
 
@@ -106,4 +107,51 @@
 
 .image-wrapper.no-spotify {
     margin-bottom: 0px;
+}
+
+.albums {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.album-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.album-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-img {
+  transform: scale(1.1);
+}
+
+.album-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 8px;
+  color: rgba(230, 229, 228, 0.90);
+  font-size: 14px;
+
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5),
+    rgba(0,0,0,0)
+  );
+}
+
+.back-btn {
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
 }
