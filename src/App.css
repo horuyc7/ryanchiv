@@ -15,6 +15,11 @@ body {
   margin-left: 70px;
 }
 
+@media (max-width: 768px) {
+  .container {
+    margin-left: 72px; /* collapsed drawer width */
+  }
+}
 
 .App-logo {
   height: 40vmin;
