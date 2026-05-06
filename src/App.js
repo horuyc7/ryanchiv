@@ -12,7 +12,6 @@ import MediaPipe from './component/MediaPipe';
 import Hobbies from './component/Hobbies';
 import Gallery from "./component/Gallery";
 
-
 import './App.css';
 
 import { createTheme } from '@mui/material/styles';
@@ -25,21 +24,18 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
 
 const actions = [
-  { icon: <DescriptionIcon />, name: 'Resume', action: () => handleDownloadPDF()},
-  { icon: <ShareIcon />, name: 'Share' },
-  //{ icon: <PrintIcon />, name: 'Print' },
- // { icon: <SaveIcon />, name: 'Save'},
+  { icon: <DescriptionIcon />, name: ''},
+  { icon: <ShareIcon />, name: '' },
 ];
 
 const pdfUrl = `${process.env.PUBLIC_URL}/RyanChivResume.pdf`;
 
 function handleDownloadPDF() {
-  // Create a link element
 
   const link = document.createElement('a');
-  // Set the href to the URL of your PDF file
+
   link.href = pdfUrl;
-  // Set the download attribute to the desired file name
+
   link.download = 'RyanChivResume.pdf';
 
   document.body.appendChild(link);
@@ -59,12 +55,10 @@ const Theme = createTheme({
       
     },
 
-
     mode: 'dark',
 
     
   },
-
 
 });
 
@@ -132,7 +126,7 @@ function CustomSpeedDial(props) {
             key={action.name}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={action.action} // Attach the action handler
+            onClick={action.action}
           />
         ))}
       </SpeedDial>
@@ -148,7 +142,7 @@ export default function App() {
           <Analytics mode="production" />
 
           <div className='drawer'>
-                <TemporaryDrawer /> {/* Render the TemporaryDrawer component */}
+                <TemporaryDrawer />
           </div>
     
           <CustomSpeedDial />
