@@ -22,7 +22,7 @@ export default function Gallery() {
 
   return (
     <div className="gallery" style={{
-      marginLeft: '50px',
+      marginLeft: '0px',
     }}>
       {/* GRID */}
       <div className="grid">
