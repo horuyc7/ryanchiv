@@ -88,15 +88,6 @@ const iconMap = {
 
 const drawerWidth = 170;
 
-const openedMixin = (theme) => ({
-  width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
-  }),
-  overflowX: 'hidden',
-});
-
 const closedMixin = (theme) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -143,10 +134,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
     ...(!open && {
       ...closedMixin(theme),
       '& .MuiDrawer-paper': closedMixin(theme),
@@ -157,10 +144,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function TemporaryDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -174,28 +157,7 @@ export default function TemporaryDrawer() {
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        <Toolbar >
-
-          <IconButton
-            
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-      
-                
-              ...(open && { display: 'none'}),
-              position: 'fixed',
-              top: 16, // Ensures it stays at the top of the viewport
-              left: 16, // Ensures it stays at the left of the viewport
-              zIndex: 1000, // Ensure it's above other elements
-                
-              
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar sx={{ justifyContent: 'left' }}>
 
           <Typography variant="h6" noWrap component="div">
             <a href="/">
@@ -206,9 +168,8 @@ export default function TemporaryDrawer() {
                     style={{
                     width: '50px',
                     height: '50px',
-                    borderRadius:50,
+                    borderRadius: 24,
                     marginTop: 10,
-                    marginLeft: 50,
                     }}
                 />
                 </a>
@@ -218,7 +179,7 @@ export default function TemporaryDrawer() {
       </AppBar>
       
       
-      <Drawer variant="permanent" open={open} onClick={handleDrawerClose}>
+      <Drawer variant="permanent">
         <DrawerHeader sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
           <IconButton onClick={handleDrawerClose} > 
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -226,7 +187,7 @@ export default function TemporaryDrawer() {
         </DrawerHeader>
 
         <ListItem key={'Home'} disablePadding sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-                <ListItemButton component={Link} to={`/`} onClick={handleDrawerOpen} sx={{ padding: '12px'}}>
+                <ListItemButton component={Link} to={`/`} sx={{ padding: '12px'}}>
                 
                     <ListItemIcon sx={{ marginRight: '-20px', color: Theme.palette.secondary.main}} >
                         <HomeIcon/>
