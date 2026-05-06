@@ -19,6 +19,15 @@ export default function Gallery() {
   const [photosData] = useState(() => shuffle(photos));
   const [active, setActive] = useState(null);
   const [hideGridImage, setHideGridImage] = useState(null);
+  const [showIframe, setShowIframe] = useState(false);
+
+  useEffect(() => {
+    if (active) {
+      setTimeout(() => setShowIframe(true), 250);
+    } else {
+      setShowIframe(false);
+    }
+  }, [active]);
 
   return (
     <div className="gallery" style={{
@@ -78,7 +87,7 @@ export default function Gallery() {
                     </div>
                   )}
 
-                  {active.spotify && (
+                  {active.spotify && showIframe && (
                   <iframe
                     className="spotify-iframe"
                     src={active.spotify}
