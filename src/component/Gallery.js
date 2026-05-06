@@ -16,11 +16,14 @@ function shuffle(array) {
 }
 
 export default function Gallery() {
-  const [photosData] = useState(() => shuffle(photos));
+  const [albums] = useState(() => shuffle(photos));
+  const [activeAlbum, setActiveAlbum] = useState(null);
   const [active, setActive] = useState(null);
   const [hideGridImage, setHideGridImage] = useState(null);
   const [showIframe, setShowIframe] = useState(false);
+  const [photosData, setPhotosData] = useState([]);
 
+  
   useEffect(() => {
     if (active) {
       setTimeout(() => setShowIframe(true), 250);
@@ -29,33 +32,70 @@ export default function Gallery() {
     }
   }, [active]);
 
+  useEffect(() => {
+  if (activeAlbum) {
+    setPhotosData(shuffle(activeAlbum.photos));
+  }
+}, [activeAlbum]);
+
+const handleBack = () => {
+  setActiveAlbum(null);
+  setPhotosData([]);
+  setActive(null);
+  setHideGridImage(null);
+};
+
   return (
     <div className="gallery" style={{
       marginLeft: '0px',
     }}>
-      {/* GRID */}
-      <div className="grid">
-        {photosData.map((p, i) => (
-          <motion.img
-            key={i}
-            src={p.src}
-            className="grid-img"
-            loading="lazy"
-            decoding="async"
-            style={{
-              opacity: hideGridImage === p.src ? 0 : 1
-            }}
-            layoutId={p.src}
-            onClick={() => {
-              setHideGridImage(p.src);
-              setActive(p);
-            }}
-            whileHover={{ scale: 1.04, opacity: 0.8 }}
-          />
-        ))}
-      </div>
+      {!activeAlbum && (
+  <div className="albums">
+    {albums.map((album, i) => (
+      <div
+        key={i}
+        className="album-card"
+        onClick={() => setActiveAlbum(album)}
+      >
+        <img src={album.cover} className="album-img" />
 
-      {/* EXPANDED VIEW */}
+        <div className="album-title">
+          {album.title}
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
+      {activeAlbum && (
+  <>
+    <div className="back-btn" onClick={handleBack}>
+      ← back
+    </div>
+
+    <div className="grid">
+      {photosData.map((p, i) => (
+        <motion.img
+          key={i}
+          src={p.src}
+          className="grid-img"
+          loading="lazy"
+          decoding="async"
+          style={{
+            opacity: hideGridImage === p.src ? 0 : 1
+          }}
+          layoutId={p.src}
+          onClick={() => {
+            setHideGridImage(p.src);
+            setActive(p);
+          }}
+          whileHover={{ scale: 1.04, opacity: 0.8 }}
+        />
+      ))}
+    </div>
+  </>
+)}
+
       <AnimatePresence>
         {active && (
           <motion.div
