@@ -19,6 +19,8 @@
   cursor: pointer;
 
   break-inside: avoid;
+
+  border: 1px solid #bbf3d138;
 }
 
 .overlay {
@@ -141,17 +143,40 @@
 
   padding: 8px;
   color: rgba(230, 229, 228, 0.90);
-  font-size: 14px;
+  font-size: 12px;
 
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 0.5),
     rgba(0,0,0,0)
   );
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.album-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  margin-bottom: 12px;
 }
 
 .back-btn {
-  margin-bottom: 10px;
+  position: absolute;
+  left: 0;
   cursor: pointer;
+  font-size: 15px;
   color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.album-header-title {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
