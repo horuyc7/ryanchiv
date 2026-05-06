@@ -44,7 +44,7 @@ module.exports = async (req, res) => {
 
             const title = $movie('.headline-1').text().trim();
             const tagline = $movie('.tagline').text().trim();
-            //const description = $movie('.truncate p').text().trim();
+            const description = $movie('.truncate p').text().trim();
             const genres = [];
             $movie('#tab-genres .text-sluglist a').each((index, element) => {
                 genres.push($movie(element).text());
@@ -65,9 +65,16 @@ module.exports = async (req, res) => {
                 console.log('JSON parse failed', e);
             }
 
-            const rating = $movie('.averagerating').text().trim();
+            const ratingRaw = $movie('meta[name="twitter:data2"]').attr('content');
 
-            return { title, rating, tagline, genres, imageUrl2};
+            let rating = null;
+
+            if (ratingRaw) {
+                const match = ratingRaw.match(/[\d.]+/);
+                rating = match ? Math.round(parseFloat(match[0]) * 10) / 10 : null;
+            }
+
+            return { title, rating, tagline, description, genres, imageUrl2};
         });
 
         const moviesDetails = await Promise.all(moviesDetailsPromises);
