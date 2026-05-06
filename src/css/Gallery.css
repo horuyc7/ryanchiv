@@ -70,7 +70,7 @@
 
 @media (max-width: 768px) {
   .image-wrapper  {
-    margin-left: -20px;
+    margin-left: 20px;
   }
 }
 
