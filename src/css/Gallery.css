@@ -77,35 +77,6 @@
   }
 }
 
-@media (max-width: 768px) {
-
-  .overlay {
-    align-items: flex-start;
-    overflow-y: auto;
-    padding-top: 80px;
-    padding-bottom: 40px;
-  }
-
-  .expanded {
-    margin-top: 0;
-    width: 100%;
-  }
-
-  .expanded-img {
-    max-width: 92vw;
-    max-height: none;
-  }
-
-  .image-wrapper {
-    margin-left: 0;
-    transform: scale(1);
-  }
-
-  .spotify-iframe {
-    max-width: 92vw;
-  }
-}
-
 .image-caption {
     position: relative;
     bottom: 56px;
