@@ -94,7 +94,7 @@ const handleBack = () => {
             setHideGridImage(p.src);
             setActive(p);
           }}
-          whileHover={{ scale: 1.04, opacity: 0.8 }}
+          whileHover={{ scale: 1.03, opacity: 0.8 }}
         />
       ))}
     </div>
