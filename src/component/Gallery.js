@@ -125,7 +125,10 @@ const handleBack = () => {
                 {active.caption && (
                   <div className="image-caption">{active.caption}</div>
                 )}
-                {active.spotify && showIframe && (
+
+                
+              </div>
+              {active.spotify && showIframe && (
                   <iframe
                     className="spotify-iframe"
                     src={active.spotify}
@@ -135,7 +138,6 @@ const handleBack = () => {
                     allow="autoplay; clipboard-write; encrypted-media"
                   />
                 )}
-              </div>
             </motion.div>
           </motion.div>
         )}
