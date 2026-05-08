@@ -44,3 +44,9 @@
   background: #8be4a9;
   color: black;
 }
+
+@media (max-width: 768px) {
+  .restaurants {
+    margin-left: 25px;
+  }
+}
