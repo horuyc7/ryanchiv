@@ -96,14 +96,14 @@
 
 @media (max-width: 768px) {
   .image-wrapper {
-    margin-left: 40px !important;
+    margin-left: 45px !important;
     width: auto;
   }
 
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
-    max-width: 60vw;
+    max-width: 65vw;
   }
   .spotify-iframe {
     margin-top: -30px;
