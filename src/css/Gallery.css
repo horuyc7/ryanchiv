@@ -44,22 +44,24 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;
+    width: fit-content; 
     max-width: 95vw;
+    margin: 0 auto;
 }
 
 .image-wrapper {
-    position: relative; /* Anchor for the caption */
-    display: inline-block;
+    position: relative;
+    display: inline-flex; 
     line-height: 0;
     border-radius: 6px;
-    overflow: hidden; /* Clips the caption gradient to the image corners */
+    overflow: hidden;
+    width: fit-content;
 }
 
 .expanded-img {
     display: block;
-    max-width: 90vw;
-    max-height: 65vh; /* Reduced height to ensure Spotify fits on screen */
+    max-width: 60vw;
+    max-height: 65vh;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -69,42 +71,47 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    right: 0;
     width: 100%;
     box-sizing: border-box;
     
-    padding: 25px 12px 10px; /* Top padding creates a smoother gradient transition */
-    color: #bbf3d1b2;
+    padding: 30px 12px 10px; 
+    color: #bbf3d1dc;
     font-size: 13px;
     line-height: 1.4;
 
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.3) 0%,
         rgba(0, 0, 0, 0) 100%
     );
     white-space: pre-line;
 }
 
 .spotify-iframe {
-    margin-top: -30px; /* Clean gap between image and player */
+    margin-top: -30px; 
     width: 100%;
-    /* Ensure the player doesn't get wider than the image */
-    max-width: 100%; 
+    max-width: 100%;
     border-radius: 12px;
 }
 
 @media (max-width: 768px) {
   .image-wrapper {
-    margin-left: 40px !important; /* Remove the 20px push */
-    width: auto;               /* Let it shrink to the image */
+    margin-left: 40px !important;
+    width: auto;
   }
 
   .expanded-img {
     margin-left: 0 !important;
-    margin-top: 0 !important;  /* Remove the 50px drop */
-    max-width: 60vw;           /* Allow it to be wider on mobile */
+    margin-top: 0 !important;
+    max-width: 60vw;
   }
+  .spotify-iframe {
+    margin-top: -30px;
+    margin-left: 40px;
+    margin-right: 0px;
+    width: 89%;
+    max-width: 100%; 
+}
 }
 
 .image-wrapper.no-spotify {
