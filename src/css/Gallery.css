@@ -73,8 +73,21 @@
 @media (max-width: 768px) {
   .image-wrapper  {
     margin-left: 20px;
-    transform: no;
+    transform: none;
   }
+
+  .overlay {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    overscroll-behavior: contain;
+  }
+
+  .expanded {
+    margin-top: 0;
+  }
+
 }
 
 .image-caption {
