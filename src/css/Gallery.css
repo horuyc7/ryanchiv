@@ -40,68 +40,70 @@
 }
 
 .expanded {
-    margin: 0 !important; /* Ensure no margins push it down */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+    max-width: 95vw;
 }
 
 .image-wrapper {
-    margin: 0 !important; /* Clear that 50px margin from before */
+    position: relative; /* Anchor for the caption */
+    display: inline-block;
+    line-height: 0;
+    border-radius: 6px;
+    overflow: hidden; /* Clips the caption gradient to the image corners */
 }
 
 .expanded-img {
-    transform: scale(1);
+    display: block;
+    max-width: 90vw;
+    max-height: 65vh; /* Reduced height to ensure Spotify fits on screen */
     width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 6px;
-
-    margin-top: 50px;
-}
-
-@media (max-width: 768px) {
-  .image-wrapper  {
-    margin-left: 20px;
-    transform: no;
-  }
-
-  .expanded-img {
-    margin-left: 20px;
-    margin-top: 50px;
-}
-
-    .image-caption {
-        margin-left: 20px;
-        margin-right: -20px;
-    }
 }
 
 .image-caption {
-    position: relative;
-    bottom: 64.5px;
+    position: absolute;
+    bottom: 0;
     left: 0;
     right: 0;
-
-    padding: 10px;
-
+    width: 100%;
+    box-sizing: border-box;
+    
+    padding: 25px 12px 10px; /* Top padding creates a smoother gradient transition */
     color: #bbf3d1b2;
     font-size: 13px;
     line-height: 1.4;
 
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.5),
-        rgba(0,0,0,0)
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0) 100%
     );
-
     white-space: pre-line;
 }
 
 .spotify-iframe {
-    margin-top: -56.8px;
+    margin-top: -30px; /* Clean gap between image and player */
     width: 100%;
-    max-width: 90vw;
+    /* Ensure the player doesn't get wider than the image */
+    max-width: 100%; 
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .image-wrapper {
+    margin-left: 0 !important; /* Remove the 20px push */
+    width: auto;               /* Let it shrink to the image */
+  }
+
+  .expanded-img {
+    margin-left: 0 !important;
+    margin-top: 0 !important;  /* Remove the 50px drop */
+    max-width: 60vw;           /* Allow it to be wider on mobile */
+  }
 }
 
 .image-wrapper.no-spotify {
