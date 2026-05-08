@@ -71,23 +71,26 @@
 }
 
 @media (max-width: 768px) {
-  .image-wrapper  {
-    margin-left: 20px;
-    transform: none;
-  }
 
   .overlay {
-    align-items: flex-start;
+    display: block;
     overflow-y: auto;
-    padding-top: 80px;
-    padding-bottom: 40px;
-    overscroll-behavior: contain;
   }
 
   .expanded {
-    margin-top: 0;
+    width: fit-content;
+    margin: 20px auto;
   }
 
+  .image-wrapper {
+    margin-left: 0;
+    transform: none;
+  }
+
+  .expanded-img {
+    max-width: 100vw;
+    max-height: 85vh;
+  }
 }
 
 .image-caption {
