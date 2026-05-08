@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from 'react-dom';
 
 import '../css/Gallery.css';
 import photos from "../data/photos.json";
@@ -101,6 +102,7 @@ const handleBack = () => {
   </>
 )}
 
+      {typeof document !== 'undefined' && createPortal(
       <AnimatePresence>
         {active && (
           <motion.div
@@ -113,26 +115,17 @@ const handleBack = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-              <motion.div
-                layoutId={active.src}
-                className="expanded"
-                
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
-
-                <div
-                  className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}
-
-                >
-                  <img src={active.src} className="expanded-img" />
-
-                  {active.caption && (
-                    <div className="image-caption">
-                      {active.caption}
-                    </div>
-                  )}
-
-                  {active.spotify && showIframe && (
+            <motion.div
+              layoutId={active.src}
+              className="expanded"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <div className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}>
+                <img src={active.src} className="expanded-img" />
+                {active.caption && (
+                  <div className="image-caption">{active.caption}</div>
+                )}
+                {active.spotify && showIframe && (
                   <iframe
                     className="spotify-iframe"
                     src={active.spotify}
@@ -142,14 +135,13 @@ const handleBack = () => {
                     allow="autoplay; clipboard-write; encrypted-media"
                   />
                 )}
-                </div>
-
-              
-
-              </motion.div>
+              </div>
             </motion.div>
+          </motion.div>
         )}
-      </AnimatePresence>
-    </div>
+      </AnimatePresence>,
+      document.body // This sends it to the body, away from .container
+    )}
+  </div>
   );
 }
