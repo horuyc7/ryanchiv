@@ -1,13 +1,14 @@
 .gallery {
     margin-right: 20px;
     margin-bottom: 20px;
+
     box-sizing: border-box;
 }
 
 .grid {
     column-count: 3;
     column-gap: 10px;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .grid-img {
@@ -95,7 +96,7 @@
 
 @media (max-width: 768px) {
   .image-wrapper {
-    margin-left: 0 !important; /* Remove the 20px push */
+    margin-left: 40px !important; /* Remove the 20px push */
     width: auto;               /* Let it shrink to the image */
   }
 
