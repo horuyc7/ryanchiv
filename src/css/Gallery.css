@@ -1,5 +1,5 @@
 .gallery {
-    margin-right: 40px;
+    margin-right: 20px;
     margin-bottom: 20px;
 
     box-sizing: border-box;
@@ -9,6 +9,7 @@
     column-count: 3;
     column-gap: 10px;
     margin-left: 30px;
+    margin-right: 20px;
 }
 
 .grid-img {
