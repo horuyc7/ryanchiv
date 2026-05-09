@@ -23,21 +23,7 @@
 
   break-inside: avoid;
 
-  opacity: 0;
-
-  filter: blur(10px);
-  transform: scale(1.02);
-
-  background: #111;
-  border: none;
-}
-
-.grid-img.loaded {
-  opacity: 1;
   border: 1px solid #bbf3d138;
-
-  filter: blur(0);
-  transform: scale(1);
 }
 
 .overlay {
