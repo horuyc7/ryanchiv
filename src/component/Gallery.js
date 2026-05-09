@@ -22,6 +22,7 @@ export default function Gallery() {
   const [hideGridImage, setHideGridImage] = useState(null);
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
+const [visibleCount, setVisibleCount] = useState(20);
 
   
   useEffect(() => {
@@ -35,8 +36,28 @@ export default function Gallery() {
   useEffect(() => {
   if (activeAlbum) {
     setPhotosData(shuffle(activeAlbum.photos));
+    setVisibleCount(20);
   }
 }, [activeAlbum]);
+
+useEffect(() => {
+  const handleScroll = () => {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 1000
+    ) {
+      setVisibleCount((prev) =>
+        Math.min(prev + 20, photosData.length)
+      );
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, [photosData]);
 
 const handleBack = () => {
   setActiveAlbum(null);
@@ -80,7 +101,7 @@ const handleBack = () => {
     </div>
 
     <div className="grid">
-      {photosData.map((p, i) => (
+      {photosData.slice(0, visibleCount).map((p, i) => (
         <motion.img
           key={i}
           src={p.src}
