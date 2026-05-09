@@ -23,9 +23,6 @@
   break-inside: avoid;
 
   opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 
   filter: blur(10px);
   transform: scale(1.02);
@@ -105,7 +102,7 @@
 }
 
 .spotify-iframe {
-    margin-top: -30px; 
+    margin-top: -31px; 
     width: 100%;
     max-width: 100%;
     border-radius: 12px;
@@ -123,7 +120,7 @@
     max-width: 65vw;
   }
   .spotify-iframe {
-    margin-top: -30px;
+    margin-top: -31px;
     margin-left: 40px;
     margin-right: 0px;
     width: 89%;
