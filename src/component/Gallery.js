@@ -23,6 +23,7 @@ export default function Gallery() {
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
 const [visibleCount, setVisibleCount] = useState(20);
+const [loadedImages, setLoadedImages] = useState({});
 
   
   useEffect(() => {
@@ -105,9 +106,15 @@ const handleBack = () => {
         <motion.img
           key={i}
           src={p.src}
-          className="grid-img"
-          loading="lazy"
-          decoding="async"
+           className={`grid-img ${loadedImages[p.src] ? "loaded" : ""}`}
+            loading="lazy"
+            decoding="async"
+            onLoad={() =>
+              setLoadedImages(prev => ({
+                ...prev,
+                [p.src]: true
+              }))
+            }
           style={{
             opacity: hideGridImage === p.src ? 0 : 1
           }}
