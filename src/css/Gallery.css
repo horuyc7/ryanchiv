@@ -109,13 +109,13 @@
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
-    max-width: 65vw;
+    max-width: 70vw;
   }
   .spotify-iframe {
     margin-top: -31px;
     margin-left: 40px;
     margin-right: 0px;
-    width: 89%;
+    width: 90%;
     max-width: 100%; 
 }
 }
