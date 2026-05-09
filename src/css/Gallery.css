@@ -110,6 +110,11 @@
 }
 
 @media (max-width: 768px) {
+
+  .grid {
+    margin-right: 0px;
+  }
+
   .image-wrapper {
     margin-left: 45px !important;
     width: auto;
