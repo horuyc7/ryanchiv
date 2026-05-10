@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import BookIcon from '@mui/icons-material/MenuBook';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -77,11 +78,12 @@ const iconMap = {
     'Features': <UpdateIcon />,
     'Hobbies': <InterestsIcon />,
     'Spotify': <MusicNoteIcon /> ,
+    'Books': <BookIcon />,
     'Movies': <TheatersIcon />,
     'Gallery': <LuggageIcon />,
     'Restaurants': <RestaurantIcon />,
     'Image': <ImageIcon />,
-    'Object': <ImageSearchIcon />,
+    'Object': <ImageSearchIcon />
     
   };
 
@@ -199,7 +201,7 @@ export default function TemporaryDrawer() {
             </ListItem>
 
         <List sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        {['Hobbies', 'Spotify', 'Movies', 'Gallery', 'Restaurants', 'Image', 'Object'].map((text) => (
+        {['Features', 'Hobbies', 'Spotify', 'Movies', 'Gallery', 'Restaurants', 'Image', 'Object'].map((text) => (
             
             <ListItem disablePadding>
                 <ListItemButton component={Link} to={`/${text.toLowerCase()}`} >
