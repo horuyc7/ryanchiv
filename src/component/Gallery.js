@@ -19,6 +19,7 @@ export default function Gallery() {
   const [albums] = useState(() => shuffle(photos));
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [active, setActive] = useState(null);
+  const [hideGridImage, setHideGridImage] = useState(null);
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
 const [visibleCount, setVisibleCount] = useState(20);
@@ -62,6 +63,7 @@ const handleBack = () => {
   setActiveAlbum(null);
   setPhotosData([]);
   setActive(null);
+  setHideGridImage(null);
 };
 
   return (
@@ -101,13 +103,17 @@ const handleBack = () => {
     <div className="grid">
       {photosData.slice(0, visibleCount).map((p, i) => (
         <motion.img
-          key={i}
+          key={p.src}
           src={p.src}
           className="grid-img"
           loading="lazy"
           decoding="async"
+          style={{
+            visibility: hideGridImage === p.src ? "hidden" : "visible"
+          }}
           layoutId={p.src}
           onClick={() => {
+            setHideGridImage(p.src);
             setActive(p);
           }}
           whileHover={{ scale: 1.03, opacity: 0.8 }}
@@ -124,6 +130,7 @@ const handleBack = () => {
             className="overlay"
             onClick={() => {
               setActive(null);
+              setHideGridImage(null);
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
