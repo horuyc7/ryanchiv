@@ -1,13 +1,13 @@
 .gallery {
-    margin-right: 20px;
+    margin-right: 25px;
     margin-bottom: 20px;
 
     box-sizing: border-box;
 }
 
 .grid {
-    column-count: 3;
-    column-gap: 10px;
+    columns: 3 120px;
+    gap: 10px;
     margin-left: 30px;
     margin-right: 20px;
 }
@@ -47,7 +47,10 @@
     align-items: center;
     width: fit-content; 
     max-width: 95vw;
-    margin: 0 auto;
+
+    margin-left: 50px;
+
+    
 }
 
 .image-wrapper {
@@ -106,6 +109,10 @@
     width: auto;
   }
 
+  .expanded {
+    margin: 0 auto;
+  }
+
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
@@ -113,9 +120,9 @@
   }
   .spotify-iframe {
     margin-top: -31px;
-    margin-left: 40px;
+    margin-left: 44px;
     margin-right: 0px;
-    width: 90%;
+    width: 89%;
     max-width: 100%; 
   }
   .album-header-title{
