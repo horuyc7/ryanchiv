@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
+import { useRef } from 'react';
 
 import '../css/Movies.css';
 
@@ -39,10 +40,26 @@ const Movies = () => {
   const handleMovieClick = (index, event) => {
   const rect = event.target.getBoundingClientRect();
 
+  const modalWidth = 300;  // approximate or match CSS
+  const modalHeight = 250; // approximate or match CSS
+
+  const padding = 10;
+
+  let x = rect.left + rect.width / 2;
+  let y = rect.top + rect.height / 2;
+
+  // clamp horizontally
+  x = Math.max(padding + modalWidth / 2, x);
+  x = Math.min(window.innerWidth - modalWidth / 2 - padding, x);
+
+  // clamp vertically
+  y = Math.max(padding + modalHeight / 2, y);
+  y = Math.min(window.innerHeight - modalHeight / 2 - padding, y);
+
   setSelectedMovie({
     index,
-    x: rect.left + rect.width / 2,
-    y: rect.top + rect.height / 2,
+    x,
+    y,
   });
 
   setExpandedSynopsis(false);
@@ -72,6 +89,28 @@ const Movies = () => {
     };
   }, []);
 
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+  if (!selectedMovie || !modalRef.current) return;
+
+  const rect = modalRef.current.getBoundingClientRect();
+
+  let x = selectedMovie.x;
+  let y = selectedMovie.y;
+
+  const padding = 10;
+
+  x = Math.max(rect.width / 2 + padding, x);
+  x = Math.min(window.innerWidth - rect.width / 2 - padding, x);
+
+  y = Math.max(rect.height / 2 + padding, y);
+  y = Math.min(window.innerHeight - rect.height / 2 - padding, y);
+
+  modalRef.current.style.left = `${x}px`;
+  modalRef.current.style.top = `${y}px`;
+}, [selectedMovie]);
+
   
   
   return (
@@ -85,6 +124,7 @@ const Movies = () => {
             <Loading/>
           </div>
       ) : (
+        
         <div className="movies__movies">
           {movies.map((movie, index) => (
             <div key={index} className="movie-container">
@@ -97,15 +137,7 @@ const Movies = () => {
           ))}
 
           {selectedMovie && (
-            <div
-                className="details"
-                style={{
-                  position: 'fixed',
-                  top: selectedMovie.y,
-                  left: selectedMovie.x,
-                  transform: 'translate(-50%, -50%)', // 🔥 THIS centers it
-                }}
-              >
+            <div className="details" ref={modalRef} style={{ position: 'fixed', transform: 'translate(-50%, -50%)' }}>
               <div className="details-content">
                 <span className="close" onClick={closeModal}>
                   &times;
