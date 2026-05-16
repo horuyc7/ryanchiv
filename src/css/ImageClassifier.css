@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     
-    margin-left: -20px;
+    margin-right: 20px;
     margin-top: -20px;
 }
 
@@ -56,7 +56,7 @@
       }
 
     .imageclassifier img {
-        width: 400px;
+        width: 450px;
         height: auto;
 
         margin-bottom: 20px;
@@ -69,6 +69,6 @@
         align-items: center;
         border-bottom: 1px solid #8be7ae;
         padding-bottom: 25px;
-        width: 35%; /* Set width to 100% to force tracks to display in rows of one */
+        width: 40%; /* Set width to 100% to force tracks to display in rows of one */
     }
 

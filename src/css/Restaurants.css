@@ -1,5 +1,6 @@
 .restaurants {
     margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .leaflet-popup-content-wrapper {
@@ -47,6 +48,6 @@
 
 @media (max-width: 768px) {
   .restaurants {
-    margin-left: 25px;
+    margin-left: 0px;
   }
 }

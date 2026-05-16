@@ -1,6 +1,4 @@
-.movies__list {
-    margin-bottom: 20px;
-    margin-right: 20px;
+.movies {
 }
 
     .movies__list-title {
@@ -22,7 +20,7 @@
     min-height: 300px;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid with minimum width of 200px */
     grid-gap: 15px; /* Spacing between grid items */
-    margin-right: 20px;
+    margin-right: 18px;
 }
     .movie-container {
         position: relative; /* Enable relative positioning for the image */
