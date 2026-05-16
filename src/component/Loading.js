@@ -4,8 +4,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 
 export default function Loading() {
     return (
-        <Stack sx={{ marginTop: '-10px', marginLeft: '-22px', width: '110%'}}>
-            <LinearProgress color="inherit" sx={{zIndex: '1200'}}/>
+        <Stack sx={{ marginTop: '-13px', marginLeft: '-40px', width: '120%'}}>
+            <LinearProgress color="inherit"/>
         </Stack>
 
     );

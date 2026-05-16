@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import FetchSpotifyToken from './FetchSpotifyToken';
-import Genres from './Genres';
-import EnergySlider from './EnergySlider';
-import PopularitySlider from './PopularitySlider';
-import DanceabilitySlider from './DanceabilitySlider';
-import ValenceSlider from './ValenceSlider';
 import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationTracks.css';
-
-
-
-
-
 
 async function fetchWebApi(endpoint, method, accessToken) {
   
@@ -22,6 +12,11 @@ async function fetchWebApi(endpoint, method, accessToken) {
     },
     method,
   });
+  return await res.json();
+}
+
+async function fetchLastFm(endpoint) {
+  const res = await fetch(endpoint);
   return await res.json();
 }
 
@@ -39,11 +34,6 @@ export default function SpotifyRecommendationTracks() {
 
   const [inputValue, setInputValue] = useState('');
   const [artistIds, setArtistIds] = useState([]);
-  const [selectedGenres, setSelectedGenres] = useState([]);
-  const [energy, setEnergy] = useState();
-  const [popularity, setPopularity] = useState();
-  const [danceability, setDanceability] = useState();
-  const [valence, setValence] = useState();
 
   //get and set spotify token on launch of this page
   useEffect(() => {
@@ -81,7 +71,7 @@ export default function SpotifyRecommendationTracks() {
     setIsError(false);
 
     //if noting is in text box, show existing input
-    if(inputValue === '')
+    if(inputValue === '' && artistIds.length <= 0)
     {
       setIsError(true);
       setActiveSection('input');
@@ -129,91 +119,81 @@ export default function SpotifyRecommendationTracks() {
   }
 
 
+  const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
+
   const handleGetClick = async () => {
-      
+
     setIsError(false);
     setLoading(true);
     setRecommendation([]);
-    setEnergy('');
-    setPopularity('');
-    setArtistIds([]);
-
-    //if array is not empty
-    if(artistIds.length > 0 || selectedGenres.length > 0)
-    {
-        try {
-
-
-          let endpoint = 'v1/recommendations?limit=10';
-
-          // Add energy parameter if present
-          endpoint += energy? `&target_energy=${energy}` : '';
-
-          // Add popularity parameter if present
-          endpoint += popularity ? `&target_popularity=${popularity}` : '';
-
-          endpoint += danceability ? `&target_danceability=${danceability}` : '';
-
-          endpoint += valence ? `&target_valence=${valence}` : '';
-
-          // Add artists parameter if present
-          endpoint += artistIds && artistIds.length > 0 ? `&seed_artists=${artistIds.map((artist) => artist.id).join('%2C')}` : '';
-
-          // Add genres parameter if present
-          endpoint += selectedGenres && selectedGenres.length > 0 ? `&seed_genres=${selectedGenres.join('%2C')}` : '';
-          
     
-          
-
-          //request recommendation
-          const response = await fetchWebApi(endpoint, 'GET', accessToken);
-          
-          
-          if(response)
-          {
-            setRecommendation(response);
-            setActiveSection('get');
-          }
-
-
-        } catch (error) {
-            console.error('Error fetching recommendations:', error);
-        }
-        finally
-        {
-            setLoading(false);
-        }
-    }
-    else
-    {
+    if (artistIds.length === 0) {
       setIsError(true);
-      setErrorText('No artists/genres added');
+      setErrorText('No artist(s) added');
       setLoading(false);
-      setActiveSection('');
+      return;
     }
-      
-  }
 
+    try {
 
-  const handleGenresSelected = (genres) => {
-    setSelectedGenres(genres);
+      let allTracks = [];
+
+      for (const artist of artistIds) {
+
+        // get similar artists from Last.fm
+        const similarEndpoint =
+          `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar` +
+          `&artist=${encodeURIComponent(artist.name)}` +
+          `&api_key=${LASTFM_API_KEY}` +
+          `&format=json` +
+          `&limit=10`;
+
+        const similarResponse = await fetchLastFm(similarEndpoint);
+
+        const similarArtists =
+          similarResponse?.similarartists?.artist || [];
+
+        // take top similar artists
+        for (const similarArtist of similarArtists.slice(0, 5)) {
+
+          // search spotify tracks from similar artist
+          const spotifyEndpoint =
+            `v1/search?q=${encodeURIComponent(similarArtist.name)}` +
+            `&type=track&limit=2`;
+
+          const spotifyResponse = await fetchWebApi(
+            spotifyEndpoint,
+            'GET',
+            accessToken
+          );
+
+          const tracks = spotifyResponse?.tracks?.items || [];
+
+          allTracks.push(...tracks);
+        }
+      }
+
+      // remove duplicate tracks
+      const uniqueTracks = allTracks.filter(
+        (track, index, self) =>
+          index === self.findIndex((t) => t.id === track.id)
+      );
+
+      setRecommendation({
+        tracks: uniqueTracks.slice(0, 10),
+      });
+
+      setActiveSection('get');
+
+    } catch (error) {
+      console.error('Error fetching recommendations:', error);
+      setIsError(true);
+      setErrorText('Failed to fetch recommendations');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleEnergySelected = (energy) => {
-    setEnergy(energy);
-  };
-
-  const handlePopularitySelected = (popularity) => {
-    setPopularity(popularity);
-  };
-
-  const handleDanceabilitySelected = (danceability) => {
-    setDanceability(danceability);
-  };
-
-  const handleValenceSelected = (valence) => {
-    setValence(valence);
-  };
 
   return (
     <div className='spotify-recommendation-tracks'> 
@@ -224,35 +204,18 @@ export default function SpotifyRecommendationTracks() {
       </div>
 
 
-      <div className='spotify-recommendation-tracks__genres'> 
-
-          <Genres onGenresSelected={handleGenresSelected} />
-
-      </div>
-
 
       <div className='spotify-recommendation-tracks__sliders-wrapper'>
 
         <div className='spotify-recommendation-tracks__sliders' > 
-
-          <EnergySlider onEnergySelected={handleEnergySelected}/>
-
-          <ValenceSlider onValenceSelected={handleValenceSelected}/>
-
-          <DanceabilitySlider onDanceabilitySelected={handleDanceabilitySelected}/>
-
-          <PopularitySlider onPopularitySelected={handlePopularitySelected}/>
 
         </div>
 
       </div>
       
 
-      
-
-
       <div className="spotify-recommendation-tracks__get-container">
-        <button className="getrec-button" onClick={handleGetClick}>Get rec</button>
+        <button className="getrec-button" onClick={handleGetClick}>Get Rec</button>
       </div>
 
 

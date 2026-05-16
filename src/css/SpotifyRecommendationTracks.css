@@ -7,6 +7,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+
     margin-bottom: 30px;
 
   }
@@ -58,7 +59,7 @@
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   
 }
 
@@ -88,8 +89,8 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
-
-    margin-bottom: 30px;
+    margin-top: -20px;
+    margin-bottom: 50px;
 }
 
   .getrec-button{
@@ -147,11 +148,10 @@
 
 
 .artist-container {
-  border-bottom: 1px solid #8be7ae;
   padding-bottom: 16px;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 100%; /* Set width to 100% to force tracks to display in rows of one */
 
 
@@ -162,6 +162,9 @@
       height: 100px;
       margin-right: 20px;
       transition: all 1s;
+
+      margin-top: -10px;
+      margin-bottom: -10px;
   }
 
 
@@ -178,7 +181,7 @@
   .artist-detail p {
       margin: 0;
       font-size: 18px;
-      font-weight: 400;
+      font-weight: 300;
       text-align: left; /* Align text to the left */
   }
 
@@ -190,10 +193,10 @@
 
   .track-container {
     border-bottom: 1px solid #8be7ae;
-    padding-bottom: 16px;
+    padding-bottom: 4px;
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: 20px;
     width: 100%; /* Set width to 100% to force tracks to display in rows of one */
   }
 

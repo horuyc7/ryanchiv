@@ -4,9 +4,13 @@ import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationArtists.css';
 
+const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
+async function fetchLastFm(url) {
+  const res = await fetch(url);
+  return await res.json();
+}
 
 async function fetchWebApi(endpoint, method, accessToken) {
-  
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -16,151 +20,178 @@ async function fetchWebApi(endpoint, method, accessToken) {
   return await res.json();
 }
 
-async function getArtist(endpoint, accessToken) {
-  return await fetchWebApi(endpoint, 'GET', accessToken);
-}
-
-async function getArtistId(endpoint, accessToken) {
-  return await fetchWebApi(endpoint, 'GET', accessToken);
-}
-
 export default function SpotifyRecommendation() {
 
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+
   const [inputValue, setInputValue] = useState('');
-  const [artist, setArtist] = useState();
-  const [artists, setArtists] = useState();
+
+  // single artist (main)
+  const [artist, setArtist] = useState(null);
+
+  // related artists list
+  const [relatedArtists, setRelatedArtists] = useState([]);
+
   const [accessToken, setAccessToken] = useState('');
 
-
-  //get and set spotify token on launch of this page
+  // fetch token
   useEffect(() => {
     async function fetchAndSetToken() {
       try {
-      
-        const Token = await FetchSpotifyToken();
-
-        setAccessToken(Token);
-
-      } catch (error) {
-        console.error('Error fetching Token:', error);
-        setLoading(false);
+        const token = await FetchSpotifyToken();
+        setAccessToken(token);
+      } catch (err) {
+        console.error(err);
       }
-
     }
     fetchAndSetToken();
-
   }, []);
 
-    
-  //set input value from user
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
   };
 
-
-    
   const handleGetClick = async () => {
 
+    if (!inputValue) return;
+
     setLoading(true);
-    
-    //if noting is in text box, do nothing
-    if(inputValue === '')
-    {
-      setLoading(true);
-      setActiveSection('');
+
+    try {
+
+      // 1. Spotify search main artist
+      const searchRes = await fetchWebApi(
+        `v1/search?q=${encodeURIComponent(inputValue)}&type=artist&limit=1`,
+        'GET',
+        accessToken
+      );
+
+      const mainArtist = searchRes?.artists?.items?.[0];
+
+      if (!mainArtist) {
+        setLoading(false);
+        return;
+      }
+
+      // 2. Last.fm similar artists
+      const lastFmRes = await fetchLastFm(
+        `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar` +
+        `&artist=${encodeURIComponent(mainArtist.name)}` +
+        `&api_key=${LASTFM_API_KEY}` +
+        `&format=json&limit=10`
+      );
+
+      const similar = lastFmRes?.similarartists?.artist || [];
+
+      // 3. Convert to Spotify artists
+      const spotifyList = [];
+
+      for (const a of similar) {
+
+        const spotifyRes = await fetchWebApi(
+          `v1/search?q=${encodeURIComponent(a.name)}&type=artist&limit=1`,
+          'GET',
+          accessToken
+        );
+
+        const found = spotifyRes?.artists?.items?.[0];
+
+        if (found) spotifyList.push(found);
+      }
+
+      setArtist(mainArtist);
+      setRelatedArtists(spotifyList);
+      setInputValue('');
+      setActiveSection('get');
+
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-    else
-    {
-      try {
-
-        //create endpoint to retrieve artist id
-        const endpoint = `v1/search?q=${inputValue}&type=artist&limit=5`;
-        const response = await getArtistId(endpoint, accessToken);
-
-        //create endpoint to retrieve related artists
-        const endpoint2 = `v1/artists/${response.artists.items[0].id}/related-artists`;
-        const response2 = await getArtist(endpoint2, accessToken);
-
-
-        setArtist(response);
-        setArtists(response2);
-
-
-        //reset text box
-        setInputValue('');
-
-      } catch (error) {
-        console.error('Error fetching artists:', error);
-      }
-      finally
-      {
-          setLoading(false);
-          setActiveSection('get');
-      
-      }
-    };
-  }
-
+  };
 
   return (
-    <div className='spotify-recommendation-artists'> 
+    <div className='spotify-recommendation-artists'>
+
       <div className="spotify-recommendation-artists__input-container">
 
-              <input className='textbox' type="text" maxLength="30" placeholder="Input Artist" value={inputValue} onChange={handleInputChange} />
-              <button className="get-button" onClick={handleGetClick}>Get</button>
-              
+        <input
+          className='textbox'
+          type="text"
+          maxLength="30"
+          placeholder="Input Artist"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+
+        <button className="get-button" onClick={handleGetClick}>
+          Get
+        </button>
+
       </div>
 
-
       {loading ? (
+        <div className='loading'>
+          <LoadingCircle />
+        </div>
+      ) : (
+        <div>
 
-          <div className='loading'>
-            <LoadingCircle/>
-          </div>
+          {activeSection === 'get' && artist && (
 
-        ) : (
-          <div>
-            {activeSection === 'get' && (
-              
-              <div className="spotify-recommendation-artists__artists">
-                
-                <div className='artist-container'>
+            <div className="spotify-recommendation-artists__artists">
 
-                    <a href={artist.artists.items[0].external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                      <img src={artist.artists.items[0].images[0].url} alt={artist.artists.items[0].name} />
-                    </a>
+              {/* MAIN ARTIST */}
+              <div className='artist-container'>
 
-                    <div className='artist-detail'>
-                      <p className='name'>{artist.artists.items[0].name}</p>
+                <a
+                  href={artist.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={artist.images?.[0]?.url || '/fallback.jpg'}
+                    alt={artist.name}
+                  />
+                </a>
 
-                      <p className="genres">Genres: {artist.artists.items[0].genres.join(', ')}</p>
-                    </div>
+                <div className='artist-detail'>
+                  <p className='name'>{artist.name}</p>
                 </div>
-                
-                
-                
-                {artists.artists.map((artist, index) => (
-                  <div key={index} className='artists-container'>
 
-                    <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                      <img src={artist.images[0].url} alt={artist.name} />
-                    </a>
-
-                    <div className='artists-detail'>
-                      <p className='name'>{artist.name}</p>
-
-                      <p className="genres">Genres: {artist.genres.join(', ')}</p>
-                    </div>
-                  </div>
-                ))}
               </div>
 
-            )}
-          </div>
-        )}
-    </div>
-  )
-}
+              {/* RELATED ARTISTS */}
+              {relatedArtists?.map((a, index) => (
+                <div key={index} className='artists-container'>
 
+                  <a
+                    href={a.external_urls.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={a.images?.[0]?.url || '/fallback.jpg'}
+                      alt={a.name}
+                    />
+                  </a>
+
+                  <div className='artists-detail'>
+                    <p className='name'>{a.name}</p>
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+
+          )}
+
+        </div>
+      )}
+
+    </div>
+  );
+}

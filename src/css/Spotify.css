@@ -66,8 +66,12 @@
   }
 
   .textbox{
-    width: 70px;
-    background-color: #a2f0c0;
+    margin-right: 20px;
+    width: 150px;
+    border-width: 0;
+    text-align: center;
+
+    background-color: #aaebc3;
     border-radius: 5px;
   }
 
