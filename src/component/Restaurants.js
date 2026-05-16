@@ -109,7 +109,7 @@ export default function Restaurants(){
                     >
 
                     <Popup maxWidth={280} offset={[5, 5]} className="custom-popup">
-                        <div style={{ width: "240px" }}>
+                        <div style={{ width: "220px", marginLeft: "-5px", marginRight: "-5px"}}>
 
                         {/* Image */}
                         <img
@@ -130,11 +130,11 @@ export default function Restaurants(){
                         ⭐ {r.rating}/5
                         </div>
 
-                        <div style={{ fontSize: "12px", color: "#ffffff", marginBottom: "5px" }}>
+                        <div style={{ fontSize: "12px", color: "#ffffff", marginBottom: "-8px" }}>
                         📍 {r.address}
                         </div>
 
-                        <p style={{ fontSize: "13px", marginBottom: "8px" }}>
+                        <p style={{ fontSize: "13px", marginBottom: "14px" }}>
                         - {r.review}
                         </p>
 
