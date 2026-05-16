@@ -47,9 +47,10 @@
 
   .input-button {
     cursor: pointer;
-    padding: .1em .6em;
+    padding: .16em .6em;
     border: none;
     color: #fff;
+    width: 70px;
   }
 
 
@@ -89,7 +90,7 @@
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
-    margin-top: -20px;
+    margin-top: -10px;
     margin-bottom: 50px;
 }
 
@@ -125,7 +126,7 @@
 
   .getrec-button {
     cursor: pointer;
-    padding: .1em .6em;
+    padding: .12em .6em;
     border: none;
     color: #fff;
     width: 100px;
