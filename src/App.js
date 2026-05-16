@@ -11,6 +11,7 @@ import TemporaryDrawer from './component/TemporaryDrawer';
 import MediaPipe from './component/MediaPipe';
 import Hobbies from './component/Hobbies';
 import Gallery from "./component/Gallery";
+import Books from './component/Books';
 import FeaturesCard from './component/FeaturesCard';
 
 import './App.css';
@@ -154,9 +155,9 @@ export default function App() {
 
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/features" element={<FeaturesCard />} />
-                <Route path="/hobbies" element={<Hobbies />} />
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/movies" element={<Movies />} />
+                <Route path="/books/" element={<Books />} />
                 <Route path="/spotify/*" element={<SpotifyDashboard />} />
                 <Route path="/restaurants" element={<Restaurants />} />
                 <Route path="/image" element={<ImageClassifier />} />
