@@ -9,7 +9,7 @@ const iconMapping = {
   
 export default function Alerts() {
   return (
-    <Stack sx={{ width: '100%', marginBottom: '20px' }}>
+    <Stack sx={{ width: '100%', marginBottom: '20px', paddingRight: '20px'}}>
 
         <Alert
         variant='outlined'
