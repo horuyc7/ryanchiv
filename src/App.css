@@ -11,15 +11,12 @@ body {
 }
 
 .container {
-  margin-top: 80px;
-  margin-left: 70px;
+  margin-left: 20px;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
   .container {
-    transform: scale(0.85);
-    transform-origin: top center;
-    margin-left: 40px;
   }
 }
 
@@ -44,7 +41,7 @@ body {
 .navbar {
   display: flex;
   justify-content: center;
-  padding: 10px 0; /* Add some padding to the navbar */
+  padding: 10px 0;
 }
 
   .navbar-nav.ml-auto {
