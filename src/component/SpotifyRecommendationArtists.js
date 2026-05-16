@@ -4,7 +4,6 @@ import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationArtists.css';
 
-const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
 async function fetchLastFm(url) {
   const res = await fetch(url);
   return await res.json();
@@ -75,19 +74,21 @@ export default function SpotifyRecommendation() {
       }
 
       // 2. Last.fm similar artists
-      const lastFmRes = await fetchLastFm(
-        `https://ws.audioscrobbler.com/2.0/?method=artist.getsimilar` +
-        `&artist=${encodeURIComponent(mainArtist.name)}` +
-        `&api_key=${LASTFM_API_KEY}` +
-        `&format=json&limit=10`
-      );
+      const res = await fetch(`/api/lastfm?artist=${encodeURIComponent(mainArtist.name)}`);
+      const similar = await res.json();
 
-      const similar = lastFmRes?.similarartists?.artist || [];
+      if (!Array.isArray(similar)) {
+        throw new Error('Invalid Last.fm response');
+      }
 
       // 3. Convert to Spotify artists
+      const seen = new Set();
       const spotifyList = [];
 
       for (const a of similar) {
+
+        if (seen.has(a.name)) continue;
+        seen.add(a.name);
 
         const spotifyRes = await fetchWebApi(
           `v1/search?q=${encodeURIComponent(a.name)}&type=artist&limit=1`,
@@ -98,6 +99,8 @@ export default function SpotifyRecommendation() {
         const found = spotifyRes?.artists?.items?.[0];
 
         if (found) spotifyList.push(found);
+
+        if (spotifyList.length >= 8) break; // limit UI load
       }
 
       setArtist(mainArtist);
