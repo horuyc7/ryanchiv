@@ -1,24 +1,22 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  CssBaseline,
+  Box,
+  IconButton,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from "@mui/material";
+
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MenuIcon from '@mui/icons-material/Menu';
 import BookIcon from '@mui/icons-material/MenuBook';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-
-
 import InterestsIcon from '@mui/icons-material/Interests';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import UpdateIcon from '@mui/icons-material/Update';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TheatersIcon from '@mui/icons-material/Theaters';
@@ -40,188 +38,158 @@ function HomeIcon(props) {
   );
 }
 
-
-
 const darkTheme = createTheme({
   palette: {
+    mode: "dark",
     primary: {
-        main: '#d6550e',
-        
-      },
-    mode: 'dark',
-  },
-});
-
-const Theme = createTheme({
-    palette: {
-      primary: {
-        main: '#d6550e',
-        
-      },
-
-      secondary: {
-        main: '#8be4a9',
-        
-      },
-
-
-      mode: 'dark',
-
-      
+      main: "#d6550e",
     },
-
-
+    secondary: {
+      main: "#8be4a9",
+    },
+  },
 });
 
 const iconMap = {
+  HomeIcon: <HomeIcon />,
+  Features: <UpdateIcon />,
+  Spotify: <MusicNoteIcon />,
+  Books: <BookIcon />,
+  Movies: <TheatersIcon />,
+  Gallery: <LuggageIcon />,
+  Restaurants: <RestaurantIcon />,
+  Image: <ImageIcon />,
+  Object: <ImageSearchIcon />,
+};
 
-    'Features': <UpdateIcon />,
-    'Hobbies': <InterestsIcon />,
-    'Spotify': <MusicNoteIcon /> ,
-    'Books': <BookIcon />,
-    'Movies': <TheatersIcon />,
-    'Gallery': <LuggageIcon />,
-    'Restaurants': <RestaurantIcon />,
-    'Image': <ImageIcon />,
-    'Object': <ImageSearchIcon />
-    
-  };
-
-
-const drawerWidth = 170;
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + -7px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(6)} + 1px)`,
-  },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100.1% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
-
-export default function TemporaryDrawer() {
-  const theme = useTheme();
+export default function TopExpandMenu() {
   const [open, setOpen] = React.useState(false);
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
   return (
-
     <ThemeProvider theme={darkTheme}>
+      <Box sx={{ flexGrow: 1 }}>
+        <CssBaseline />
 
-    
-    <Box sx={{ display: 'flex'}}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        <Toolbar sx={{ justifyContent: 'left' }}>
-
-          <Typography variant="h6" noWrap component="div">
+        <AppBar
+          position="fixed"
+          sx={{
+            backgroundColor: darkTheme.palette.primary.main,
+            color: darkTheme.palette.secondary.main,
+          }}
+        >
+          <Toolbar sx={{ gap: 1 }}>
+            {/* Avatar */}
             <a href="/">
-            <img
-                    className="avatar"
-                    src={'https://preview.redd.it/fallen-angels-v0-wdk2688j5hec1.png?width=1080&crop=smart&auto=webp&s=dec90ac7d89e770013c18158aa595474ce4a68d4'}
-                    alt={'Profile'}
-                    style={{
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: 24,
-                    marginTop: 10,
-                    }}
-                />
-                </a>
-          </Typography>
-          
-        </Toolbar>
-      </AppBar>
-      
-      
-      <Drawer variant="permanent">
-        <DrawerHeader sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-          <IconButton onClick={handleDrawerClose} > 
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
+              <img
+                className="avatar"
+                src="https://preview.redd.it/fallen-angels-v0-wdk2688j5hec1.png?width=1080&crop=smart&auto=webp&s=dec90ac7d89e770013c18158aa595474ce4a68d4"
+                alt="Profile"
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  borderRadius: 24,
+                  marginTop: "5px",
+                }}
+              />
+            </a>
 
-        <ListItem key={'Home'} disablePadding sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-                <ListItemButton component={Link} to={`/`} sx={{ padding: '12px'}}>
-                
-                    <ListItemIcon sx={{ marginRight: '-20px', color: Theme.palette.secondary.main}} >
-                        <HomeIcon/>
-                    </ListItemIcon>
+            {/* Expand Button */}
+            <IconButton
+              onClick={() => setOpen(!open)}
+              sx={{
+                color: darkTheme.palette.secondary.main,
+              }}
+            >
+              {open ? <ChevronLeftIcon /> : <MenuIcon />}
+            </IconButton>
 
-                <ListItemText primary={'Home'} primaryTypographyProps={{fontSize: '20px', marginTop: '3px'}} />
+            {/* Expanding Horizontal Menu */}
+            <Collapse
+  in={open}
+  orientation="horizontal"
+  timeout={250}
+>
+  <Box
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      ml: -1.5,
+      gap: .8,
+    }}
+  >
+    {/* Menu Items */}
+    {[
+  "Home",
+  "Features",
+  "Spotify",
+  "Books",
+  "Movies",
+  "Gallery",
+  "Restaurants",
+  "Image",
+  "Object",
+].map((text) => (
+  <ListItemButton
+    key={text}
+    component={Link}
+    to={text === "Home" ? "/" : `/${text.toLowerCase()}`}
+    sx={{
+      minWidth: 36,
+      height: 25,
+      px: 0.5,
+      borderRadius: 2,
+      overflow: "hidden",
+      transition: "all 0.2s ease",
+      color: darkTheme.palette.secondary.main,
 
-                </ListItemButton>
-            </ListItem>
+      "& .MuiListItemText-root": {
+        opacity: 0,
+        width: 0,
+        transition: "0.2s",
+        whiteSpace: "nowrap",
+      },
 
-        <List sx={{ backgroundColor: Theme.palette.primary.main, color: Theme.palette.secondary.main}}>
-        {['Features', 'Hobbies', 'Spotify', 'Movies', 'Gallery', 'Restaurants', 'Image', 'Object'].map((text) => (
-            
-            <ListItem disablePadding>
-                <ListItemButton component={Link} to={`/${text.toLowerCase()}`} >
-                
-                    <ListItemIcon sx={{marginLeft: '-4px', marginRight: '-20px', color: Theme.palette.secondary.main}}>
-                        {iconMap[text] }
-                    </ListItemIcon>
+      "& .MuiTypography-root": {
+        fontSize: "0.90rem",
+        fontWeight: 400,
+      },
 
-                    <ListItemText primary={text} primaryTypographyProps={{fontSize: '17px', marginTop: '3px'}}/>
+      "&:hover": {
+        px: 1,
+        backgroundColor: "rgba(255,255,255,0.08)",
+      },
 
-                </ListItemButton>
-            </ListItem>
-            
-            ))}
-        </List>
-      </Drawer>
-      
+      "&:hover .MuiListItemText-root": {
+        opacity: 1,
+        width: "auto",
+        marginLeft: "2px",
+      },
+    }}
+  >
+    <ListItemIcon
+      sx={{
+        color: darkTheme.palette.secondary.main,
+        minWidth: 0,
 
-    </Box>
-    
+        "& svg": {
+          fontSize: "1.45rem",
+        },
+      }}
+    >
+      {text === "Home" ? <HomeIcon /> : iconMap[text]}
+    </ListItemIcon>
+
+    <ListItemText primary={text} />
+  </ListItemButton>
+))}
+  </Box>
+</Collapse>
+          </Toolbar>
+        </AppBar>
+
+        {/* Spacer */}
+        <Toolbar />
+      </Box>
     </ThemeProvider>
   );
 }
