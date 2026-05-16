@@ -1,8 +1,6 @@
 .books-page {
   margin-left: 0px;
   margin-right: 20px;
-  min-height: 100vh;
-  background: #0f0f10;
   color: #fff;
   font-family: system-ui, -apple-system, sans-serif;
 }
@@ -11,6 +9,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  margin-top: -20px;
   margin-bottom: 28px;
   gap: 16px;
 }
@@ -25,9 +25,10 @@
   background: #1a1a1a;
   color: #bbf3d0;
   border: 1px solid #2a2a2a;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
+  margin-top: 4px;
 }
 
 /* GRID */
@@ -82,7 +83,7 @@
 
 /* TEXT */
 .book-info {
-  padding-top: 8px;
+  padding-top: 10px;
   min-height: 52px; /* 🔥 important */
   display: flex;
   flex-direction: column;
