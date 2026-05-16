@@ -1,15 +1,15 @@
 .gallery {
-    margin-right: 25px;
+    margin-right: 20px;
     margin-bottom: 20px;
-
+    margin-top: 20px;
     box-sizing: border-box;
 }
 
 .grid {
     columns: 3 120px;
     gap: 10px;
-    margin-left: 30px;
-    margin-right: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .grid-img {
@@ -47,10 +47,6 @@
     align-items: center;
     width: fit-content; 
     max-width: 95vw;
-
-    margin-left: 50px;
-
-    
 }
 
 .image-wrapper {
@@ -79,7 +75,7 @@
     box-sizing: border-box;
     
     padding: 30px 12px 10px; 
-    color: #bbf3d1dc;
+    color: #bbf3d1b0;
     font-size: 13px;
     line-height: 1.4;
 
@@ -105,7 +101,7 @@
   }
 
   .image-wrapper {
-    margin-left: 45px !important;
+    margin-left: 0px !important;
     width: auto;
   }
 
@@ -120,13 +116,12 @@
   }
   .spotify-iframe {
     margin-top: -31px;
-    margin-left: 44px;
+    margin-left: 0px;
     margin-right: 0px;
-    width: 89%;
+    width: 100%;
     max-width: 100%; 
   }
   .album-header-title{
-    margin-left: 22px;
 
   }
 }
@@ -166,7 +161,7 @@
   right: 0;
 
   padding: 8px;
-  color: #bbf3d1;
+  color: #bbf3d1e7;
   font-size: 12px;
 
   background: linear-gradient(
