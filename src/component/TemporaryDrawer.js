@@ -85,10 +85,11 @@ export default function TopExpandMenu() {
                 src="https://preview.redd.it/fallen-angels-v0-wdk2688j5hec1.png?width=1080&crop=smart&auto=webp&s=dec90ac7d89e770013c18158aa595474ce4a68d4"
                 alt="Profile"
                 style={{
-                  width: "50px",
-                  height: "50px",
+                  width: "40px",
+                  height: "40px",
                   borderRadius: 24,
-                  marginTop: "5px",
+                  marginTop: "10px",
+                  marginLeft: "-12px",
                 }}
               />
             </a>
@@ -97,7 +98,7 @@ export default function TopExpandMenu() {
             <IconButton
               onClick={() => setOpen(!open)}
               sx={{
-                color: darkTheme.palette.secondary.main,
+                color: '#491e07',
               }}
             >
               {open ? <ChevronLeftIcon /> : <MenuIcon />}
@@ -140,7 +141,7 @@ export default function TopExpandMenu() {
       borderRadius: 2,
       overflow: "hidden",
       transition: "all 0.2s ease",
-      color: darkTheme.palette.secondary.main,
+      color: '#491e07',
 
       "& .MuiListItemText-root": {
         opacity: 0,
@@ -162,13 +163,14 @@ export default function TopExpandMenu() {
       "&:hover .MuiListItemText-root": {
         opacity: 1,
         width: "auto",
-        marginLeft: "2px",
+        marginLeft: "3px",
+        marginTop: "6px",
       },
     }}
   >
     <ListItemIcon
       sx={{
-        color: darkTheme.palette.secondary.main,
+        color: '#491e07',
         minWidth: 0,
 
         "& svg": {
