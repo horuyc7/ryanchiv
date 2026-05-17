@@ -25,15 +25,15 @@ export default function SpotifyDashboard() {
           <ul className="spotify-dashboard__navbar">
        
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotify/spotifytracks' ? 'active' : ''} to="spotifytracks">Top Tracks</Link>
+                <Link className={location.pathname === '/spotify/spotifytracks' ? 'spotify_active' : ''} to="spotifytracks">Top Tracks</Link>
             </li>
 
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotify/recommendationtracks' ? 'active' : ''} to="recommendationtracks">Tracks Rec</Link>
+                <Link className={location.pathname === '/spotify/recommendationtracks' ? 'spotify_active' : ''} to="recommendationtracks">Tracks Rec</Link>
             </li>
 
             <li className="spotify-feature">
-                <Link className={location.pathname === '/spotify/recommendationartists' ? 'active' : ''} to="recommendationartists">Artists Rec</Link>
+                <Link className={location.pathname === '/spotify/recommendationartists' ? 'spotify_active' : ''} to="recommendationartists">Artists Rec</Link>
             </li>
             
           </ul>
