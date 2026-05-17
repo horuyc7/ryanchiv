@@ -1,6 +1,6 @@
 .description {
-    margin-left: 10px;
-
+    margin-left: 20px;
+  
   }
     
     .description__header {
@@ -13,6 +13,7 @@
     .description__body {
         list-style-type: none;
         padding: 0;
+        
     }
     
     .description__item {

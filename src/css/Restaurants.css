@@ -4,7 +4,7 @@
 }
 
 .leaflet-popup-content-wrapper {
-  background: #d6550e;
+  background: #d6540ee6;
   color: #ffffff;
   border-radius: 16px;
 }
@@ -32,18 +32,20 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  background: #222;
+  background: #1b1a1a;
   color: white;
+  font-weight: 200;
+
 }
 
 .filter-buttons button:hover {
-  background: #444;
+  background: #000000e7;
 }
 
 .filter-buttons button.active {
   opacity: .9;
-  background: #8be4a9;
-  color: black;
+  background-color: #161515db;
+  color: #8be4a9;
 }
 
 @media (max-width: 768px) {
