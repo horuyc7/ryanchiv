@@ -139,7 +139,7 @@ const handleBack = () => {
             <motion.div
               layoutId={active.src}
               className="expanded"
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{ type: "spring", stiffness: 400, damping: 35 }}
             >
               <div className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}>
                 <img src={active.src} className="expanded-img" />
