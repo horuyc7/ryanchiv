@@ -36,19 +36,19 @@ export default function Books() {
   );
 };
 
-const HalfStar = () => (
-  <span style={{ position: "relative" }}>
-    <span style={{ position: "absolute", width: "50%", overflow: "hidden" }}>
-      ★
+  const HalfStar = () => (
+    <span style={{ position: "relative" }}>
+      <span style={{ position: "absolute", width: "50%", overflow: "hidden" }}>
+        ★
+      </span>
+      <span style={{ opacity: 0.3 }}>★</span>
     </span>
-    <span style={{ opacity: 0.3 }}>★</span>
-  </span>
-);
-  
+  );
+    
 
   useEffect(() => {
-  loadBooks(0, true);
-}, [sort]);
+    loadBooks(0, true);
+  }, [sort]);
 
   const loadBooks = async (pageToLoad = 0, reset = false) => {
   if (loading) return;
