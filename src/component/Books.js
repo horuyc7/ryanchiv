@@ -81,7 +81,6 @@ export default function Books() {
 
   return (
     <div className="books-page">
-      {/* HEADER */}
       <div className="books-header">
         <h1>Books</h1>
 
@@ -95,7 +94,6 @@ export default function Books() {
         
       </div>
 
-      {/* GRID */}
       <div className="books-grid">
         {books.map((entry) => {
           const book = entry.book;
@@ -155,7 +153,6 @@ export default function Books() {
         })}
       </div>
 
-      {/* LOAD MORE */}
       <div className="load-more-wrapper">
         <button
           onClick={() => loadBooks(page)}
@@ -165,7 +162,6 @@ export default function Books() {
         </button>
       </div>
 
-      {/* MODAL */}
       {selectedBook && (
         <div
           className="modal-backdrop"
