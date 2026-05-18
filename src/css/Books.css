@@ -9,9 +9,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-top: -20px;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   gap: 16px;
 }
 
@@ -19,6 +17,8 @@
   font-size: 28px;
   margin: 0;
   color: #bbf3d0;
+  margin-top: -20px;
+  
 }
 
 .books-header select {
@@ -28,10 +28,10 @@
   padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: 4px;
+
+  margin-top: -10px;
 }
 
-/* GRID */
 .books-grid {
   display: grid;
   grid-template-columns: repeat(
@@ -41,7 +41,6 @@
   gap: 20px;
 }
 
-/* CARD */
 .book-card {
   width: 100%;
   border: none;
@@ -81,16 +80,14 @@
   display: block;
 }
 
-/* TEXT */
 .book-info {
   padding-top: 10px;
-  min-height: 52px; /* 🔥 important */
+  min-height: 52px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-/* clamp long titles */
 .jp-title {
   font-size: 14px;
   line-height: 1.2;
@@ -101,10 +98,9 @@
 
   overflow: hidden;
 
-  min-height: 36px; /* 🔥 reserves space */
+  min-height: 36px;
 }
 
-/* ENGLISH TITLE */
 .en-title {
   font-size: 14px;
   color: #ffffff;
@@ -115,13 +111,12 @@
 }
 
 .rating {
-  margin-top: auto; /* 🔥 key fix */
+  margin-top: auto;
 
   font-size: 13px;
   color: #bbf3d0;
 }
 
-/* LOAD MORE */
 .load-more-wrapper {
   display: flex;
   justify-content: center;
@@ -157,11 +152,10 @@
   z-index: 1000;
 }
 
-/* MODAL */
 .book-modal {
   background: #141414;
   width: 100%;
-  max-width: 480px; /* ⬅️ smaller */
+  max-width: 480px;
   border-radius: 14px;
   overflow: hidden;
   display: flex;
@@ -170,22 +164,20 @@
   margin-left: 40px;
 }
 
-/* COVER */
 .book-modal img {
   width: 100%;
-  height: 200px; /* ⬅️ smaller */
+  height: 200px;
   object-fit: cover;
 }
 
-/* CONTENT */
 .modal-content {
-  padding: 14px; /* tighter */
+  padding: 14px;
   overflow-y: auto;
 }
 
 .modal-content h2 {
   margin: 0 0 6px 0;
-  font-size: 18px; /* smaller */
+  font-size: 18px;
 }
 
 .modal-en-title {
@@ -208,10 +200,9 @@
   color: #d0d0d0;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
   .books-page {
-    padding: 20px 14px;
+    padding: 10px 0px;
   }
 
   .books-grid {
@@ -227,7 +218,7 @@
     max-height: 70vh;
     max-width: 40vh;
     overflow-y: auto;
-    margin-left: -20px;
+    margin-left: -0px;
   }
 
   .book-modal img {
