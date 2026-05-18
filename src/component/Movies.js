@@ -153,10 +153,10 @@ const Movies = () => {
                       {MovieDetails[selectedMovie.index].title}
                     </p>
                     <p className="details-rating">
-                      {MovieDetails[selectedMovie.index].rating} / 5 ★ 
+                      {MovieDetails[selectedMovie.index].rating} / 5 ★
                     </p>
                     <p className="details-genres">
-                      {MovieDetails[selectedMovie.index].genres.slice(0, 2).join(', ')}
+                      Genres: {MovieDetails[selectedMovie.index].genres.slice(0, 3).join(', ')}
                     </p>
                   </div>
                 </div>
