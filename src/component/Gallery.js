@@ -23,8 +23,9 @@ export default function Gallery() {
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const cloudinaryUrl = (path, width) =>
-  `https://res.cloudinary.com/dg9bpbycs/image/upload/w_${width},q_auto:best,f_auto,dpr_auto,c_scale/${path}`;
+  `https://res.cloudinary.com/${process.env.CLOUDINARY_ID}/image/upload/w_${width},f_auto,q_auto,c_scale/${path}`;
 
   useEffect(() => {
   if (activeAlbum) {
@@ -51,6 +52,14 @@ useEffect(() => {
     window.removeEventListener("scroll", handleScroll);
   };
 }, [photosData]);
+
+useEffect(() => {
+  photosData.slice(0, visibleCount).forEach((p) => {
+    const img = new Image();
+
+    img.src = cloudinaryUrl(p.src, 1600);
+  });
+}, [photosData, visibleCount]);
 
 const handleBack = () => {
   setActiveAlbum(null);
@@ -106,6 +115,7 @@ const handleBack = () => {
           }}
           layoutId={p.src}
           onClick={() => {
+            setImgLoaded(false);
             setHideGridImage(p.src);
             setActive(p);
           }}
@@ -124,6 +134,7 @@ const handleBack = () => {
             onClick={() => {
               setActive(null);
               setHideGridImage(null);
+              setImgLoaded(false);
             }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -135,7 +146,18 @@ const handleBack = () => {
               transition={{ type: "spring", stiffness: 400, damping: 35 }}
             >
               <div className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}>
-                <img src={cloudinaryUrl(active.src, 2400)} className="expanded-img" />
+                <div className="img-stack">
+                  <img
+                    src={cloudinaryUrl(active.src, 400)}
+                    className="expanded-img low"
+                  />
+
+                  <img
+                    src={cloudinaryUrl(active.src, 1600)}
+                    className={`expanded-img high ${imgLoaded ? "show" : ""}`}
+                    onLoad={() => setImgLoaded(true)}
+                  />
+                </div>
                 {active.caption && (
                   <div className="image-caption">{active.caption}</div>
                 )}

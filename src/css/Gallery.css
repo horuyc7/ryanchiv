@@ -67,6 +67,29 @@
     object-fit: contain;
 }
 
+.img-stack {
+  position: relative;
+}
+
+/* low-res base */
+.low {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: none;
+}
+
+/* high-res fades in */
+.high {
+  opacity: 0;
+  transition: opacity 0.18s ease-out;
+  position: relative;
+}
+
+.high.show {
+  opacity: 1;
+}
+
 .image-caption {
     position: absolute;
     bottom: 0;
