@@ -23,6 +23,8 @@ export default function Gallery() {
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
+  const cloudinaryUrl = (path, width) =>
+  `https://res.cloudinary.com/dg9bpbycs/image/upload/w_${width},q_auto:best,f_auto,dpr_auto,c_scale/${path}`;
 
   useEffect(() => {
   if (activeAlbum) {
@@ -69,7 +71,7 @@ const handleBack = () => {
             className="album-card"
             onClick={() => setActiveAlbum(album)}
           >
-            <img src={album.cover} className="album-img" />
+            <img src={cloudinaryUrl(album.cover, 600)} className="album-img" />
 
             <div className="album-title">
               {album.title}
@@ -95,9 +97,9 @@ const handleBack = () => {
       {photosData.slice(0, visibleCount).map((p, i) => (
         <motion.img
           key={p.src}
-          src={p.src}
+          src={cloudinaryUrl(p.src, 400)}
           className="grid-img"
-          loading="lazy"
+          loading={i < 6 ? "eager" : "lazy"}
           decoding="async"
           style={{
             visibility: hideGridImage === p.src ? "hidden" : "visible"
@@ -133,7 +135,7 @@ const handleBack = () => {
               transition={{ type: "spring", stiffness: 400, damping: 35 }}
             >
               <div className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}>
-                <img src={active.src} className="expanded-img" />
+                <img src={cloudinaryUrl(active.src, 2400)} className="expanded-img" />
                 {active.caption && (
                   <div className="image-caption">{active.caption}</div>
                 )}
