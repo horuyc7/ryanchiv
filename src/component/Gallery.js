@@ -154,8 +154,8 @@ const handleBack = () => {
                   exit={{ opacity: 0 }}
 
                   transition={{
-                    duration: 0.5,
-                    delay: .05
+                    duration: 0.4,
+                    delay: .02
                   }}
                 />
               )}
