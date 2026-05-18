@@ -19,12 +19,12 @@
 .movies__movies {
     display: grid;
     min-height: 300px;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid with minimum width of 200px */
-    grid-gap: 15px; /* Spacing between grid items */
-    margin-right: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-gap: 14px;
+    margin-right: 20px;
 }
     .movie-container {
-        position: relative; /* Enable relative positioning for the image */
+        position: relative;
     }
 
     .movie-container img {
@@ -34,11 +34,11 @@
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform .4s ease-in, border-color .6s ease;
-        border: 2px solid transparent; /* Initially transparent border */
+        border: 2px solid transparent;
     }
 
     .movie-container:hover img {
-        border-color: #8be7ae; /* Change the border color on hover */
+        border-color: #8be7aeda;
         transform: scale(1.06);
         transition: .6s;
         
@@ -50,60 +50,61 @@
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 9999;
-        background-color: #8be7aef3;
+        background-color: #1a1a1afa;
         width: 50%;
-        max-width: 450px; /* Adjust the width as needed */
+        max-width: 450px;
         padding: 15px;
         max-height: auto;
         border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 50px #dc531820;
 
     }
     
     .details-content {
-        color: #000000;
+        color: #f7f7f7;
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* Align items to the left */
+        align-items: flex-start;
     }
     
     .detail-container {
         display: flex;
-        align-items: center; /* Align items vertically */
+        align-items: center;
     }
     
     .details-image {
         width: 100px;
         height: 140px;
-        margin-right: 10px; /* Add some space between the image and the text */
+        margin-right: 20px;
+        border: 2px solid #dc531844;
     }
     
     .details-info {
-        flex-grow: 1; /* Allow this container to grow to fill the remaining space */
+        flex-grow: 1;
     }
     
     .details-title {
-        color: #dc5318;
+        color: #dc5318d8;
         font-size: 16px;
         font-weight: bold;
-        margin-bottom: 5px;
-
+        margin-bottom: -4px;
     }
     
     .details-rating {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .details-genres {
-        font-size: 14px;
+        font-size: 13px;
     }
     
     .description {
-        font-size: 14px;
+        font-size: 13px;
         cursor: pointer;
         margin-top: 10px;
+        font-weight: 100;
+        margin-left: 0px;
     }
-
 
     .reviews-header {
         font-size: 15px;
@@ -122,7 +123,6 @@
         cursor: pointer;
     }
 
-    
     .close {
         position: absolute;
         top: 10px;
