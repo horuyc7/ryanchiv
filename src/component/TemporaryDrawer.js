@@ -78,7 +78,6 @@ export default function TopExpandMenu() {
           }}
         >
           <Toolbar sx={{ gap: 1 }}>
-            {/* Avatar */}
             <a href="/">
               <img
                 className="avatar"
@@ -89,12 +88,11 @@ export default function TopExpandMenu() {
                   height: "40px",
                   borderRadius: 24,
                   marginTop: "10px",
-                  marginLeft: "-12px",
+                  marginLeft: "-4px",
                 }}
               />
             </a>
 
-            {/* Expand Button */}
             <IconButton
               onClick={() => setOpen(!open)}
               sx={{
@@ -104,7 +102,6 @@ export default function TopExpandMenu() {
               {open ? <ChevronLeftIcon /> : <MenuIcon />}
             </IconButton>
 
-            {/* Expanding Horizontal Menu */}
             <Collapse
   in={open}
   orientation="horizontal"
@@ -118,7 +115,6 @@ export default function TopExpandMenu() {
       gap: .8,
     }}
   >
-    {/* Menu Items */}
     {[
   "Home",
   "Features",
@@ -189,7 +185,6 @@ export default function TopExpandMenu() {
           </Toolbar>
         </AppBar>
 
-        {/* Spacer */}
         <Toolbar />
       </Box>
     </ThemeProvider>
