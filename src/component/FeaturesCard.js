@@ -9,6 +9,7 @@ export default function FeaturesCard() {
         <div className="featurescard__body">
             <ul className="featurescard_items">
 
+                <li className="featurescard__item">For gallery, switch to api for retrieving images</li>
                 <li className="featurescard__item">Train model for object detection(more index)</li>
                 <li className="featurescard__item">Clean up code</li>
                 <li className="featurescard__item">Refactor</li>
