@@ -22,16 +22,7 @@ export default function Gallery() {
   const [hideGridImage, setHideGridImage] = useState(null);
   const [showIframe, setShowIframe] = useState(false);
   const [photosData, setPhotosData] = useState([]);
-const [visibleCount, setVisibleCount] = useState(20);
-
-  
-  useEffect(() => {
-    if (active) {
-      setTimeout(() => setShowIframe(true), 250);
-    } else {
-      setShowIframe(false);
-    }
-  }, [active]);
+  const [visibleCount, setVisibleCount] = useState(20);
 
   useEffect(() => {
   if (activeAlbum) {
