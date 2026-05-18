@@ -25,7 +25,7 @@ export default function Gallery() {
   const [visibleCount, setVisibleCount] = useState(20);
   const [imgLoaded, setImgLoaded] = useState(false);
   const cloudinaryUrl = (path, width) =>
-  `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_ID}/image/upload/w_${width},f_auto,q_auto,c_scale/${path}`;
+  `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload/w_${width},f_auto,q_auto,c_scale/${path}`;
 
   useEffect(() => {
   if (activeAlbum) {
