@@ -62,15 +62,17 @@
   aspect-ratio: 2 / 3;
   object-fit: cover;
   border-radius: 12px;
+  
 }
 
 .cover {
-  width: 100%;
+  width: 101%;
   aspect-ratio: 2 / 3;
   overflow: hidden;
   border-radius: 12px;
   background: #1c1c1c;
   flex-shrink: 0;
+  
 }
 
 .cover img {
@@ -78,6 +80,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  
 }
 
 .book-info {
