@@ -15,11 +15,6 @@ body {
   margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .container {
-  }
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
