@@ -149,16 +149,25 @@ const handleBack = () => {
 
                 
               </div>
-              {active.spotify && showIframe && (
-                  <iframe
-                    className="spotify-iframe"
-                    src={active.spotify}
-                    height="80"
-                    width="100%"
-                    frameBorder="0"
-                    allow="autoplay; clipboard-write; encrypted-media"
-                  />
-                )}
+              {active.spotify && (
+                <motion.iframe
+                  className="spotify-iframe"
+                  src={active.spotify}
+                  height="80"
+                  width="100%"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media"
+
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+
+                  transition={{
+                    duration: 0.2,
+                    delay: .1
+                  }}
+                />
+              )}
             </motion.div>
           </motion.div>
         )}
