@@ -16,7 +16,7 @@ function shuffle(array) {
 }
 
 export default function Gallery() {
-  const [albums] = useState(() => shuffle(photos));
+  const [albums] = useState(photos);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [active, setActive] = useState(null);
   const [hideGridImage, setHideGridImage] = useState(null);
