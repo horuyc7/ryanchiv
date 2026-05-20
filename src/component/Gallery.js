@@ -27,28 +27,27 @@ export default function Gallery() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const cloudinaryUrl = (path, width) =>
   `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload/c_scale,w_${width}/f_auto,q_auto/${path}`;
+  const [pending, setPending] = useState(null);
   const [themeColor, setThemeColor] = useState("20,20,20");
 
-  useEffect(() => {
-  if (!active) return;
+  const handleOpen = (p) => {
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = cloudinaryUrl(p.src, 400);
 
-  const img = new Image();
-  img.crossOrigin = "Anonymous";
+    img.onload = async () => {
+      try {
+        const colorThief = new ColorThief();
+        const [r, g, b] = colorThief.getColor(img);
 
-  img.src = cloudinaryUrl(active.src, 400);
+        setThemeColor(`${r},${g},${b}`);
+      } catch (e) {}
 
-  img.onload = async () => {
-    try {
-      const colorThief = new ColorThief();
+      setActive(p); // ONLY open after color is ready
+    };
 
-      const [r, g, b] = colorThief.getColor(img);
-
-      setThemeColor(`${r}, ${g}, ${b}`);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-}, [active]);
+    setPending(p);
+};
 
   useEffect(() => {
   if (activeAlbum) {
@@ -140,7 +139,7 @@ const handleBack = () => {
           onClick={() => {
             setImgLoaded(false);
             setHideGridImage(p.src);
-            setActive(p);
+            handleOpen(p);
           }}
           whileHover={{ scale: 1.03, opacity: 0.8 }}
         />
