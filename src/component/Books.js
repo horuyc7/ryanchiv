@@ -23,17 +23,17 @@ export default function Books() {
   };
 
   const renderStars = (rating = 0) => {
-  const fullStars = Math.floor(rating);
-  const hasHalfStar = rating % 1 >= 0.5;
-  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-  return (
-    <>
-      {"★".repeat(fullStars)}
-      {hasHalfStar && <HalfStar />}
-      {"☆".repeat(emptyStars)}
-    </>
-  );
+    return (
+      <>
+        {"★".repeat(fullStars)}
+        {hasHalfStar && <HalfStar />}
+        {"☆".repeat(emptyStars)}
+      </>
+    );
 };
 
   const HalfStar = () => (
@@ -194,7 +194,7 @@ export default function Books() {
               <div className="rating">
                 ⭐ {selectedBook.book.rating?.toFixed(1) || "N/A"}
                 <span className="rating-count">
-                    ({selectedBook.book.ratings_count || 0})
+                 ({selectedBook.book.ratings_count || 0})
                 </span>
               </div>
 
