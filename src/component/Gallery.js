@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from 'react-dom';
+import ColorThief from "color-thief-browser";
 
 import '../css/Gallery.css';
 import photos from "../data/photos.json";
@@ -26,6 +27,28 @@ export default function Gallery() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const cloudinaryUrl = (path, width) =>
   `https://res.cloudinary.com/${process.env.REACT_APP_CLOUDINARY_ID}/image/upload/c_scale,w_${width}/f_auto,q_auto/${path}`;
+  const [themeColor, setThemeColor] = useState("20,20,20");
+
+  useEffect(() => {
+  if (!active) return;
+
+  const img = new Image();
+  img.crossOrigin = "Anonymous";
+
+  img.src = cloudinaryUrl(active.src, 400);
+
+  img.onload = async () => {
+    try {
+      const colorThief = new ColorThief();
+
+      const [r, g, b] = colorThief.getColor(img);
+
+      setThemeColor(`${r}, ${g}, ${b}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}, [active]);
 
   useEffect(() => {
   if (activeAlbum) {
@@ -131,6 +154,15 @@ const handleBack = () => {
         {active && (
           <motion.div
             className="overlay"
+            style={{
+              background: `
+                radial-gradient(
+                  circle at center,
+                  rgba(${themeColor}, 0.15),
+                  rgba(0,0,0,0.94) 70%
+                )
+              `
+            }}
             onClick={() => {
               setActive(null);
               setHideGridImage(null);
@@ -143,6 +175,11 @@ const handleBack = () => {
             <motion.div
               layoutId={active.src}
               className="expanded"
+              style={{
+                boxShadow: `
+                  0 0 60px rgba(${themeColor}, 0.2)
+                `
+              }}
               transition={{ type: "spring", stiffness: 400, damping: 35 }}
             >
               <div className={`image-wrapper ${active.spotify ? "" : "no-spotify"}`}>
