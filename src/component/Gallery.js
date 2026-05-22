@@ -28,7 +28,7 @@ export default function Gallery() {
     path
       ? `https://res.cloudinary.com/${
           process.env.REACT_APP_CLOUDINARY_ID
-        }/image/upload/c_scale,w_${width}/f_auto,q_auto/${path}`
+        }/image/upload/c_scale,w_${width}/f_auto,q_auto:eco/${path}`
       : "";
 
   const formatCaption = (p) => {
@@ -202,7 +202,7 @@ export default function Gallery() {
               onClick={() => loadAlbum(album)}
             >
               <img
-                src={cloudinaryUrl(album.cover, 600)}
+                src={cloudinaryUrl(album.cover, 800)}
                 className="album-img"
               />
               <div className="album-title">{album.title}</div>
