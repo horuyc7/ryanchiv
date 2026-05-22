@@ -188,6 +188,12 @@
   height: 240px;
   object-fit: cover;
   transition: transform 0.3s ease;
+
+  display: block;
+  border-radius: 8px;
+  cursor: pointer;
+
+  break-inside: avoid;
 }
 
 .album-card:hover .album-img {
