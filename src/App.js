@@ -116,10 +116,11 @@ function CustomSpeedDial(props) {
         icon={<SpeedDialIcon />}
         FabProps={{
           sx: {
-            bgcolor: '#8be4a9',
+            bgcolor: '#bbf3d0',
             '&:hover': {
-              bgcolor: '#79c992',
+              bgcolor: '#9aefba',
             },
+            scale: .8,
           },
         }}
       >
