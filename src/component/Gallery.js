@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import ColorThief from "color-thief-browser";
+import Loading from "./LoadingCircle";
 
-import albumsData from "../data/photos2.json";
+import albumsData from "../data/albums.json";
 
 import "../css/Gallery.css";
 
@@ -23,6 +24,8 @@ export default function Gallery() {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [lowSrc, setLowSrc] = useState(null);
   const [highSrc, setHighSrc] = useState(null);
+
+  const [loadingAlbum, setLoadingAlbum] = useState(false);
 
   const cloudinaryUrl = (path, width) =>
     path
@@ -148,6 +151,7 @@ export default function Gallery() {
   };
 
   const loadAlbum = async (album) => {
+    setLoadingAlbum(true);
     setActiveAlbum(album);
     setPhotosData([]);
     setVisibleCount(20);
@@ -166,6 +170,9 @@ export default function Gallery() {
     } catch (err) {
       console.error(err);
       setPhotosData([]);
+    }
+    finally {
+      setLoadingAlbum(false);
     }
   };
 
@@ -245,6 +252,8 @@ export default function Gallery() {
               Feed
             </button>
           </div>
+
+          {loadingAlbum && <div className="gallery-loading"><Loading /></div>}
 
           {viewMode === "grid" && (
             <div className="grid">
