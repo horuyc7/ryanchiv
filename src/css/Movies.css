@@ -2,8 +2,16 @@
     padding-bottom: 20px;
 }
 
+    .movie-loading {
+        color: #bbf3d1;
+        align-items: center;
+
+        margin-top: 0px;
+
+    }
+
     .movies__list-title {
-        color: #8be7ae;
+        color: #bbf3d1;
     }
 
     .movies__list-description {
