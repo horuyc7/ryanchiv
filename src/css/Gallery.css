@@ -1,7 +1,7 @@
 .gallery {
     margin-right: 20px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: -10px;
     box-sizing: border-box;
 }
 
@@ -60,8 +60,8 @@
 
 .expanded-img {
     display: block;
-    max-width: 60vw;
-    max-height: 65vh;
+    max-width: 65vw;
+    max-height: 75vh;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -146,12 +146,13 @@
 
   .expanded {
     margin: 0 auto;
+    margin-bottom: 50px;
   }
 
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
-    max-width: 86vw;
+    max-width: 92vw;
     
   }
 
@@ -162,9 +163,16 @@
     width: 100%;
     max-width: 100%; 
   }
-  .album-header-title{
 
+  .tiktok-feed {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+    box-sizing: border-box;
   }
+
+  .tiktok-spotify {
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+  
 }
 
 .image-wrapper.no-spotify {
@@ -262,7 +270,7 @@
   background: transparent;
   color: #bbf3d1;
 
-  padding: 6px 30px;
+  padding: 4px 30px;
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -281,6 +289,7 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
+  
 }
 
 .tiktok-image-wrapper {
@@ -335,8 +344,16 @@
 }
 
 .tiktok-spotify {
-width: 100%;
-border-radius: 12px;
+  width: 100%;
+  border-radius: 12px;
 
-margin-top: 0px;
+  margin-top: 0px;
+}
+
+.gallery-loading {
+  color: #bbf3d1;
+  align-items: center;
+
+  margin-top: 30px;
+
 }
