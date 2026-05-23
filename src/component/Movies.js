@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Loading from './Loading';
+import Loading from './LoadingCircle';
 import { useRef } from 'react';
 
 import '../css/Movies.css';
@@ -120,7 +120,7 @@ const Movies = () => {
       </div>
 
       {loading ? (
-          <div className='loading'>
+          <div className='movie-loading'>
             <Loading/>
           </div>
       ) : (
