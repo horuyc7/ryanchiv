@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
 import ColorThief from "color-thief-browser";
 import Loading from "./LoadingCircle";
+import { useRef } from "react";
 
 import albumsData from "../data/albums.json";
 
 import "../css/Gallery.css";
+
+const shuffleArray = (arr) => {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+};
 
 export default function Gallery() {
   const [albums] = useState(albumsData);
@@ -14,6 +24,7 @@ export default function Gallery() {
   const [active, setActive] = useState(null);
 
   const [photosData, setPhotosData] = useState([]);
+  const [shuffledPhotos, setShuffledPhotos] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
 
   const [themeColor, setThemeColor] = useState("20,20,20");
@@ -26,6 +37,7 @@ export default function Gallery() {
   const [highSrc, setHighSrc] = useState(null);
 
   const [loadingAlbum, setLoadingAlbum] = useState(false);
+  const loadIdRef = useRef(0);
 
   const cloudinaryUrl = (path, width) =>
     path
@@ -116,39 +128,45 @@ export default function Gallery() {
   }, [feedIndex, photosData]);
 
   const handleOpen = (p) => {
-    if (!p?.src) return;
+      if (!p?.src) return;
 
-    const low = cloudinaryUrl(p.src, 400);
-    const high = cloudinaryUrl(p.src, 1600);
+      const currentLoadId = ++loadIdRef.current;
 
-    setImgLoaded(false);
-    setActive(p);
+      const low = cloudinaryUrl(p.src, 400);
+      const high = cloudinaryUrl(p.src, 1600);
 
-    setLowSrc(low);
-    setHighSrc(null);
+      setImgLoaded(false);
+      setActive(p);
 
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = low;
+      setLowSrc(low);
+      setHighSrc(null);
 
-    img.onload = async () => {
-      try {
-        const colorThief = new ColorThief();
-        const [r, g, b] = colorThief.getColor(img);
-        setThemeColor(`${r},${g},${b}`);
-      } catch (e) {}
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = low;
 
-      const hd = new Image();
-      hd.src = high;
+      img.onload = async () => {
+        if (loadIdRef.current !== currentLoadId) return;
 
-      hd.onload = () => {
-        setHighSrc(high);
-        requestAnimationFrame(() => {
-          setImgLoaded(true);
-        });
+        try {
+          const colorThief = new ColorThief();
+          const [r, g, b] = colorThief.getColor(img);
+          setThemeColor(`${r},${g},${b}`);
+        } catch (e) {}
+
+        const hd = new Image();
+        hd.src = high;
+
+        hd.onload = () => {
+          if (loadIdRef.current !== currentLoadId) return;
+
+          setHighSrc(high);
+          requestAnimationFrame(() => {
+            setImgLoaded(true);
+          });
+        };
       };
     };
-  };
 
   const loadAlbum = async (album) => {
     setLoadingAlbum(true);
@@ -166,7 +184,10 @@ export default function Gallery() {
         (Array.isArray(data) ? data?.[0]?.photos : []) ??
         [];
 
-      setPhotosData(Array.isArray(photos) ? photos : []);
+      const cleanPhotos = Array.isArray(photos) ? photos : [];
+
+      setPhotosData(cleanPhotos);
+      setShuffledPhotos(shuffleArray(cleanPhotos));
     } catch (err) {
       console.error(err);
       setPhotosData([]);
@@ -197,6 +218,78 @@ export default function Gallery() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [photosData, viewMode]);
+
+  /* keyboard navigation */
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (!Array.isArray(photosData) || photosData.length === 0) return;
+
+      /* FEED MODE */
+      if (viewMode === "feed") {
+        if (
+          e.key === "ArrowRight" ||
+          e.key === "ArrowDown"
+        ) {
+          setFeedIndex((p) =>
+            Math.min(p + 1, photosData.length - 1)
+          );
+        }
+
+        if (
+          e.key === "ArrowLeft" ||
+          e.key === "ArrowUp"
+        ) {
+          setFeedIndex((p) => Math.max(p - 1, 0));
+        }
+      }
+
+      /* GRID POPUP MODE */
+      if (active) {
+        const currentIndex = photosData.findIndex(
+          (p) => p.src === active.src
+        );
+
+        if (currentIndex === -1) return;
+
+        if (
+          e.key === "ArrowRight" ||
+          e.key === "ArrowDown"
+        ) {
+          const nextIndex = Math.min(
+            currentIndex + 1,
+            photosData.length - 1
+          );
+
+          handleOpen(photosData[nextIndex]);
+        }
+
+        if (
+          e.key === "ArrowLeft" ||
+          e.key === "ArrowUp"
+        ) {
+          const prevIndex = Math.max(
+            currentIndex - 1,
+            0
+          );
+
+          handleOpen(photosData[prevIndex]);
+        }
+
+        if (e.key === "Escape") {
+          setActive(null);
+          setLowSrc(null);
+          setHighSrc(null);
+          setImgLoaded(false);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+    };
+}, [photosData, active, viewMode]);
 
   return (
     <div className="gallery">
@@ -257,7 +350,7 @@ export default function Gallery() {
 
           {viewMode === "grid" && (
             <div className="grid">
-              {photosData.slice(0, visibleCount).map((p, i) => (
+              {shuffledPhotos.slice(0, visibleCount).map((p, i) => (
                 <motion.img
                   key={p.src}
                   src={cloudinaryUrl(p.src, 400)}
@@ -280,8 +373,8 @@ export default function Gallery() {
         className="tiktok-item"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -40 }}
-        transition={{ duration: 0.35 }}
+        exit={{ opacity: 0, scale: 0.96 }}
+        transition={{ duration: 0.4 }}
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         onDragEnd={(e, info) => {
