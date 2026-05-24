@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Analytics } from '@vercel/analytics/react';
 
 import Dashboard from "./Dashboard";
@@ -9,7 +9,6 @@ import SpotifyDashboard from './component/SpotifyDashboard';
 import ImageClassifier from './component/ImageClassifier';
 import TemporaryDrawer from './component/TemporaryDrawer'; 
 import MediaPipe from './component/MediaPipe';
-import Hobbies from './component/Hobbies';
 import Gallery from "./component/Gallery";
 import Books from './component/Books';
 import FeaturesCard from './component/FeaturesCard';
@@ -24,6 +23,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import DescriptionIcon from '@mui/icons-material/Description';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Slide from '@mui/material/Slide';
+
 
 const actions = [
   { icon: <DescriptionIcon />, name: ''},
@@ -138,9 +138,12 @@ function CustomSpeedDial(props) {
 }
 
 export default function App() {
-  
+
+  const location = useLocation();
+
+  const hideSpeedDial = location.pathname === "/gallery";
+
   return (
-    <Router>
       <div>
           <Analytics mode="production" />
 
@@ -148,7 +151,7 @@ export default function App() {
                 <TemporaryDrawer />
           </div>
     
-          <CustomSpeedDial />
+          {!hideSpeedDial && <CustomSpeedDial />}
         
 
           <div className="container">
@@ -169,6 +172,5 @@ export default function App() {
           </div>
 
       </div>
-    </Router>
   );
 }
