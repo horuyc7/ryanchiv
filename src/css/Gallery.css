@@ -134,7 +134,6 @@
 }
 
 @media (max-width: 768px) {
-
   .grid {
     margin-right: 0px;
   }
@@ -152,7 +151,7 @@
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
-    max-width: 94vw;
+    max-width: 90vw;
   }
 
   .spotify-iframe {
