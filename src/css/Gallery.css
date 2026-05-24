@@ -60,7 +60,7 @@
 
 .expanded-img {
     display: block;
-    max-width: 65vw;
+    max-width: 60vw;
     max-height: 75vh;
     width: auto;
     height: auto;
@@ -146,14 +146,13 @@
 
   .expanded {
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-top: -30px;
   }
 
   .expanded-img {
     margin-left: 0 !important;
     margin-top: 0 !important;
-    max-width: 92vw;
-    
+    max-width: 94vw;
   }
 
   .spotify-iframe {
@@ -164,15 +163,6 @@
     max-width: 100%; 
   }
 
-  .tiktok-feed {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
-    box-sizing: border-box;
-  }
-
-  .tiktok-spotify {
-    margin-bottom: env(safe-area-inset-bottom);
-  }
-  
 }
 
 .image-wrapper.no-spotify {
@@ -270,7 +260,7 @@
   background: transparent;
   color: #bbf3d1;
 
-  padding: 4px 30px;
+  padding: 6px 30px;
   font-size: 12px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -289,7 +279,11 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
-  
+}
+
+.tiktok-item {
+  overflow: hidden;
+  transform: translateZ(0);
 }
 
 .tiktok-image-wrapper {
@@ -303,20 +297,21 @@
   position: relative;
   display: inline-block;
   max-height: calc(100vh - 180px); /* accounts for toggle + spotify */
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .tiktok-img {
   display: block;
 
-  max-height: calc(100vh - 180px);
+  max-height: calc(100vh - 240px);
   max-width: 100%;
 
   width: auto;
   height: auto;
 
   object-fit: contain;
-
-  border-radius: 8px;
+  border-radius: 0px;
 }
 
 .tiktok-caption {
