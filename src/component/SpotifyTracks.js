@@ -1,32 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import authHelpers from './authHelpers';
-import axios from 'axios';
-
 import '../css/SpotifyTracks.css';
 
 
 async function fetchWebApi(endpoint, method, accessToken) {
-
-  if (!accessToken) {
-    console.error("Spotify Token is not defined in the environment variables.");
-  }
-
-  //fetch from spotify with specific endpoint
-  const response = await axios(`https://api.spotify.com/${endpoint}`, {
+  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
+    method,
   });
-
-  return await response.json();
-
+  return await res.json();
 }
 
 
 async function getTopTracks(accessToken, timeRange, limit) {
 
   //endpoint to get top tracks dynamically with range and limit
-  const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${limit}`;
+  const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${limit? limit : 10}`;
 
   //call fetch and return items array
   return (await fetchWebApi(endpoint, 'GET', accessToken)).items;
@@ -41,19 +31,30 @@ export default function SpotifyTracks() {
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState('short_term');
   const [limit, setLimit] = useState('');
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState(null);
 
 
   useEffect(() => {
 
-    const token = authHelpers.getHashCode();
+  async function fetchAndSetToken() {
+      try {
+        const response = await fetch(
+          '/api/spotifyUserToken'
+        );
 
-    if (token) {
-      setAccessToken(token);
-    } else {
-      authHelpers.getAuth();
+        const data = await response.json();
+
+        setAccessToken(data.access_token);
+
+      } catch (error) {
+        console.error(
+          'Token error:',
+          error
+        );
+
+      }
     }
-
+    fetchAndSetToken();
   }, []);
 
   const fetchData = async () => {
@@ -84,7 +85,7 @@ export default function SpotifyTracks() {
   };
 
   const handleFetchClick = () => {
-    if (limit && timeRange) {
+    if (timeRange) {
       fetchData();
     }
   };
@@ -94,28 +95,31 @@ export default function SpotifyTracks() {
     <div className='spotifytracks'>
       <div className='spotifytracks__input-container'>
 
+        Terms:
+
         <p>
           <label>
             <input type="radio" value="short_term" checked={timeRange === 'short_term'} onChange={handleTimeRangeChange} />
-            Short Term
+            Short
           </label>
         </p>
 
         <p>
           <label>
             <input type="radio" value="medium_term" checked={timeRange === 'medium_term'} onChange={handleTimeRangeChange} />
-            Medium Term
+            Medium
           </label>
         </p>
 
         <p>
           <label>
             <input type="radio" value="long_term" checked={timeRange === 'long_term'} onChange={handleTimeRangeChange} />
-            Long Term
+            Long
           </label>
         </p>
 
-        <input className='textbox' type="text" maxLength="2" placeholder="Enter limit" value={limit} onChange={handleLimitChange} />
+
+        <input className='textbox' type="text" maxLength="2" placeholder="Enter limit (default=10)" value={limit} onChange={handleLimitChange} />
         <button className="get-button" onClick={handleFetchClick}>Get</button>
 
       </div>
@@ -125,15 +129,15 @@ export default function SpotifyTracks() {
         {tracks && tracks.map((track, index) => (
           <div className="track-container" key={index}>
 
-            <p style={{ fontSize: '18px', fontWeight: '500', marginRight: '20px' }}>{index + 1}</p>
+            <p style={{ fontSize: '16px', fontWeight: '300', marginRight: '20px' }}>{index + 1}</p>
 
             <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-              <img style={{ marginRight: '20px', width: '100px', height: '100px' }} src={track.album.images[1].url} alt={track.name} />
+              <img style={{ marginRight: '20px', width: '80px', height: '80px' }} src={track.album.images[1].url} alt={track.name} />
             </a>
 
-            <div>
-              <p style={{ fontSize: '18px', fontWeight: '500' }}>{track.name}</p>
-              <p style={{ fontSize: '18px', fontWeight: '500' }}>{track.artists.map(artist => artist.name).join(', ')}</p>
+            <div className='tracks-details'>
+              <p>{track.name}</p>
+              <p>{track.artists.map(artist => artist.name).join(', ')}</p>
             </div>
 
           </div>

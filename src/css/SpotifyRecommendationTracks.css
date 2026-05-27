@@ -170,8 +170,8 @@
 
 
   .artist-container img:hover {
-      transition: all 1s;
-      transform:scale(1.2);
+      transition: all 1.5s;
+      transform: rotateZ(360deg);
     }
 
   .artist-detail {
@@ -193,7 +193,7 @@
 }
 
   .track-container {
-    border-bottom: 1px solid #8be7ae;
+    border-bottom: 1px solid #bbf3d1;
     padding-bottom: 4px;
     display: flex;
     align-items: center;
@@ -214,7 +214,7 @@
 
   .track-detail p {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       text-align: left; /* Align text to the left */
   }

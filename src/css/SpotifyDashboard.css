@@ -19,8 +19,8 @@
   .spotify_active {
     transition: 1s;
     transform: scale(1.1);
-    color: #bbf3d0 !important;
-    text-shadow: 0 0 3px #54f391;
+    color: #bbf3d1 !important;
+    text-shadow: 0 0 3px #bbf3d1;
   }
   
   .spotify_active:hover::before {

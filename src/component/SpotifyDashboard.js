@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, Navigate} from "react-router-dom";
 import SpotifyRecommendationTracks from './SpotifyRecommendationTracks';
 import SpotifyRecommendationArtists from './SpotifyRecommendationArtists';
-//import SpotifyTracks from './SpotifyTracks';
-import Spotify from './Spotify';
+import SpotifyTracks from './SpotifyTracks';
 
 import '../css/SpotifyDashboard.css';
+
 
 
 export default function SpotifyDashboard() {
@@ -45,7 +45,7 @@ export default function SpotifyDashboard() {
 
           <Route path="recommendationtracks" element={<SpotifyRecommendationTracks/>} />
           <Route path="recommendationartists" element={<SpotifyRecommendationArtists />} />
-          <Route path="spotifytracks" element={<Spotify />} />
+          <Route path="spotifytracks" element={<SpotifyTracks />} />
            
         </Routes>
       </div>
