@@ -172,6 +172,7 @@ export default function Gallery() {
     setLoadingAlbum(true);
     setActiveAlbum(album);
     setPhotosData([]);
+    setShuffledPhotos([]);
     setVisibleCount(20);
     setFeedIndex(0);
 
@@ -191,6 +192,7 @@ export default function Gallery() {
     } catch (err) {
       console.error(err);
       setPhotosData([]);
+      setShuffledPhotos([]);
     }
     finally {
       setLoadingAlbum(false);
@@ -419,7 +421,6 @@ export default function Gallery() {
         {photosData?.[feedIndex]?.spotify && (
           <iframe
             className="tiktok-spotify"
-            src={photosData[feedIndex].spotify}
             src={
               photosData[feedIndex].spotify.includes('embed')
                 ? photosData[feedIndex].spotify
@@ -466,7 +467,8 @@ export default function Gallery() {
                   layoutId={active.src}
                   className="expanded"
                   style={{
-                    boxShadow: `0 0 60px rgba(${themeColor}, 0.3)`,
+                    boxShadow: `0 0 70px rgba(${themeColor}, 0.2)`,
+                    borderRadius: '12px',
                   }}
                   transition={{
                     type: "spring",

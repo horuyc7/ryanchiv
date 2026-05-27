@@ -57,7 +57,7 @@ const iconMap = {
   Books: <BookIcon />,
   Movies: <TheatersIcon />,
   Gallery: <LuggageIcon />,
-  Restaurants: <RestaurantIcon />,
+  Food: <RestaurantIcon />,
   Image: <ImageIcon />,
   Object: <ImageSearchIcon />,
 };
@@ -118,11 +118,11 @@ export default function TopExpandMenu() {
     {[
   "Home",
   "Features",
-  "Spotify",
+  "Gallery",
   "Books",
   "Movies",
-  "Gallery",
-  "Restaurants",
+  "Food",
+  "Spotify",
   "Image",
   "Object",
 ].map((text) => (
