@@ -123,8 +123,8 @@ export default function Gallery() {
     const next = photosData?.[feedIndex + 1];
     const prev = photosData?.[feedIndex - 1];
 
-    if (next?.src) new Image().src = cloudinaryUrl(next.src, 1600);
-    if (prev?.src) new Image().src = cloudinaryUrl(prev.src, 1600);
+    if (next?.src) new Image().src = cloudinaryUrl(next.src, 1400);
+    if (prev?.src) new Image().src = cloudinaryUrl(prev.src, 1400);
   }, [feedIndex, photosData]);
 
   const handleOpen = (p) => {
@@ -133,7 +133,7 @@ export default function Gallery() {
       const currentLoadId = ++loadIdRef.current;
 
       const low = cloudinaryUrl(p.src, 400);
-      const high = cloudinaryUrl(p.src, 1600);
+      const high = cloudinaryUrl(p.src, 1400);
 
       setImgLoaded(false);
       setActive(p);
@@ -402,7 +402,7 @@ export default function Gallery() {
             <img
               src={
                 photosData?.[feedIndex]?.src
-                  ? cloudinaryUrl(photosData[feedIndex].src, 1600)
+                  ? cloudinaryUrl(photosData[feedIndex].src, 1400)
                   : ""
               }
               className="tiktok-img"
@@ -420,6 +420,13 @@ export default function Gallery() {
           <iframe
             className="tiktok-spotify"
             src={photosData[feedIndex].spotify}
+            src={
+              photosData[feedIndex].spotify.includes('embed')
+                ? photosData[feedIndex].spotify
+                : `https://open.spotify.com/embed/track/${
+                    photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
+                  }?utm_source=generator&theme=0`
+            }
             height="80"
             width="100%"
             frameBorder="0"
@@ -495,7 +502,13 @@ export default function Gallery() {
                   {active.spotify && (
                     <motion.iframe
                       className="spotify-iframe"
-                      src={active.spotify}
+                      src={
+                        active.spotify.includes('embed')
+                          ? active.spotify
+                          : `https://open.spotify.com/embed/track/${
+                              active.spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
+                            }?utm_source=generator&theme=0`
+                      }
                       height="80"
                       width="100%"
                       frameBorder="0"
