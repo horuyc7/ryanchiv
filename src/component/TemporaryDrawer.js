@@ -78,20 +78,50 @@ export default function TopExpandMenu() {
           }}
         >
           <Toolbar sx={{ gap: 1 }}>
-            <a href="/">
+            <Box
+              component="a"
+              href="/"
+              sx={{
+                position: "relative",
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                overflow: "hidden",
+                display: "block",
+                mt: 1,
+                ml: "-4px",
+
+                "&::before": {
+                  content: '""',
+                  position: "absolute",
+                  inset: 0,
+                  background: "#beefd2f1",
+                  transition: "opacity 0.55s ease",
+                  zIndex: 2,
+                },
+
+                "& img": {
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  transform: "scale(1.08)",
+                  transition: "all 0.55s ease",
+                },
+
+                "&:hover::before": {
+                  opacity: 0,
+                },
+
+                "&:hover img": {
+                  transform: "scale(1.2)",
+                },
+              }}
+            >
               <img
-                className="avatar"
                 src="https://preview.redd.it/fallen-angels-v0-wdk2688j5hec1.png?width=1080&crop=smart&auto=webp&s=dec90ac7d89e770013c18158aa595474ce4a68d4"
                 alt="Profile"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  borderRadius: 24,
-                  marginTop: "10px",
-                  marginLeft: "-4px",
-                }}
               />
-            </a>
+            </Box>
 
             <IconButton
               onClick={() => setOpen(!open)}
@@ -103,85 +133,76 @@ export default function TopExpandMenu() {
             </IconButton>
 
             <Collapse
-  in={open}
-  orientation="horizontal"
-  timeout={250}
->
-  <Box
-    sx={{
-      display: "flex",
-      alignItems: "center",
-      ml: -1.5,
-      gap: .8,
-    }}
-  >
-    {[
-  "Home",
-  "Features",
-  "Gallery",
-  "Books",
-  "Movies",
-  "Food",
-  "Spotify",
-  "Image",
-  "Object",
-].map((text) => (
-  <ListItemButton
-    key={text}
-    component={Link}
-    to={text === "Home" ? "/" : `/${text.toLowerCase()}`}
-    sx={{
-      minWidth: 36,
-      height: 25,
-      px: 0.5,
-      borderRadius: 2,
-      overflow: "hidden",
-      transition: "all 0.2s ease",
-      color: '#491e07',
+              in={open}
+              orientation="horizontal"
+              timeout={250}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  ml: -1.5,
+                  gap: .8,
+                }}
+              >
+                {[ "Home", "Features", "Gallery", "Books", "Movies", "Food", "Spotify", "Image", "Object",
+                ].map((text) => (
+                  <ListItemButton
+                    key={text}
+                    component={Link}
+                    to={text === "Home" ? "/" : `/${text.toLowerCase()}`}
+                    sx={{
+                      minWidth: 36,
+                      height: 25,
+                      px: 0.5,
+                      borderRadius: 2,
+                      overflow: "hidden",
+                      transition: "all 0.2s ease",
+                      color: '#491e07',
 
-      "& .MuiListItemText-root": {
-        opacity: 0,
-        width: 0,
-        transition: "0.2s",
-        whiteSpace: "nowrap",
-      },
+                      "& .MuiListItemText-root": {
+                        opacity: 0,
+                        width: 0,
+                        transition: "0.2s",
+                        whiteSpace: "nowrap",
+                      },
 
-      "& .MuiTypography-root": {
-        fontSize: "0.90rem",
-        fontWeight: 400,
-      },
+                      "& .MuiTypography-root": {
+                        fontSize: "0.90rem",
+                        fontWeight: 400,
+                      },
 
-      "&:hover": {
-        px: 1,
-        backgroundColor: "rgba(255,255,255,0.08)",
-      },
+                      "&:hover": {
+                        px: 1,
+                        backgroundColor: "rgba(255,255,255,0.08)",
+                      },
 
-      "&:hover .MuiListItemText-root": {
-        opacity: 1,
-        width: "auto",
-        marginLeft: "3px",
-        marginTop: "6px",
-      },
-    }}
-  >
-    <ListItemIcon
-      sx={{
-        color: '#491e07',
-        minWidth: 0,
+                      "&:hover .MuiListItemText-root": {
+                        opacity: 1,
+                        width: "auto",
+                        marginLeft: "3px",
+                        marginTop: "6px",
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        color: '#491e07',
+                        minWidth: 0,
 
-        "& svg": {
-          fontSize: "1.45rem",
-        },
-      }}
-    >
-      {text === "Home" ? <HomeIcon /> : iconMap[text]}
-    </ListItemIcon>
+                        "& svg": {
+                          fontSize: "1.45rem",
+                        },
+                      }}
+                    >
+                      {text === "Home" ? <HomeIcon /> : iconMap[text]}
+                    </ListItemIcon>
 
-    <ListItemText primary={text} />
-  </ListItemButton>
-))}
-  </Box>
-</Collapse>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                ))}
+              </Box>
+            </Collapse>
           </Toolbar>
         </AppBar>
 
