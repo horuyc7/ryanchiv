@@ -85,11 +85,13 @@ export default function TopExpandMenu() {
                 position: "relative",
                 width: 40,
                 height: 40,
+                flexShrink: 0,
                 borderRadius: "50%",
                 overflow: "hidden",
                 display: "block",
                 mt: 1,
                 ml: "-4px",
+                marginBottom: "5px",
 
                 "&::before": {
                   content: '""',
