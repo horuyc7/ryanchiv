@@ -4,8 +4,15 @@ import { createPortal } from "react-dom";
 import ColorThief from "color-thief-browser";
 import Loading from "./LoadingCircle";
 import { useRef } from "react";
+import {
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel
+} from "@mui/material";
 
 import albumsData from "../data/albums.json";
+import cities from "../data/cities.json";
 
 import "../css/Gallery.css";
 
@@ -38,6 +45,54 @@ export default function Gallery() {
 
   const [loadingAlbum, setLoadingAlbum] = useState(false);
   const loadIdRef = useRef(0);
+
+  const [selectedCity, setSelectedCity] = useState("all");
+  const [albumsList, setAlbumsList] = useState([]);
+  const displayAlbums =
+  selectedCity === "all" ? albums : albumsList;
+
+  const [cityLoading, setCityLoading] = useState(false);
+
+  const isInitialRender = useRef(true);
+  
+
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+
+    let timer;
+
+    async function fetchAlbums() {
+      setAlbumsList([]);
+
+      if (selectedCity === "all") {
+        
+        setCityLoading(false); // IMPORTANT FIX
+        return;
+      }
+
+      timer = setTimeout(() => setCityLoading(true), 200);
+
+      try {
+        const res = await fetch(`/api/gallery?city=${selectedCity}`);
+        const data = await res.json();
+
+        setAlbumsList(data);
+      } catch (err) {
+        console.error(err);
+        setAlbumsList([]);
+      } finally {
+        clearTimeout(timer);
+        setCityLoading(false);
+      }
+      }
+
+      fetchAlbums();
+
+      return () => clearTimeout(timer);
+  }, [selectedCity]);
 
   const cloudinaryUrl = (path, width) =>
     path
@@ -169,6 +224,15 @@ export default function Gallery() {
     };
 
   const loadAlbum = async (album) => {
+    const raw =
+      album?.album || album?.id || album?.slug || album?.title;
+
+    if (!raw) return;
+
+    const albumId = String(raw)
+      .toLowerCase()
+      .replace(/\s+/g, ""); // remove spaces
+
     setLoadingAlbum(true);
     setActiveAlbum(album);
     setPhotosData([]);
@@ -177,7 +241,10 @@ export default function Gallery() {
     setFeedIndex(0);
 
     try {
-      const res = await fetch(`/api/gallery?album=${album.album}`);
+      const res = await fetch(
+        `/api/gallery?album=${encodeURIComponent(albumId)}&city=${selectedCity}`
+      );
+
       const data = await res.json();
 
       const photos =
@@ -193,8 +260,7 @@ export default function Gallery() {
       console.error(err);
       setPhotosData([]);
       setShuffledPhotos([]);
-    }
-    finally {
+    } finally {
       setLoadingAlbum(false);
     }
   };
@@ -295,22 +361,113 @@ export default function Gallery() {
 
   return (
     <div className="gallery">
+
       {!activeAlbum && (
-        <div className="albums">
-          {albums.map((album, i) => (
-            <div
-              key={i}
-              className="album-card"
-              onClick={() => loadAlbum(album)}
-            >
-              <img
-                src={cloudinaryUrl(album.cover, 800)}
-                className="album-img"
-              />
-              <div className="album-title">{album.title}</div>
+  <>
+    <div className="gallery-topbar">
+      <h2 className="gallery-heading">
+        Gallery
+      </h2>
+
+      <div className="city-filter">
+        <FormControl
+          sx={{
+            minWidth: 140,
+
+            "& .MuiInputLabel-root": {
+              color: "#f7f7f7",
+              marginLeft: "-3px",
+            },
+
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "#bbf3d1",
+            },
+
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "rgba(255,255,255,0.1)",
+            },
+
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#bbf3d1",
+            },
+
+            "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+              borderColor: "#bbf3d1 !important",
+            },
+
+            "& .MuiSvgIcon-root": {
+              color: "#bbf3d1",
+            },
+
+            "& .MuiSelect-select": {
+              color: "#f7f7f7",
+              padding: "10px 18px",
+            },
+          }}
+        >
+          <InputLabel>Place</InputLabel>
+
+          <Select
+            value={selectedCity}
+            label="Place"
+            onChange={(e) => setSelectedCity(e.target.value)}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  background: "rgba(20,20,20,0.95)",
+
+                  "& .MuiMenuItem-root": {
+                    color: "#f7f7f7",
+                  },
+
+                  "& .MuiMenuItem-root:hover": {
+                    background: "rgba(95,96,95,0.1)",
+                  },
+
+                  "& .Mui-selected": {
+                    background: "#bbf3d122 !important",
+                  },
+
+                  "& .Mui-selected:hover": {
+                    background: "rgba(187,243,209,0.22) !important",
+                  },
+                },
+              },
+            }}
+          >
+            {cities.map((city) => (
+              <MenuItem key={city} value={city}>
+                {city}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+    </div>
+
+
+          {cityLoading ? (
+            <div className="gallery-loading">
+              <Loading />
             </div>
-          ))}
-        </div>
+          ) : (
+            <div className="albums">
+              {displayAlbums.map((album, i) => (
+                <div
+                  key={i}
+                  className="album-card"
+                  onClick={() => loadAlbum(album)}
+                >
+                  <img
+                    src={cloudinaryUrl(album.cover, 800)}
+                    className="album-img"
+                  />
+                  <div className="album-title">{album.title}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
 
       {activeAlbum && (

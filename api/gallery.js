@@ -8,12 +8,19 @@ cloudinary.config({
 
 export default async function handler(req, res) {
   try {  
-    const { album } = req.query;
+    const { album, city } = req.query;
 
-    // fallback if no album passed
-    const expression = album
-      ? `folder:gallery/${album}/*`
-      : "folder:gallery/*";
+    let expression = "folder:gallery/*";
+
+    // optional album filter
+    if (album) {
+      expression = `folder:gallery/${album}/*`;
+    }
+
+    // optional city filter (THIS is the key change)
+    if (city && city !== "all") {
+      expression = `${expression} AND context.city:${city}`;
+    }
 
     const result = await cloudinary.search
       .expression(expression)
@@ -29,7 +36,7 @@ export default async function handler(req, res) {
       if (!folder || !folder.startsWith("gallery/")) return;
 
       const parts = folder.split("/");
-      const album = parts[1]; // e.g. "may26"
+      const album = parts[1];
 
       if (!album) return;
 

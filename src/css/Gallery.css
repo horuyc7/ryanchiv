@@ -1,8 +1,25 @@
 .gallery {
     margin-right: 20px;
     margin-bottom: 20px;
-    margin-top: -10px;
+    margin-top: -20px;
     box-sizing: border-box;
+}
+
+.city-filter {
+  margin-top: 2px;
+}
+
+.gallery-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+}
+
+.gallery-heading {
+  text-transform: uppercase;
+  color: #bbf3d1;
 }
 
 .grid {
@@ -23,7 +40,7 @@
 
   break-inside: avoid;
 
-  border: 1px solid #bbf3d138;
+  border: 1px solid #d6540e24;
 }
 
 .overlay {
@@ -180,6 +197,7 @@
   cursor: pointer;
   overflow: hidden;
   border-radius: 8px;
+  
 }
 
 .album-img {
@@ -224,7 +242,8 @@
   justify-content: center;
 
   position: relative;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  margin-top: 40px;
 }
 
 .back-btn {
