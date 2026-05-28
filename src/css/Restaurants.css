@@ -3,6 +3,10 @@
     margin-bottom: 20px;
 }
 
+.leaflet-container {
+  background: none;
+}
+
 .leaflet-popup-content-wrapper {
   background: #d6540ee6;
   color: #ffffff;
