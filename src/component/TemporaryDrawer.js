@@ -20,7 +20,7 @@ import InterestsIcon from '@mui/icons-material/Interests';
 import UpdateIcon from '@mui/icons-material/Update';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import TheatersIcon from '@mui/icons-material/Theaters';
-import LuggageIcon from '@mui/icons-material/Luggage';
+import CameraRollIcon from '@mui/icons-material/CameraRoll';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import ImageIcon from '@mui/icons-material/Image';
@@ -56,7 +56,7 @@ const iconMap = {
   Spotify: <MusicNoteIcon />,
   Books: <BookIcon />,
   Movies: <TheatersIcon />,
-  Gallery: <LuggageIcon />,
+  Gallery: <CameraRollIcon />,
   Food: <RestaurantIcon />,
   Image: <ImageIcon />,
   Object: <ImageSearchIcon />,
