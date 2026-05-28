@@ -163,7 +163,7 @@ export default function App() {
                 <Route path="/movies" element={<Movies />} />
                 <Route path="/books/" element={<Books />} />
                 <Route path="/spotify/*" element={<SpotifyDashboard />} />
-                <Route path="/restaurants" element={<Restaurants />} />
+                <Route path="/food" element={<Restaurants />} />
                 <Route path="/image" element={<ImageClassifier />} />
                 <Route path="/object" element={<MediaPipe />} />
                 <Route path="*" element={<Navigate to="/" />} />

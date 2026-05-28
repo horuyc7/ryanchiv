@@ -101,7 +101,7 @@
             "lat": 13.0966604,
             "lng": 103.2018209,
             "rating": 4.8,
-            "review": "Grilled pork, hainan rice>",
+            "review": "Grilled pork>",
             "address": "Street 207, Krong Battambang 21402",
             "image": "https://lh3.googleusercontent.com/p/AF1QipOV3EautTkIJUuM6F3tjbsbtGcthqZYoWKofzs=w203-h152-k-no",
             "googleReviewUrl": "https://maps.app.goo.gl/HBt8tpMztAQJN8eHA",
@@ -266,8 +266,8 @@
         {
             "id": 23,
             "name": "BCD Tofu House",
-            "lat": 33.621905083459836,
-            "lng": -96.6340448236201,
+            "lat": 32.98243875572848, 
+            "lng": -96.90842962007493,
             "rating": 4,
             "review": "consistent",
             "address": "1050 E Trinity Mls Rd, Carrollton, TX 75006, United States",
@@ -314,8 +314,8 @@
         {
             "id": 27,
             "name": "somi",
-            "lat": 33.034231523233956,
-            "lng": -96.9127148190348,
+            "lat": 32.98182677392544,
+            "lng": -96.90753915744239,
             "rating": 4.3,
             "review": "consistent, crispy ahboong, matcha ube",
             "address": "2540 Old Denton Rd #126, Carrollton, TX 75006, United States",
@@ -394,5 +394,18 @@
             "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAEGgTwJw8-RBQTthGsnsO25TSO37sylt7dZIwNEKp9O1TimlEMpv8uX8tHphPFREG4AjrdQVnZG_p4IxspVy5j19PtR4zxYnXT4Pu16CWJSj3WP2OYJtJtpR3YYcbnkiXpjbUe2=w408-h306-k-no",
             "googleReviewUrl": "https://maps.app.goo.gl/tG23Fn5FJaCxXxs18",
             "category": "restaurant"
+        },
+        {
+            "id": 34,
+            "name": "Le Fournil",
+            "lat": 40.728048001919305,
+            "lng": -73.9878983501967,
+            "rating": 4,
+            "review": "brioche",
+            "address": "115 2nd Ave, New York, NY 10003, United States",
+            "image": "https://lh3.googleusercontent.com/gps-cs-s/APNQkAFK4FdOPO8F-lqU3tGsI7yoLQA5-dIu7UJ2uvjinkhqmWPzAgsKGnHiLBeBCXjsIyllSLAucLUrU6Hzh00LvsO03n2KaIUwD5a1Ud6cXuNgC1nahv1MVv3fmSk5TdpRThJvocvl=w408-h306-k-no",
+            "googleReviewUrl": "https://maps.app.goo.gl/DFUXDmrMF4njeyHw9",
+            "category": "bakery"
         }
+
 ]

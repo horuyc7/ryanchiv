@@ -62,7 +62,7 @@ const Description = ({}) => {
 
 
           <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: Theme.palette.secondary.main }} variant="body2">
+            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
               '19 - '23
             </TimelineOppositeContent>
 
@@ -116,8 +116,8 @@ const Description = ({}) => {
 
 
           <TimelineItem>
-            <TimelineOppositeContent sx={{ mt: 1.6, mb: 'auto', fontSize: "14px", color: Theme.palette.secondary.main}}>
-              '24 - Present
+            <TimelineOppositeContent sx={{ mt: 1.6, mb: 'auto', fontSize: "14px", color: "white"}}>
+              '24 - '26
             </TimelineOppositeContent>
 
 
@@ -139,6 +139,29 @@ const Description = ({}) => {
 
               <Typography fontSize={"14px"} sx={{color:'white'}} >Software Engineer</Typography>
 
+            </TimelineContent>
+
+          </TimelineItem>
+
+
+          <TimelineItem>
+            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
+              '26 -
+            </TimelineOppositeContent>
+
+
+            <TimelineSeparator>
+              <TimelineConnector />
+                <TimelineDot variant='outlined' sx={{ color: Theme.palette.primary.main}}>
+                  <ConnectingAirportsIcon sx={{RotateLeft: '90deg'}}/>
+                </TimelineDot>
+                
+              <TimelineConnector />
+
+            </TimelineSeparator>
+
+            <TimelineContent fontSize={"20px"} sx={{m: 'auto 0', fontWeight: 500, color:Theme.palette.primary.main}} >
+                Rest 2
             </TimelineContent>
 
           </TimelineItem>
