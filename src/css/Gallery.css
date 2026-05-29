@@ -180,12 +180,12 @@
     max-width: 100%; 
   }
 
-    .tiktok-image-container{
-  max-height: calc(100vh - 160px);
+    .tiktok-image-wrapper{
+        width: 90%;
   }
 
     .tiktok-img {
-  max-width: 95%;
+        max-height: calc(100vh - 200px);
     }
 
 }
