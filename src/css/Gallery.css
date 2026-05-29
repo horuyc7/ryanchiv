@@ -323,7 +323,7 @@
 .tiktok-image-container {
   position: relative;
   display: inline-block;
-  max-height: calc(100vh - 150px); /* accounts for toggle + spotify */
+  max-height: calc(100vh - 230px); /* accounts for toggle + spotify */
   overflow: hidden;
   border-radius: 8px;
 }
@@ -331,7 +331,7 @@
 .tiktok-img {
   display: block;
 
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 170px);
   max-width: 100%;
 
   width: auto;
