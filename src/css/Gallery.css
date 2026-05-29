@@ -184,6 +184,10 @@
   max-height: calc(100vh - 160px);
   }
 
+    .tiktok-img {
+  max-width: 95%;
+    }
+
 }
 
 .image-wrapper.no-spotify {
