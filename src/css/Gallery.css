@@ -181,11 +181,11 @@
   }
 
     .tiktok-image-wrapper{
-        height: 80%;
+
   }
 
     .tiktok-img {
-        max-height: calc(100vh - 250px);
+       max-height: calc(100vh - 300px);
     }
 
 }
@@ -323,7 +323,7 @@
 .tiktok-image-container {
   position: relative;
   display: inline-block;
-  max-height: calc(100vh - 280px); /* accounts for toggle + spotify */
+  max-height: calc(100vh - 150px); /* accounts for toggle + spotify */
   overflow: hidden;
   border-radius: 8px;
 }
