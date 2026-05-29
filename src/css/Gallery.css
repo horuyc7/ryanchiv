@@ -184,6 +184,10 @@
     max-height: calc(100dvh - 340px);
   }
 
+  .tiktok-img.has-spotify {
+    max-height: calc(100dvh - 300px);
+  }
+
 }
 
 .image-wrapper.no-spotify {
@@ -325,6 +329,19 @@
 }
 
 .tiktok-img {
+  display: block;
+
+  max-height: calc(100dvh - 180px);
+  max-width: 100%;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+  border-radius: 0px;
+}
+
+.tiktok-img.has-spotify {
   display: block;
 
   max-height: calc(100dvh - 250px);

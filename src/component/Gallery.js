@@ -564,7 +564,9 @@ export default function Gallery() {
                   ? cloudinaryUrl(photosData[feedIndex].src, 1400)
                   : ""
               }
-              className="tiktok-img"
+              className={`tiktok-img ${
+              photosData[feedIndex]?.spotify ? "has-spotify" : ""
+            }`}
             />
 
            {photosData?.[feedIndex] && (
