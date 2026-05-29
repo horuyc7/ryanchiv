@@ -180,13 +180,20 @@
     max-width: 100%; 
   }
 
-    .tiktok-image-wrapper{
-
+    .tiktok-image-container {
+    display: flex;
+    align-items: center;
   }
 
-    .tiktok-img {
-       max-height: calc(100vh - 300px);
-    }
+  .tiktok-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+
+    max-height: calc(100vh - 330px);
+
+    object-fit: contain;
+  }
 
 }
 
@@ -331,7 +338,7 @@
 .tiktok-img {
   display: block;
 
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 250px);
   max-width: 100%;
 
   width: auto;
