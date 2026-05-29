@@ -186,9 +186,7 @@
   }
 
   .tiktok-img {
-    max-height: calc(100vh - 370px);
-
-    object-fit: contain;
+    max-height: calc(100dvh - 380px);
   }
 
 }
