@@ -181,11 +181,11 @@
   }
 
     .tiktok-image-wrapper{
-        width: 90%;
+        height: 80%;
   }
 
     .tiktok-img {
-        max-height: calc(100vh - 200px);
+        max-height: calc(100vh - 170px);
     }
 
 }
@@ -323,7 +323,7 @@
 .tiktok-image-container {
   position: relative;
   display: inline-block;
-  max-height: calc(100vh - 180px); /* accounts for toggle + spotify */
+  max-height: calc(100vh - 150px); /* accounts for toggle + spotify */
   overflow: hidden;
   border-radius: 8px;
 }
@@ -331,7 +331,7 @@
 .tiktok-img {
   display: block;
 
-  max-height: calc(100vh - 240px);
+  max-height: calc(100vh - 200px);
   max-width: 100%;
 
   width: auto;
