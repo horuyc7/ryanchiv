@@ -180,6 +180,10 @@
     max-width: 100%; 
   }
 
+    .tiktok-image-container{
+  max-height: calc(100vh - 160px);
+  }
+
 }
 
 .image-wrapper.no-spotify {
