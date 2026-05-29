@@ -182,14 +182,11 @@
 
     .tiktok-image-container {
     display: flex;
-    align-items: center;
+    justify-content: center;
   }
 
   .tiktok-img {
-    width: 100%;
-    max-width: 100%;
-
-    max-height: calc(100vh - 330px);
+    max-height: calc(100vh - 370px);
 
     object-fit: contain;
   }
