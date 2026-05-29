@@ -188,7 +188,6 @@
   .tiktok-img {
     width: 100%;
     max-width: 100%;
-    height: auto;
 
     max-height: calc(100vh - 330px);
 
