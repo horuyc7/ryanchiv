@@ -54,7 +54,40 @@ export default function Gallery() {
   const [cityLoading, setCityLoading] = useState(false);
 
   const isInitialRender = useRef(true);
-  
+
+  const [feedReadyIndex, setFeedReadyIndex] = useState(-1);
+
+  useEffect(() => {
+  let cancelled = false;
+
+  async function waitImage() {
+    setFeedReadyIndex(-1);
+
+    const src = photosData?.[feedIndex]?.src;
+    if (!src) return;
+
+    const img = new Image();
+    img.src = cloudinaryUrl(src, 1400);
+
+    try {
+      // waits until fully decoded (NOT just "loaded")
+      await img.decode();
+    } catch (e) {
+      // fallback if decode fails
+      await new Promise((res) => (img.onload = res));
+    }
+
+    if (!cancelled) {
+      setFeedReadyIndex(feedIndex);
+    }
+  }
+
+  waitImage();
+
+  return () => {
+    cancelled = true;
+  };
+}, [feedIndex, photosData]);
 
   useEffect(() => {
     if (isInitialRender.current) {
@@ -182,46 +215,50 @@ export default function Gallery() {
     if (prev?.src) new Image().src = cloudinaryUrl(prev.src, 1400);
   }, [feedIndex, photosData]);
 
-  const handleOpen = (p) => {
-      if (!p?.src) return;
+  const handleOpen = async (p) => {
+  if (!p?.src) return;
 
-      const currentLoadId = ++loadIdRef.current;
+  const currentLoadId = ++loadIdRef.current;
 
-      const low = cloudinaryUrl(p.src, 400);
-      const high = cloudinaryUrl(p.src, 1400);
+  const low = cloudinaryUrl(p.src, 400);
+  const high = cloudinaryUrl(p.src, 1400);
 
-      setImgLoaded(false);
-      setActive(p);
+  setImgLoaded(false);
+  setActive(p);
+  setLowSrc(low);
+  setHighSrc(null);
 
-      setLowSrc(low);
-      setHighSrc(null);
+  try {
+    const lowImg = new Image();
+    lowImg.crossOrigin = "Anonymous";
+    lowImg.src = low;
 
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.src = low;
+    await lowImg.decode();
 
-      img.onload = async () => {
-        if (loadIdRef.current !== currentLoadId) return;
+    if (loadIdRef.current !== currentLoadId) return;
 
-        try {
-          const colorThief = new ColorThief();
-          const [r, g, b] = colorThief.getColor(img);
-          setThemeColor(`${r},${g},${b}`);
-        } catch (e) {}
+    const colorThief = new ColorThief();
+    const [r, g, b] = colorThief.getColor(lowImg);
+    setThemeColor(`${r},${g},${b}`);
 
-        const hd = new Image();
-        hd.src = high;
+    const hdImg = new Image();
+    hdImg.src = high;
 
-        hd.onload = () => {
-          if (loadIdRef.current !== currentLoadId) return;
+    await hdImg.decode();
 
-          setHighSrc(high);
-          requestAnimationFrame(() => {
-            setImgLoaded(true);
-          });
-        };
-      };
-    };
+    if (loadIdRef.current !== currentLoadId) return;
+
+    setHighSrc(high);
+    setImgLoaded(true);
+
+  } catch (e) {
+    // fallback safety
+    if (loadIdRef.current === currentLoadId) {
+      setHighSrc(high);
+      setImgLoaded(true);
+    }
+  }
+};
 
   const loadAlbum = async (album) => {
     const raw =
@@ -517,6 +554,9 @@ export default function Gallery() {
                   loading={i < 6 ? "eager" : "lazy"}
                   onClick={() => handleOpen(p)}
                   whileHover={{ scale: 1.03, opacity: 0.8 }}
+                  style={{
+                    visibility: active?.src === p.src ? "hidden" : "visible"
+                  }}
                 />
               ))}
             </div>
@@ -559,15 +599,11 @@ export default function Gallery() {
             }`}
           >
             <img
-              src={
-                photosData?.[feedIndex]?.src
-                  ? cloudinaryUrl(photosData[feedIndex].src, 1400)
-                  : ""
-              }
-              className={`tiktok-img ${
-              photosData[feedIndex]?.spotify ? "has-spotify" : ""
-            }`}
-            />
+  src={cloudinaryUrl(photosData[feedIndex].src, 1400)}
+  className={`tiktok-img ${
+    photosData[feedIndex]?.spotify ? "has-spotify" : ""
+  }`}
+/>
 
            {photosData?.[feedIndex] && (
               <div className="tiktok-caption">
@@ -577,22 +613,23 @@ export default function Gallery() {
           </div>
         </div>
 
-        {photosData?.[feedIndex]?.spotify && (
-          <iframe
-            className="tiktok-spotify"
-            src={
-              photosData[feedIndex].spotify.includes('embed')
-                ? photosData[feedIndex].spotify
-                : `https://open.spotify.com/embed/track/${
-                    photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
-                  }?utm_source=generator&theme=0`
-            }
-            height="80"
-            width="100%"
-            frameBorder="0"
-            allow="autoplay; clipboard-write; encrypted-media"
-          />
-        )}
+        {photosData?.[feedIndex]?.spotify &&
+ feedReadyIndex === feedIndex && (
+  <iframe
+    className="tiktok-spotify"
+    src={
+      photosData[feedIndex].spotify.includes("embed")
+        ? photosData[feedIndex].spotify
+        : `https://open.spotify.com/embed/track/${
+            photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
+          }?utm_source=generator&theme=0`
+    }
+    height="80"
+    width="100%"
+    frameBorder="0"
+    allow="autoplay; clipboard-write; encrypted-media"
+  />
+)}
       </motion.div>
     </AnimatePresence>
   </div>
