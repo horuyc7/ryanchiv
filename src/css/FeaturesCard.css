@@ -21,7 +21,7 @@
     padding-block-start: 16px;
     padding-top: 18px;
     padding-bottom: 10px;
-    border-image: linear-gradient(to right, #a84921, #609875c7) 1;
+    border-image: linear-gradient(to right,  #609875c7, #a84921) 1;
 
   /* Ensure the border image is repeated to fill the border */
   border-image-slice: 1;

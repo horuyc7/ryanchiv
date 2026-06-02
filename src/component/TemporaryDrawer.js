@@ -97,7 +97,7 @@ export default function TopExpandMenu() {
                   content: '""',
                   position: "absolute",
                   inset: 0,
-                  background: "#beefd2f1",
+                  background: "#491e07",
                   transition: "opacity 0.55s ease",
                   zIndex: 2,
                 },

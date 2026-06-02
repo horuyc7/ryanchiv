@@ -17,6 +17,7 @@ export default function FeaturesCard() {
                 <li className="featurescard__item">Refactor</li>
                 <li className="featurescard__item">Make artists/tracks recommendation more specific</li>
 
+                <li className="featurescard__item">A̶d̶d̶ ̶p̶r̶o̶g̶r̶e̶s̶s̶ ̶b̶a̶r̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>
                 <li className="featurescard__item">A̶d̶d̶ ̶s̶h̶o̶w̶ ̶i̶m̶a̶g̶e̶s̶ ̶b̶y̶ ̶c̶i̶t̶y̶ ̶o̶p̶t̶i̶o̶n̶s̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>
                 <li className="featurescard__item">F̶i̶x̶ ̶s̶p̶o̶t̶i̶f̶y̶ ̶t̶o̶p̶ ̶t̶r̶a̶c̶k̶s̶</li>
                 <li className="featurescard__item">A̶d̶d̶ ̶f̶e̶e̶d̶ ̶l̶i̶k̶e̶ ̶v̶i̶e̶w̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>
