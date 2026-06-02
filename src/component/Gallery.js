@@ -170,40 +170,6 @@ export default function Gallery() {
     };
   }, [viewMode]);
 
-  /* wheel feed navigation */
-  useEffect(() => {
-    if (viewMode !== "feed") return;
-
-    let locked = false;
-
-    const handleWheel = (e) => {
-      if (!Array.isArray(photosData) || photosData.length === 0) return;
-
-      e.preventDefault();
-      if (locked) return;
-      if (Math.abs(e.deltaY) < 15) return;
-
-      locked = true;
-
-      if (e.deltaY > 0) {
-        setFeedIndex((p) =>
-          Math.min(p + 1, photosData.length - 1)
-        );
-      } else {
-        setFeedIndex((p) => Math.max(p - 1, 0));
-      }
-
-      setTimeout(() => {
-        locked = false;
-      }, 400);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () =>
-      window.removeEventListener("wheel", handleWheel);
-  }, [viewMode, photosData]);
-
   /* preload */
   useEffect(() => {
     if (!Array.isArray(photosData)) return;
@@ -538,7 +504,7 @@ export default function Gallery() {
               className={viewMode === "feed" ? "active" : ""}
               onClick={() => setViewMode("feed")}
             >
-              Feed
+              Story
             </button>
           </div>
 
@@ -565,75 +531,92 @@ export default function Gallery() {
       )}
 
      {viewMode === "feed" && photosData?.length > 0 && (
-  <div className="tiktok-feed">
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={feedIndex}
-        className="tiktok-item"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96 }}
-        transition={{ duration: 0.4 }}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        onDragEnd={(e, info) => {
-          const offset = info.offset.y;
-          const velocity = info.velocity.y;
-
-          if (offset < -80 || velocity < -500) {
-            setFeedIndex((p) =>
-              Math.min(p + 1, photosData.length - 1)
-            );
-          }
-
-          if (offset > 80 || velocity > 500) {
-            setFeedIndex((p) => Math.max(p - 1, 0));
-          }
-        }}
-      >
-        {/* IMAGE WRAPPER */}
-        <div className="tiktok-image-wrapper">
-          <div
-            className={`tiktok-image-container ${
-              photosData[feedIndex]?.spotify ? "has-spotify" : ""
-            }`}
+      <div className="tiktok-feed">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={feedIndex}
+            className="tiktok-item"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.4 }}
           >
-            <img
-  src={cloudinaryUrl(photosData[feedIndex].src, 1400)}
-  className={`tiktok-img ${
-    photosData[feedIndex]?.spotify ? "has-spotify" : ""
-  }`}
-/>
+            <div className="story-content">
+              <div className="tiktok-image-wrapper">
+                <div
+                  className="story-tap-left"
+                  onClick={() =>
+                    setFeedIndex((p) => Math.max(p - 1, 0))
+                  }
+                />
 
-           {photosData?.[feedIndex] && (
-              <div className="tiktok-caption">
-                {formatCaption(photosData[feedIndex])}
+                <div
+                  className="story-tap-right"
+                  onClick={() =>
+                    setFeedIndex((p) =>
+                      Math.min(p + 1, photosData.length - 1)
+                    )
+                  }
+                />
+
+                <div
+                  className={`tiktok-image-container ${
+                    photosData[feedIndex]?.spotify ? "has-spotify" : ""
+                  }`}
+                >
+                  <div className="story-progress">
+                    {photosData.map((_, i) => (
+                      <div key={i} className="story-progress-track">
+                        <div
+                          className={`story-progress-fill ${
+                            i < feedIndex
+                              ? "done"
+                              : i === feedIndex
+                              ? "active"
+                              : ""
+                          }`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  <img
+                    src={cloudinaryUrl(photosData[feedIndex].src, 1400)}
+                    className={`tiktok-img ${
+                      photosData[feedIndex]?.spotify ? "has-spotify" : ""
+                    }`}
+                  />
+
+                  {photosData?.[feedIndex] && (
+                      <div className="tiktok-caption">
+                        {formatCaption(photosData[feedIndex])}
+                      </div>
+                  )}
+                </div>
               </div>
-            )}
-          </div>
-        </div>
 
-        {photosData?.[feedIndex]?.spotify &&
- feedReadyIndex === feedIndex && (
-  <iframe
-    className="tiktok-spotify"
-    src={
-      photosData[feedIndex].spotify.includes("embed")
-        ? photosData[feedIndex].spotify
-        : `https://open.spotify.com/embed/track/${
-            photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
-          }?utm_source=generator&theme=0`
-    }
-    height="80"
-    width="100%"
-    frameBorder="0"
-    allow="autoplay; clipboard-write; encrypted-media"
-  />
-)}
-      </motion.div>
-    </AnimatePresence>
-  </div>
-)}
+              {photosData?.[feedIndex]?.spotify &&
+                feedReadyIndex === feedIndex && (
+                <iframe
+                  className="tiktok-spotify"
+                  src={
+                    photosData[feedIndex].spotify.includes("embed")
+                      ? photosData[feedIndex].spotify
+                      : `https://open.spotify.com/embed/track/${
+                          photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
+                        }?utm_source=generator&theme=0`
+                  }
+                  height="80"
+                  width="100%"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media"
+                />
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      )}
 
       {typeof document !== "undefined" &&
         viewMode !== "feed" &&

@@ -24,6 +24,37 @@
   color: #bbf3d1;
 }
 
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  margin: 0px 0 16px;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.view-toggle button {
+  border: 1px solid #a7dbbc;
+  width: 110px;
+  background: transparent;
+  color: #a7dbbc;
+
+  padding: 6px 30px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.view-toggle button.active {
+  background: #a7dbbc;
+  color: black;
+}
+
 .grid {
     columns: 3 120px;
     gap: 10px;
@@ -42,7 +73,11 @@
 
   break-inside: avoid;
 
-  border: 1px solid #d6540e24;
+  border: 1px solid #d6540e1f;
+}
+
+.grid :hover{
+  border: 1px solid #d6540e69;
 }
 
 .overlay {
@@ -274,36 +309,6 @@
   text-transform: uppercase;
 }
 
-.view-toggle {
-  display: flex;
-  justify-content: center;
-  margin: 0px 0 16px;
-
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-.view-toggle button {
-  border: 1px solid #bbf3d1;
-  background: transparent;
-  color: #bbf3d1;
-
-  padding: 6px 30px;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-
-  cursor: pointer;
-
-  transition: all 0.2s ease;
-}
-
-.view-toggle button.active {
-  background: #bbf3d1;
-  color: black;
-}
-
 .tiktok-feed {
   height: 100dvh;
   overflow: hidden;
@@ -381,10 +386,9 @@
 }
 
 .tiktok-spotify {
+  display: block;
   width: 100%;
-  border-radius: 12px;
-
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .gallery-loading {
@@ -393,4 +397,61 @@
 
   margin-top: 30px;
 
+}
+
+.story-progress {
+  position: absolute;
+  top: 6px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  gap: 4px;
+  z-index: 20;
+}
+
+.story-progress-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  border-radius: 999px;
+}
+
+.story-progress-fill {
+  width: 0%;
+  height: 100%;
+  background:#ffe5d980;
+}
+
+.story-progress-fill.done {
+  width: 100%;
+}
+
+.story-progress-fill.active {
+  width: 100%;
+  transition: width 0.25s ease;
+}
+
+.story-tap-left,
+.story-tap-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 15;
+  cursor: pointer;
+}
+
+.story-tap-left {
+  left: 0;
+}
+
+.story-tap-right {
+  right: 0;
+}
+
+.story-content {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
