@@ -181,45 +181,50 @@ export default function Gallery() {
     if (prev?.src) new Image().src = cloudinaryUrl(prev.src, 1400);
   }, [feedIndex, photosData]);
 
-
   const handleOpen = async (p) => {
-  if (!p?.src) return;
+    if (!p?.src) return;
 
-  const currentLoadId = ++loadIdRef.current;
+    const currentLoadId = ++loadIdRef.current;
 
-  const low = cloudinaryUrl(p.src, 400);
-  const high = cloudinaryUrl(p.src, 1400);
+    const low = cloudinaryUrl(p.src, 400);
+    const high = cloudinaryUrl(p.src, 1400);
 
-  setImgLoaded(false);
-  setActive(p);
-  setLowSrc(low);
-  setHighSrc(null);
-
-  requestIdleCallback?.(() => {
-  const lowImg = new Image();
-  lowImg.crossOrigin = "Anonymous";
-  lowImg.src = low;
-
-  lowImg.decode().then(() => {
-    if (loadIdRef.current !== currentLoadId) return;
+    setImgLoaded(false);
+    setActive(p);
+    setLowSrc(low);
+    setHighSrc(null);
 
     try {
+      const lowImg = new Image();
+      lowImg.crossOrigin = "Anonymous";
+      lowImg.src = low;
+
+      await lowImg.decode();
+
+      if (loadIdRef.current !== currentLoadId) return;
+
       const colorThief = new ColorThief();
       const [r, g, b] = colorThief.getColor(lowImg);
       setThemeColor(`${r},${g},${b}`);
-    } catch {}
-  });
-});
 
-    const hdImg = new Image();
-hdImg.src = high;
+      const hdImg = new Image();
+      hdImg.src = high;
 
-hdImg.decode().then(() => {
-  if (loadIdRef.current !== currentLoadId) return;
+      await hdImg.decode();
 
-  setHighSrc(high);
-});
-};
+      if (loadIdRef.current !== currentLoadId) return;
+
+      setHighSrc(high);
+      setImgLoaded(true);
+
+    } catch (e) {
+      // fallback safety
+      if (loadIdRef.current === currentLoadId) {
+        setHighSrc(high);
+        setImgLoaded(true);
+      }
+    }
+  };
 
   const loadAlbum = async (album) => {
     const raw =
