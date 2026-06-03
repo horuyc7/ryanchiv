@@ -542,28 +542,30 @@ export default function Gallery() {
             transition={{ duration: 0.4 }}
           >
             <div className="story-content">
+
               <div className="tiktok-image-wrapper">
-                <div
-                  className="story-tap-left"
-                  onClick={() =>
-                    setFeedIndex((p) => Math.max(p - 1, 0))
-                  }
-                />
-
-                <div
-                  className="story-tap-right"
-                  onClick={() =>
-                    setFeedIndex((p) =>
-                      Math.min(p + 1, photosData.length - 1)
-                    )
-                  }
-                />
-
                 <div
                   className={`tiktok-image-container ${
                     photosData[feedIndex]?.spotify ? "has-spotify" : ""
                   }`}
                 >
+
+                  <div
+                    className="story-tap-left"
+                    onClick={() =>
+                      setFeedIndex((p) => Math.max(p - 1, 0))
+                    }
+                  />
+
+                  <div
+                    className="story-tap-right"
+                    onClick={() =>
+                      setFeedIndex((p) =>
+                        Math.min(p + 1, photosData.length - 1)
+                      )
+                    }
+                  />
+
                   <div className="story-progress">
                     {photosData.map((_, i) => (
                       <div key={i} className="story-progress-track">
