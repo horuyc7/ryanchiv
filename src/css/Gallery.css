@@ -218,11 +218,11 @@
   }
 
   .tiktok-img {
-    max-height: calc(100dvh - 360px);
+    max-height: calc(100dvh - 180px);
   }
 
   .tiktok-img.has-spotify {
-    max-height: calc(100dvh - 320px);
+    max-height: calc(100dvh - 200px);
   }
 
 }
@@ -370,7 +370,7 @@
 .tiktok-img {
   display: block;
 
-  max-height: calc(100dvh - 180px);
+  max-height: calc(100dvh - 120px);
   max-width: 100%;
 
   width: auto;
@@ -383,7 +383,7 @@
 .tiktok-img.has-spotify {
   display: block;
 
-  max-height: calc(100dvh - 250px);
+  max-height: calc(100dvh - 200px);
   max-width: 100%;
 
   width: auto;
