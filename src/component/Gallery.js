@@ -160,15 +160,15 @@ export default function Gallery() {
 
   /* lock scroll feed */
   useEffect(() => {
-    if (viewMode !== "feed") return;
+  if (viewMode !== "feed") return;
 
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
 
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [viewMode]);
+  return () => {
+    document.body.style.overflow = "";
+    document.body.style.position = "";
+  };
+}, [viewMode]);
 
   /* preload */
   useEffect(() => {
@@ -180,6 +180,7 @@ export default function Gallery() {
     if (next?.src) new Image().src = cloudinaryUrl(next.src, 1400);
     if (prev?.src) new Image().src = cloudinaryUrl(prev.src, 1400);
   }, [feedIndex, photosData]);
+
 
   const handleOpen = async (p) => {
   if (!p?.src) return;
@@ -194,36 +195,30 @@ export default function Gallery() {
   setLowSrc(low);
   setHighSrc(null);
 
-  try {
-    const lowImg = new Image();
-    lowImg.crossOrigin = "Anonymous";
-    lowImg.src = low;
+  requestIdleCallback?.(() => {
+  const lowImg = new Image();
+  lowImg.crossOrigin = "Anonymous";
+  lowImg.src = low;
 
-    await lowImg.decode();
-
+  lowImg.decode().then(() => {
     if (loadIdRef.current !== currentLoadId) return;
 
-    const colorThief = new ColorThief();
-    const [r, g, b] = colorThief.getColor(lowImg);
-    setThemeColor(`${r},${g},${b}`);
+    try {
+      const colorThief = new ColorThief();
+      const [r, g, b] = colorThief.getColor(lowImg);
+      setThemeColor(`${r},${g},${b}`);
+    } catch {}
+  });
+});
 
     const hdImg = new Image();
-    hdImg.src = high;
+hdImg.src = high;
 
-    await hdImg.decode();
+hdImg.decode().then(() => {
+  if (loadIdRef.current !== currentLoadId) return;
 
-    if (loadIdRef.current !== currentLoadId) return;
-
-    setHighSrc(high);
-    setImgLoaded(true);
-
-  } catch (e) {
-    // fallback safety
-    if (loadIdRef.current === currentLoadId) {
-      setHighSrc(high);
-      setImgLoaded(true);
-    }
-  }
+  setHighSrc(high);
+});
 };
 
   const loadAlbum = async (album) => {
@@ -484,7 +479,7 @@ export default function Gallery() {
                 setActive(null);
               }}
             >
-              ← back
+              ← Back
             </div>
 
             <div className="album-header-title">
@@ -530,94 +525,102 @@ export default function Gallery() {
         </>
       )}
 
-     {viewMode === "feed" && photosData?.length > 0 && (
-      <div className="tiktok-feed">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={feedIndex}
-            className="tiktok-item"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96 }}
-            transition={{ duration: 0.4 }}
-          >
-            <div className="story-content">
+      {viewMode === "feed" && photosData?.length > 0 && (
+      <div className="tiktok-feed-wrapper">
 
-              <div className="tiktok-image-wrapper">
-                <div
-                  className={`tiktok-image-container ${
-                    photosData[feedIndex]?.spotify ? "has-spotify" : ""
-                  }`}
-                >
+        <div className="tiktok-feed">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={feedIndex}
+              className="tiktok-item"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="story-content">
 
+                <div className="tiktok-image-wrapper">
                   <div
-                    className="story-tap-left"
-                    onClick={() =>
-                      setFeedIndex((p) => Math.max(p - 1, 0))
-                    }
-                  />
-
-                  <div
-                    className="story-tap-right"
-                    onClick={() =>
-                      setFeedIndex((p) =>
-                        Math.min(p + 1, photosData.length - 1)
-                      )
-                    }
-                  />
-
-                  <div className="story-progress">
-                    {photosData.map((_, i) => (
-                      <div key={i} className="story-progress-track">
-                        <div
-                          className={`story-progress-fill ${
-                            i < feedIndex
-                              ? "done"
-                              : i === feedIndex
-                              ? "active"
-                              : ""
-                          }`}
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  <img
-                    src={cloudinaryUrl(photosData[feedIndex].src, 1400)}
-                    className={`tiktok-img ${
+                    className={`tiktok-image-container ${
                       photosData[feedIndex]?.spotify ? "has-spotify" : ""
                     }`}
-                  />
+                  >
 
-                  {photosData?.[feedIndex] && (
-                      <div className="tiktok-caption">
-                        {formatCaption(photosData[feedIndex])}
-                      </div>
-                  )}
+                    <div
+                      className="story-tap-left"
+                      onClick={() =>
+                        setFeedIndex((p) => Math.max(p - 1, 0))
+                      }
+                    />
+
+                    <div
+                      className="story-tap-right"
+                      onClick={() =>
+                        setFeedIndex((p) =>
+                          Math.min(p + 1, photosData.length - 1)
+                        )
+                      }
+                    />
+
+                    <div className="story-progress">
+                      {photosData.map((_, i) => (
+                        <div key={i} className="story-progress-track">
+                          <div
+                            className={`story-progress-fill ${
+                              i < feedIndex
+                                ? "done"
+                                : i === feedIndex
+                                ? "active"
+                                : ""
+                            }`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <img
+                      src={cloudinaryUrl(photosData[feedIndex].src, 1400)}
+                      className={`tiktok-img ${
+                        photosData[feedIndex]?.spotify ? "has-spotify" : ""
+                      }`}
+                    />
+
+                    {photosData?.[feedIndex] && (
+                        <div className="tiktok-caption">
+                          {formatCaption(photosData[feedIndex])}
+                        </div>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {photosData?.[feedIndex]?.spotify &&
-                feedReadyIndex === feedIndex && (
-                <iframe
-                  className="tiktok-spotify"
-                  src={
-                    photosData[feedIndex].spotify.includes("embed")
-                      ? photosData[feedIndex].spotify
-                      : `https://open.spotify.com/embed/track/${
-                          photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
-                        }?utm_source=generator&theme=0`
-                  }
-                  height="80"
-                  width="100%"
-                  frameBorder="0"
-                  allow="autoplay; clipboard-write; encrypted-media"
-                />
-              )}
+                {photosData?.[feedIndex]?.spotify &&
+                  feedReadyIndex === feedIndex && (
+                  <iframe
+                    className="tiktok-spotify"
+                    src={
+                      photosData[feedIndex].spotify.includes("embed")
+                        ? photosData[feedIndex].spotify
+                        : `https://open.spotify.com/embed/track/${
+                            photosData[feedIndex].spotify.match(/track\/([a-zA-Z0-9]+)/)?.[1]
+                          }?utm_source=generator&theme=0`
+                    }
+                    height="80"
+                    width="100%"
+                    frameBorder="0"
+                    allow="autoplay; clipboard-write; encrypted-media"
+                  />
+                )}
+              </div>
+              </motion.div>
+            </AnimatePresence>
             </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+
+          <div
+            className="story-backdrop"
+            onClick={() => setViewMode("grid")}
+          />
+        </div>
       )}
 
       {typeof document !== "undefined" &&
@@ -705,6 +708,7 @@ export default function Gallery() {
           </AnimatePresence>,
           document.body
         )}
+        
     </div>
   );
 }

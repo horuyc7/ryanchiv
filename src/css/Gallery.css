@@ -43,7 +43,7 @@
   padding: 6px 30px;
   font-size: 11px;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  
 
   cursor: pointer;
 
@@ -73,7 +73,7 @@
 
   break-inside: avoid;
 
-  border: 1px solid #d6540e29;
+  border: 1px solid #d6540e17;
 }
 
 .grid :hover{
@@ -278,7 +278,7 @@
     rgba(0,0,0,0)
   );
   letter-spacing: 1px;
-  text-transform: uppercase;
+  
 }
 
 .album-header {
@@ -308,10 +308,43 @@
   text-transform: uppercase;
 }
 
+.tiktok-feed-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.story-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: rgba(0, 0, 0, 0.93);
+  backdrop-filter: blur(6px);
+
+  pointer-events: auto;
+}
+
 .tiktok-feed {
-  height: 100dvh;
-  overflow: hidden;
   position: relative;
+  z-index: 2;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: none; /* 🔥 IMPORTANT */
+}
+
+.story-content,
+.tiktok-item,
+.tiktok-image-wrapper,
+.tiktok-image-container {
+  pointer-events: auto;
 }
 
 .tiktok-item {
@@ -410,7 +443,7 @@
 
 .story-progress-track {
   flex: 1;
-  height: 2px;
+  height: 2.5px;
   background: rgba(255, 255, 255, 0.14);
   overflow: hidden;
   border-radius: 999px;
