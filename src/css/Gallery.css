@@ -217,12 +217,16 @@
     max-width: 100%; 
   }
 
-  .tiktok-img {
+  .tiktok-image-container {
     max-height: calc(100dvh - 100px);
   }
 
+  .tiktok-img {
+    max-height: calc(100dvh - 70px);
+  }
+
   .tiktok-img.has-spotify {
-    max-height: calc(100dvh - 120px);
+    max-height: calc(100dvh - 90px);
   }
 
 }
@@ -362,7 +366,7 @@
 .tiktok-image-container {
   position: relative;
   display: inline-block;
-  max-height: calc(100dvh - 150px); /* accounts for toggle + spotify */
+  max-height: calc(100dvh - 130px);
   overflow: hidden;
   border-radius: 8px;
 }
@@ -370,7 +374,7 @@
 .tiktok-img {
   display: block;
 
-  max-height: calc(100dvh - 120px);
+  max-height: calc(100dvh - 130px);
   max-width: 100%;
 
   width: auto;
@@ -383,7 +387,7 @@
 .tiktok-img.has-spotify {
   display: block;
 
-  max-height: calc(100dvh - 200px);
+  max-height: calc(100dvh - 140px);
   max-width: 100%;
 
   width: auto;
