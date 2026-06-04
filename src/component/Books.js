@@ -90,6 +90,7 @@ export default function Books() {
         >
           <option value="recent">Recently Read</option>
           <option value="rating">Highest Rated</option>
+          <option value="current">Currently Reading</option>
         </select>
         
       </div>

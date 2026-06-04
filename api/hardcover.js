@@ -7,52 +7,59 @@ export default async function handler(req, res) {
 
     const limit = 30;
     const offset = Number(page) * limit;
-
+    
     const orderBy =
       sort === "rating"
         ? { rating: "desc" }
         : { created_at: "desc" };
 
+    const statusId = sort === "current" ? 2 : 3;
+
     const query = `
-  query GetBooks($limit: Int!, $offset: Int!, $orderBy: [user_books_order_by!]){
-    user_books(
-      where: {
-        status_id: { _eq: 3 }
-        user_id: { _eq: 97364 }
-      }
-      limit: $limit
-      offset: $offset
-      order_by: $orderBy
-    ) {
-      rating
+        query GetBooks(
+          $limit: Int!
+          $offset: Int!
+          $orderBy: [user_books_order_by!]
+          $statusId: Int!
+        ){
+          user_books(
+            where: {
+              status_id: { _eq: $statusId }
+              user_id: { _eq: 97364 }
+            }
+            limit: $limit
+            offset: $offset
+            order_by: $orderBy
+          ) {
+          rating
 
-      book {
-        id
-        title
-        description
-        pages
-        release_date
-        
-        image {
-          url
-        }
-
-        rating
-        ratings_count
-
-        cached_contributors
-
-        editions {
-          title
-          language {
+          book {
             id
-            language
+            title
+            description
+            pages
+            release_date
+            
+            image {
+              url
+            }
+
+            rating
+            ratings_count
+
+            cached_contributors
+
+            editions {
+              title
+              language {
+                id
+                language
+              }
+            }
           }
         }
       }
-    }
-  }
-`;
+    `;
 
     const response = await fetch(
       "https://api.hardcover.app/v1/graphql",
@@ -65,13 +72,14 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           query,
           variables: {
-  limit,
-  offset,
-  orderBy:
-    sort === "rating"
-      ? { rating: "desc" }
-      : { created_at: "desc" }
-},
+            limit,
+            offset,
+            statusId,
+            orderBy:
+              sort === "rating"
+                ? { rating: "desc" }
+                : { created_at: "desc" }
+          },
         }),
       }
     );
