@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 import SchoolIcon from '@mui/icons-material/School';
 import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
 import WorkIcon from '@mui/icons-material/Work';
+import BatteryCharging80Icon from '@mui/icons-material/BatteryCharging80';
 
 const Theme = createTheme({
   palette: {
@@ -153,7 +154,7 @@ const Description = ({}) => {
             <TimelineSeparator>
               <TimelineConnector />
                 <TimelineDot variant='outlined' sx={{ color: Theme.palette.primary.main}}>
-                  <ConnectingAirportsIcon sx={{RotateLeft: '90deg'}}/>
+                  <BatteryCharging80Icon/>
                 </TimelineDot>
                 
               <TimelineConnector />
