@@ -13,6 +13,7 @@ import {
 
 import albumsData from "../data/albums.json";
 import cities from "../data/cities.json";
+import { track } from "@vercel/analytics";
 
 import "../css/Gallery.css";
 
@@ -56,6 +57,31 @@ export default function Gallery() {
   const isInitialRender = useRef(true);
 
   const [feedReadyIndex, setFeedReadyIndex] = useState(-1);
+
+  useEffect(() => {
+    if (viewMode !== "feed") return;
+
+    track("story_view", {
+      album: activeAlbum?.title,
+      index: feedIndex,
+    });
+  }, [feedIndex]);
+
+  const timeAgo = (createdAt) => {
+    if (!createdAt) return "";
+
+    const created = new Date(createdAt);
+    const diffMs = Date.now() - created.getTime();
+
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(hours / 24);
+
+    if (hours < 1) return "Just now";
+    if (hours < 24) return `${hours}h`;
+    if (days === 1) return "1d";
+
+    return `${days}d`;
+  };
 
   useEffect(() => {
   let cancelled = false;
@@ -182,6 +208,11 @@ export default function Gallery() {
   }, [feedIndex, photosData]);
 
   const handleOpen = async (p) => {
+    track("photo_opened", {
+      album: activeAlbum?.title,
+      image: p.src,
+    });
+
     if (!p?.src) return;
 
     const currentLoadId = ++loadIdRef.current;
@@ -227,6 +258,12 @@ export default function Gallery() {
   };
 
   const loadAlbum = async (album) => {
+
+    track("album_opened", {
+      album: album.title,
+      city: selectedCity,
+    });
+
     const raw =
       album?.album || album?.id || album?.slug || album?.title;
 
@@ -495,14 +532,26 @@ export default function Gallery() {
           <div className="view-toggle">
             <button
               className={viewMode === "grid" ? "active" : ""}
-              onClick={() => setViewMode("grid")}
+              onClick={() => {
+                track("grid_mode_entered", {
+                  album: activeAlbum?.title,
+                });
+
+                setViewMode("grid");
+              }}
             >
               Grid
             </button>
 
             <button
               className={viewMode === "feed" ? "active" : ""}
-              onClick={() => setViewMode("feed")}
+              onClick={() => {
+                track("story_mode_entered", {
+                  album: activeAlbum?.title,
+                });
+    
+                setViewMode("feed"); 
+              }}
             >
               Story
             </button>
@@ -582,6 +631,10 @@ export default function Gallery() {
                           />
                         </div>
                       ))}
+                    </div>
+
+                    <div className="story-date">
+                      {timeAgo(photosData[feedIndex]?.created_at)}
                     </div>
 
                     <img
