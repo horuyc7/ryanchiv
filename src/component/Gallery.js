@@ -13,7 +13,8 @@ import {
 
 import albumsData from "../data/albums.json";
 import cities from "../data/cities.json";
-import { track } from "@vercel/analytics";
+import "./posthog";
+import posthog from "posthog-js";
 
 import "../css/Gallery.css";
 
@@ -58,30 +59,21 @@ export default function Gallery() {
 
   const [feedReadyIndex, setFeedReadyIndex] = useState(-1);
 
-  useEffect(() => {
-    if (viewMode !== "feed") return;
+const timeAgo = (createdAt) => {
+  if (!createdAt) return "";
 
-    track("story_view", {
-      album: activeAlbum?.title,
-      index: feedIndex,
-    });
-  }, [feedIndex]);
+  const created = new Date(createdAt);
+  const diffMs = Date.now() - created.getTime();
 
-  const timeAgo = (createdAt) => {
-    if (!createdAt) return "";
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const days = Math.floor(hours / 24);
 
-    const created = new Date(createdAt);
-    const diffMs = Date.now() - created.getTime();
+  if (hours < 1) return "Just now";
+  if (hours < 24) return `${hours}h`;
+  if (days === 1) return "1d";
 
-    const hours = Math.floor(diffMs / (1000 * 60 * 60));
-    const days = Math.floor(hours / 24);
-
-    if (hours < 1) return "Just now";
-    if (hours < 24) return `${hours}h`;
-    if (days === 1) return "1d";
-
-    return `${days}d`;
-  };
+  return `${days}d`;
+};
 
   useEffect(() => {
   let cancelled = false;
@@ -208,12 +200,12 @@ export default function Gallery() {
   }, [feedIndex, photosData]);
 
   const handleOpen = async (p) => {
-    track("photo_opened", {
-      album: activeAlbum?.title,
-      image: p.src,
-    });
-
     if (!p?.src) return;
+
+    posthog.capture("photo_opened", {
+      album: activeAlbum?.title,
+      src: p.src,
+    });
 
     const currentLoadId = ++loadIdRef.current;
 
@@ -258,12 +250,6 @@ export default function Gallery() {
   };
 
   const loadAlbum = async (album) => {
-
-    track("album_opened", {
-      album: album.title,
-      city: selectedCity,
-    });
-
     const raw =
       album?.album || album?.id || album?.slug || album?.title;
 
@@ -341,13 +327,34 @@ export default function Gallery() {
           setFeedIndex((p) =>
             Math.min(p + 1, photosData.length - 1)
           );
+
+          setFeedIndex((p) => {
+            const next = Math.min(p + 1, photosData.length - 1);
+
+            posthog.capture("story_next", {
+              index: next,
+              album: activeAlbum?.title,
+            });
+
+            return next;
+          });
         }
 
         if (
           e.key === "ArrowLeft" ||
           e.key === "ArrowUp"
         ) {
-          setFeedIndex((p) => Math.max(p - 1, 0));
+          setFeedIndex((p) => {
+            const prev = Math.max(p - 1, 0);
+
+            posthog.capture("story_prev", {
+              index: prev,
+              album: activeAlbum?.title,
+            });
+
+            return prev;
+          });
+          
         }
       }
 
@@ -496,7 +503,14 @@ export default function Gallery() {
                 <div
                   key={i}
                   className="album-card"
-                  onClick={() => loadAlbum(album)}
+                  onClick={() => {
+                    posthog.capture("album_opened", {
+                      album: album.title,
+                      city: selectedCity,
+                    });
+
+                    loadAlbum(album);
+                  }}
                 >
                   <img
                     src={cloudinaryUrl(album.cover, 800)}
@@ -533,7 +547,7 @@ export default function Gallery() {
             <button
               className={viewMode === "grid" ? "active" : ""}
               onClick={() => {
-                track("grid_mode_entered", {
+                posthog.capture("grid_mode_entered", {
                   album: activeAlbum?.title,
                 });
 
@@ -546,11 +560,11 @@ export default function Gallery() {
             <button
               className={viewMode === "feed" ? "active" : ""}
               onClick={() => {
-                track("story_mode_entered", {
+                posthog.capture("story_mode_entered", {
                   album: activeAlbum?.title,
                 });
-    
-                setViewMode("feed"); 
+
+                setViewMode("feed");
               }}
             >
               Story
