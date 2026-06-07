@@ -8,7 +8,8 @@ import {
   FormControl,
   Select,
   MenuItem,
-  InputLabel
+  InputLabel,
+  Menu
 } from "@mui/material";
 
 import albumsData from "../data/albums.json";
@@ -17,6 +18,29 @@ import "./posthog";
 import posthog from "posthog-js";
 
 import "../css/Gallery.css";
+import { point } from "leaflet";
+import { CurtainsOutlined } from "@mui/icons-material";
+
+const darkMenuProps = {
+  PaperProps: {
+    sx: {
+      backgroundColor: "rgba(10, 10, 10, 0.8)",
+      backdropFilter: "blur(5px)",
+      color: "#ffffffe0",
+      border: "1px solid rgba(255,255,255,0.1)",
+      "& .MuiMenuItem-root:hover": {
+        background: "rgba(95,96,95,0.1)",
+      },
+      "& .Mui-selected": {
+        background: "#bbf3d126 !important",
+      },
+      "& .Mui-selected:hover": {
+        background: "rgba(187,243,209,0.25) !important",
+      },
+      
+    },
+  },
+};
 
 const shuffleArray = (arr) => {
   const a = [...arr];
@@ -27,7 +51,35 @@ const shuffleArray = (arr) => {
   return a;
 };
 
+const whiteSelectSx = {
+    color: "#a7dbbc",
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#ffffff18",
+    },
+    "&:hover .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#ffffff34",
+    },
+    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#ffffff45",
+    },
+    "& .MuiSvgIcon-root": {
+      color: "#a7dbbc",
+    },
+    "& .MuiSelect-select": {
+      backgroundColor: "#ffffff00",
+    },
+    background: "#0707072e",
+};
+
 export default function Gallery() {
+
+  const [filters, setFilters] = useState({
+    style: "all",
+    orientation: "all",
+    mood: "all",
+    sort: "random",
+  });
+
   const [albums] = useState(albumsData);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [active, setActive] = useState(null);
@@ -59,21 +111,74 @@ export default function Gallery() {
 
   const [feedReadyIndex, setFeedReadyIndex] = useState(-1);
 
-const timeAgo = (createdAt) => {
-  if (!createdAt) return "";
+  const parseTags = (tagString = "") => {
+    const map = {};
+    tagString.split(";").forEach((t) => {
+      const [k, v] = t.split(":");
+      if (k && v) map[k.trim()] = v.trim();
+    });
+    return map;
+  };
 
-  const created = new Date(createdAt);
-  const diffMs = Date.now() - created.getTime();
+  const extractTagOptions = (photos, key) => {
+    const set = new Set();
 
-  const hours = Math.floor(diffMs / (1000 * 60 * 60));
-  const days = Math.floor(hours / 24);
+    photos.forEach((p) => {
+      const tags = parseTags(p.tags);
+      if (tags[key]) set.add(tags[key]);
+    });
 
-  if (hours < 1) return "Just now";
-  if (hours < 24) return `${hours}h`;
-  if (days === 1) return "1d";
+    return ["all", ...Array.from(set).sort((a, b) => a.localeCompare(b)),];
+  };
 
-  return `${days}d`;
-};
+  const filteredPhotos = [...(shuffledPhotos || [])]
+    .filter((p) => {
+      const tags = parseTags(p?.tags || "");
+
+      const styleOk =
+        filters.style === "all" || tags.style === filters.style;
+
+      const orientationOk =
+        filters.orientation === "all" ||
+        tags.orientation === filters.orientation;
+
+      const moodOk =
+        filters.mood === "all" || tags.mood === filters.mood;
+
+      return styleOk && orientationOk && moodOk;
+    })
+    .sort((a, b) => {
+      if (filters.sort === "random") return 0;
+
+      return (b.public_id || b.src || "").localeCompare(
+        a.public_id || a.src || ""
+    );
+  });
+
+  const [filterAnchor, setFilterAnchor] = useState(null);
+
+  const openFilter = (e) => setFilterAnchor(e.currentTarget);
+  const closeFilter = () => setFilterAnchor(null);
+
+  const styleOptions = extractTagOptions(photosData, "style");
+  const orientationOptions = extractTagOptions(photosData, "orientation");
+  const moodOptions = extractTagOptions(photosData, "mood");
+
+  const timeAgo = (createdAt) => {
+    if (!createdAt) return "";
+
+    const created = new Date(createdAt);
+    const diffMs = Date.now() - created.getTime();
+
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(hours / 24);
+
+    if (hours < 1) return "Just now";
+    if (hours < 24) return `${hours}h`;
+    if (days === 1) return "1d";
+
+    return `${days}d`;
+  };
 
   useEffect(() => {
   let cancelled = false;
@@ -154,7 +259,7 @@ const timeAgo = (createdAt) => {
 
   const formatCaption = (p) => {
     const caption = p?.caption?.trim();
-    const city = p?.city?.trim();
+    const city = p?.city?.trim().toUpperCase();
 
     if (caption && city) return `${caption}\n${city}`;
     if (caption) return caption;
@@ -324,10 +429,6 @@ const timeAgo = (createdAt) => {
           e.key === "ArrowRight" ||
           e.key === "ArrowDown"
         ) {
-          setFeedIndex((p) =>
-            Math.min(p + 1, photosData.length - 1)
-          );
-
           setFeedIndex((p) => {
             const next = Math.min(p + 1, photosData.length - 1);
 
@@ -410,87 +511,87 @@ const timeAgo = (createdAt) => {
     <div className="gallery">
 
       {!activeAlbum && (
-  <>
-    <div className="gallery-topbar">
-      <h2 className="gallery-heading">
-        Gallery
-      </h2>
+        <>
+          <div className="gallery-topbar">
+            <h2 className="gallery-heading">
+              Gallery
+            </h2>
 
-      <div className="city-filter">
-        <FormControl
-          sx={{
-            minWidth: 140,
+            <div className="city-filter">
+              <FormControl
+                sx={{
+                  minWidth: 140,
 
-            "& .MuiInputLabel-root": {
-              color: "#f7f7f7",
-              marginLeft: "-3px",
-            },
-
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "#bbf3d1",
-            },
-
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "rgba(255,255,255,0.1)",
-            },
-
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#bbf3d1",
-            },
-
-            "& .MuiOutlinedInput-root.Mui-focused fieldset": {
-              borderColor: "#bbf3d1 !important",
-            },
-
-            "& .MuiSvgIcon-root": {
-              color: "#bbf3d1",
-            },
-
-            "& .MuiSelect-select": {
-              color: "#f7f7f7",
-              padding: "10px 18px",
-            },
-          }}
-        >
-          <InputLabel>Place</InputLabel>
-
-          <Select
-            value={selectedCity}
-            label="Place"
-            onChange={(e) => setSelectedCity(e.target.value)}
-            MenuProps={{
-              PaperProps: {
-                sx: {
-                  background: "rgba(20,20,20,0.95)",
-
-                  "& .MuiMenuItem-root": {
+                  "& .MuiInputLabel-root": {
                     color: "#f7f7f7",
+                    marginLeft: "-3px",
                   },
 
-                  "& .MuiMenuItem-root:hover": {
-                    background: "rgba(95,96,95,0.1)",
+                  "& .MuiInputLabel-root.Mui-focused": {
+                    color: "#bbf3d1",
                   },
 
-                  "& .Mui-selected": {
-                    background: "#bbf3d122 !important",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "rgba(255,255,255,0.1)",
                   },
 
-                  "& .Mui-selected:hover": {
-                    background: "rgba(187,243,209,0.22) !important",
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#bbf3d1",
                   },
-                },
-              },
-            }}
-          >
-            {cities.map((city) => (
-              <MenuItem key={city} value={city}>
-                {city}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-    </div>
+
+                  "& .MuiOutlinedInput-root.Mui-focused fieldset": {
+                    borderColor: "#bbf3d1 !important",
+                  },
+
+                  "& .MuiSvgIcon-root": {
+                    color: "#bbf3d1",
+                  },
+
+                  "& .MuiSelect-select": {
+                    color: "#f7f7f7",
+                    padding: "10px 18px",
+                  },
+                }}
+              >
+                <InputLabel>Place</InputLabel>
+
+                <Select
+                  value={selectedCity}
+                  label="Place"
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        background: "rgba(20,20,20,0.95)",
+
+                        "& .MuiMenuItem-root": {
+                          color: "#f7f7f7",
+                        },
+
+                        "& .MuiMenuItem-root:hover": {
+                          background: "rgba(95,96,95,0.1)",
+                        },
+
+                        "& .Mui-selected": {
+                          background: "#bbf3d122 !important",
+                        },
+
+                        "& .Mui-selected:hover": {
+                          background: "rgba(187,243,209,0.22) !important",
+                        },
+                      },
+                    },
+                  }}
+                >
+                  {cities.map((city) => (
+                    <MenuItem key={city} value={city}>
+                      {city}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </div>
 
 
           {cityLoading ? (
@@ -541,6 +642,14 @@ const timeAgo = (createdAt) => {
             <div className="album-header-title">
               {activeAlbum.title}
             </div>
+
+            {viewMode === "grid" && (
+            <div className="grid-controls">
+              <button className="filter-btn" onClick={openFilter}>
+                Filters ▾
+              </button>
+            </div>
+          )}
           </div>
 
           <div className="view-toggle">
@@ -575,7 +684,7 @@ const timeAgo = (createdAt) => {
 
           {viewMode === "grid" && (
             <div className="grid">
-              {shuffledPhotos.slice(0, visibleCount).map((p, i) => (
+              {filteredPhotos.slice(0, visibleCount).map((p, i) => (
                 <motion.img
                   key={p.src}
                   src={cloudinaryUrl(p.src, 400)}
@@ -590,6 +699,106 @@ const timeAgo = (createdAt) => {
               ))}
             </div>
           )}
+
+          <Menu
+            anchorEl={filterAnchor}
+            open={Boolean(filterAnchor)}
+            onClose={closeFilter}
+            PaperProps={{
+              sx: {
+                background: "rgba(23, 23, 23, 0.97)",
+                color: "#ffffffe0",
+                padding: "4px",
+                minWidth: 180,
+                },
+            }}
+            
+          >
+            <div style={{ padding: "8px 8px" }}>
+              <div style={{ fontSize: 12, opacity: 0.8 }}>Style</div>
+              <Select
+                fullWidth
+                size="small"
+                value={filters.style}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, style: e.target.value }))
+                }
+                sx={whiteSelectSx}
+                MenuProps={darkMenuProps}
+              >
+                {extractTagOptions(photosData, "style").map((opt) => (
+                  <MenuItem key={opt} value={opt}>
+                    {opt}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div style={{ padding: "8px 8px" }}>
+              <div style={{ fontSize: 12, opacity: 0.8 }}>Orientation</div>
+              <Select
+                fullWidth
+                size="small"
+                value={filters.orientation}
+                onChange={(e) =>
+                  setFilters((f) => ({
+                    ...f,
+                    orientation: e.target.value,
+                  }))
+                }
+                sx={whiteSelectSx}
+                MenuProps={darkMenuProps}
+              >
+                {extractTagOptions(photosData, "orientation").map((opt) => (
+                  <MenuItem key={opt} value={opt}>
+                    {opt}
+                  </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div style={{ padding: "8px 8px" }}>
+              <div style={{ fontSize: 12, opacity: 0.8 }}>Mood</div>
+              <Select
+                fullWidth
+                size="small"
+                value={filters.mood}
+                onChange={(e) =>
+                  setFilters((f) => ({ ...f, mood: e.target.value }))
+                }
+                sx={whiteSelectSx}
+                MenuProps={darkMenuProps}
+              >
+                {extractTagOptions(photosData, "mood")
+                  .map((opt) => (
+                    <MenuItem key={opt} value={opt}>
+                      {opt}
+                    </MenuItem>
+                ))}
+              </Select>
+            </div>
+
+            <div style={{ padding: "8px 8px" }}>
+              <div style={{ fontSize: 12, opacity: 0.8 }}>Sort</div>
+              <Select
+                fullWidth
+                size="small"
+                value={filters.sort}
+                onChange={(e) =>
+                  setFilters((f) => ({
+                    ...f,
+                    sort: e.target.value,
+                  }))
+                }
+                sx={whiteSelectSx}
+                MenuProps={darkMenuProps}
+              >
+                <MenuItem value="random">random</MenuItem>
+                <MenuItem value="ordered">recent</MenuItem>
+              </Select>
+            </div>
+          </Menu>
+
         </>
       )}
 

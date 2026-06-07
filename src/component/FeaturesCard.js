@@ -8,15 +8,12 @@ export default function FeaturesCard() {
 
         <div className="featurescard__body">
             <ul className="featurescard_items">
-
-                
-                <li className="featurescard__item">Add country options before city to gallery</li>
-                <li className="featurescard__item">Add current read</li>
                 <li className="featurescard__item">Train model for object detection(more index)</li>
                 <li className="featurescard__item">Clean up code</li>
                 <li className="featurescard__item">Refactor</li>
                 <li className="featurescard__item">Make artists/tracks recommendation more specific</li>
 
+                <li className="featurescard__item">A̶d̶d̶ ̶p̶h̶o̶t̶o̶ ̶f̶i̶l̶t̶e̶r̶s̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>
                 <li className="featurescard__item">A̶d̶d̶ ̶c̶u̶r̶r̶e̶n̶t̶ ̶r̶e̶a̶d̶</li>
                 <li className="featurescard__item">A̶d̶d̶ ̶p̶r̶o̶g̶r̶e̶s̶s̶ ̶b̶a̶r̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>
                 <li className="featurescard__item">A̶d̶d̶ ̶s̶h̶o̶w̶ ̶i̶m̶a̶g̶e̶s̶ ̶b̶y̶ ̶c̶i̶t̶y̶ ̶o̶p̶t̶i̶o̶n̶s̶ ̶t̶o̶ ̶g̶a̶l̶l̶e̶r̶y̶</li>

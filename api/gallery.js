@@ -56,7 +56,8 @@ export default async function handler(req, res) {
         caption: (img.context?.caption || "").replace(/\\n/g, "\n"),
         spotify: img.context?.alt || "",
         city: img.context?.city || "",
-        created_at: img.created_at || ""
+        created_at: img.created_at || "",
+        tags: img.context?.tags || ""
 
       });
     });
