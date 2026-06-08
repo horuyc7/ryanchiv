@@ -193,10 +193,9 @@ export default function Gallery() {
     img.src = cloudinaryUrl(src, 1400);
 
     try {
-      // waits until fully decoded (NOT just "loaded")
+      // waits until fully decoded
       await img.decode();
     } catch (e) {
-      // fallback if decode fails
       await new Promise((res) => (img.onload = res));
     }
 
@@ -225,7 +224,7 @@ export default function Gallery() {
 
       if (selectedCity === "all") {
         
-        setCityLoading(false); // IMPORTANT FIX
+        setCityLoading(false);
         return;
       }
 
@@ -267,7 +266,6 @@ export default function Gallery() {
     return "";
   };
 
-  /* FIX: safe reset */
   useEffect(() => {
     if (!Array.isArray(photosData)) return;
 
@@ -281,7 +279,6 @@ export default function Gallery() {
     }
   }, [photosData, feedIndex]);
 
-  /* lock scroll feed */
   useEffect(() => {
   if (viewMode !== "feed") return;
 
@@ -293,7 +290,6 @@ export default function Gallery() {
   };
 }, [viewMode]);
 
-  /* preload */
   useEffect(() => {
     if (!Array.isArray(photosData)) return;
 
@@ -346,7 +342,6 @@ export default function Gallery() {
       setImgLoaded(true);
 
     } catch (e) {
-      // fallback safety
       if (loadIdRef.current === currentLoadId) {
         setHighSrc(high);
         setImgLoaded(true);
@@ -362,7 +357,7 @@ export default function Gallery() {
 
     const albumId = String(raw)
       .toLowerCase()
-      .replace(/\s+/g, ""); // remove spaces
+      .replace(/\s+/g, "");
 
     setLoadingAlbum(true);
     setActiveAlbum(album);
@@ -778,24 +773,23 @@ export default function Gallery() {
               </Select>
             </div>
 
-            <div style={{ padding: "8px 8px" }}>
-              <div style={{ fontSize: 12, opacity: 0.8 }}>Sort</div>
-              <Select
-                fullWidth
-                size="small"
-                value={filters.sort}
-                onChange={(e) =>
-                  setFilters((f) => ({
-                    ...f,
-                    sort: e.target.value,
-                  }))
-                }
-                sx={whiteSelectSx}
-                MenuProps={darkMenuProps}
-              >
-                <MenuItem value="random">random</MenuItem>
-                <MenuItem value="ordered">recent</MenuItem>
-              </Select>
+            <div style={{ padding: "8px 12px" }}>
+              <button style={{
+                width: "100%",
+                padding: "4px",
+                marginTop: 8,
+                background: "rgba(14, 14, 14, 0.6)",
+                color: "#a7dbbc",
+                border: "none",
+                borderRadius: 6,
+                cursor: "pointer" }}
+                onClick={() => setFilters({
+                  style: "all",
+                  orientation: "all",
+                  mood: "all",
+                  sort: "random", })}
+                > Reset
+              </button>
             </div>
           </Menu>
 
