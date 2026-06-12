@@ -1,80 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import '../css/SpotifyTracks.css';
+import React, { useState, useEffect } from "react";
+import "../css/SpotifyTracks.css";
 
-
+// Generic Spotify API request
 async function fetchWebApi(endpoint, method, accessToken) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+  const response = await fetch(`https://api.spotify.com/${endpoint}`, {
+    method,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-    method,
   });
-  return await res.json();
-}
 
+  return response.json();
+}
 
 async function getTopTracks(accessToken, timeRange, limit) {
+  const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${
+    limit || 10
+  }`;
 
-  //endpoint to get top tracks dynamically with range and limit
-  const endpoint = `v1/me/top/tracks?time_range=${timeRange}&limit=${limit? limit : 10}`;
+  const response = await fetchWebApi(
+    endpoint,
+    "GET",
+    accessToken
+  );
 
-  //call fetch and return items array
-  return (await fetchWebApi(endpoint, 'GET', accessToken)).items;
-
+  return response.items;
 }
 
-
-
 export default function SpotifyTracks() {
-
   const [tracks, setTracks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState('short_term');
-  const [limit, setLimit] = useState('');
+
+  const [timeRange, setTimeRange] = useState("short_term");
+  const [limit, setLimit] = useState("");
+
   const [accessToken, setAccessToken] = useState(null);
 
-
+  // Fetch access token on load
   useEffect(() => {
-
-  async function fetchAndSetToken() {
+    async function fetchToken() {
       try {
-        const response = await fetch(
-          '/api/spotifyUserToken'
-        );
-
+        const response = await fetch("/api/spotifyUserToken");
         const data = await response.json();
 
         setAccessToken(data.access_token);
-
       } catch (error) {
-        console.error(
-          'Token error:',
-          error
-        );
-
+        console.error("Token error:", error);
       }
     }
-    fetchAndSetToken();
+
+    fetchToken();
   }, []);
 
-  const fetchData = async () => {
-
+  const fetchTracks = async () => {
     try {
-
-      setLoading(true);
-
-      const data = await getTopTracks(accessToken, timeRange, limit);
+      const data = await getTopTracks(
+        accessToken,
+        timeRange,
+        limit
+      );
 
       setTracks(data);
-
     } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching tracks:", error);
     }
-
   };
-
 
   const handleTimeRangeChange = (event) => {
     setTimeRange(event.target.value);
@@ -84,66 +73,102 @@ export default function SpotifyTracks() {
     setLimit(event.target.value);
   };
 
+  // Trigger track fetch
   const handleFetchClick = () => {
-    if (timeRange) {
-      fetchData();
+    if (timeRange && accessToken) {
+      fetchTracks();
     }
   };
 
-
   return (
-    <div className='spotifytracks'>
-      <div className='spotifytracks__input-container'>
+    <div className="spotify-tracks">
+      {/* Filters */}
+      <div className="spotify-tracks__controls">
+        <span className="spotify-tracks__label">
+          Terms:
+        </span>
 
-        Terms:
+        <label className="spotify-tracks__option">
+          <input
+            type="radio"
+            value="short_term"
+            checked={timeRange === "short_term"}
+            onChange={handleTimeRangeChange}
+          />
+          Short
+        </label>
 
-        <p>
-          <label>
-            <input type="radio" value="short_term" checked={timeRange === 'short_term'} onChange={handleTimeRangeChange} />
-            Short
-          </label>
-        </p>
+        <label className="spotify-tracks__option">
+          <input
+            type="radio"
+            value="medium_term"
+            checked={timeRange === "medium_term"}
+            onChange={handleTimeRangeChange}
+          />
+          Medium
+        </label>
 
-        <p>
-          <label>
-            <input type="radio" value="medium_term" checked={timeRange === 'medium_term'} onChange={handleTimeRangeChange} />
-            Medium
-          </label>
-        </p>
+        <label className="spotify-tracks__option">
+          <input
+            type="radio"
+            value="long_term"
+            checked={timeRange === "long_term"}
+            onChange={handleTimeRangeChange}
+          />
+          Long
+        </label>
 
-        <p>
-          <label>
-            <input type="radio" value="long_term" checked={timeRange === 'long_term'} onChange={handleTimeRangeChange} />
-            Long
-          </label>
-        </p>
+        <input
+          className="spotify-tracks__input"
+          type="text"
+          maxLength="2"
+          placeholder="Enter limit (default=10)"
+          value={limit}
+          onChange={handleLimitChange}
+        />
 
-
-        <input className='textbox' type="text" maxLength="2" placeholder="Enter limit (default=10)" value={limit} onChange={handleLimitChange} />
-        <button className="get-button" onClick={handleFetchClick}>Get</button>
-
+        <button
+          className="spotify-tracks__button"
+          onClick={handleFetchClick}
+        >
+          Get
+        </button>
       </div>
 
+      {/* Tracks */}
+      <div className="spotify-tracks__list">
+        {tracks.map((track, index) => (
+          <div
+            key={track.id}
+            className="spotify-tracks__item"
+          >
+            <p className="spotify-tracks__rank">
+              {index + 1}
+            </p>
 
-      <div className="spotifytracks__tracks">
-        {tracks && tracks.map((track, index) => (
-          <div className="track-container" key={index}>
-
-            <p style={{ fontSize: '16px', fontWeight: '300', marginRight: '20px' }}>{index + 1}</p>
-
-            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-              <img style={{ marginRight: '20px', width: '80px', height: '80px' }} src={track.album.images[1].url} alt={track.name} />
+            <a
+              href={track.external_urls.spotify}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                className="spotify-tracks__image"
+                src={track.album.images[1].url}
+                alt={track.name}
+              />
             </a>
 
-            <div className='tracks-details'>
-              <p>{track.name}</p>
-              <p>{track.artists.map(artist => artist.name).join(', ')}</p>
+            <div className="spotify-tracks__details">
+              <p className="spotify-tracks__track">{track.name}</p>
+              <p className="spotify-tracks__artist">
+                {track.artists
+                  .map((artist) => artist.name)
+                  .join(", ")}
+              </p>
             </div>
-
           </div>
         ))}
       </div>
-
     </div>
   );
 }

@@ -4,11 +4,6 @@ import LoadingCircle from './LoadingCircle';
 
 import '../css/SpotifyRecommendationArtists.css';
 
-async function fetchLastFm(url) {
-  const res = await fetch(url);
-  return await res.json();
-}
-
 async function fetchWebApi(endpoint, method, accessToken) {
   const res = await fetch(`https://api.spotify.com/${endpoint}`, {
     headers: {
@@ -16,35 +11,34 @@ async function fetchWebApi(endpoint, method, accessToken) {
     },
     method,
   });
+
   return await res.json();
 }
 
-export default function SpotifyRecommendation() {
+export default function SpotifyRecommendationArtists() {
 
   const [loading, setLoading] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
   const [inputValue, setInputValue] = useState('');
 
-  // single artist (main)
-  const [artist, setArtist] = useState(null);
+  const [mainArtist, setMainArtist] = useState(null);
 
-  // related artists list
   const [relatedArtists, setRelatedArtists] = useState([]);
 
   const [accessToken, setAccessToken] = useState('');
 
-  // fetch token
   useEffect(() => {
-    async function fetchAndSetToken() {
+    async function fetchToken() {
       try {
         const token = await FetchSpotifyToken();
         setAccessToken(token);
       } catch (err) {
-        console.error(err);
+        console.error('Token fetch error:', err);
       }
     }
-    fetchAndSetToken();
+
+    fetchToken();
   }, []);
 
   const handleInputChange = (e) => {
@@ -59,69 +53,71 @@ export default function SpotifyRecommendation() {
 
     try {
 
-      // 1. Spotify search main artist
+      // Get inputted artist from spotify
       const searchRes = await fetchWebApi(
         `v1/search?q=${encodeURIComponent(inputValue)}&type=artist&limit=1`,
         'GET',
         accessToken
       );
 
-      const mainArtist = searchRes?.artists?.items?.[0];
+      const foundMainArtist = searchRes?.artists?.items?.[0];
 
-      if (!mainArtist) {
+      if (!foundMainArtist) {
         setLoading(false);
         return;
       }
 
-      // 2. Last.fm similar artists
-      const res = await fetch(`/api/lastfm?artist=${encodeURIComponent(mainArtist.name)}`);
-      const similar = await res.json();
+      // Get recommended artist from lastfm
+      const lastFmRes = await fetch(`/api/lastfm?artist=${encodeURIComponent(foundMainArtist.name)}`);
+      const similarArtists = await lastFmRes.json();
 
-      if (!Array.isArray(similar)) {
+      if (!Array.isArray(similarArtists)) {
         throw new Error('Invalid Last.fm response');
       }
 
-      // 3. Convert to Spotify artists
+      // Map to spotify artists
       const seen = new Set();
-      const spotifyList = [];
+      const spotifyArtists = [];
 
-      for (const a of similar) {
+      for (const artist of similarArtists) {
 
-        if (seen.has(a.name)) continue;
-        seen.add(a.name);
+        if (seen.has(artist.name)) continue;
+        seen.add(artist.name);
 
         const spotifyRes = await fetchWebApi(
-          `v1/search?q=${encodeURIComponent(a.name)}&type=artist&limit=1`,
+          `v1/search?q=${encodeURIComponent(artist.name)}&type=artist&limit=1`,
           'GET',
           accessToken
         );
 
-        const found = spotifyRes?.artists?.items?.[0];
+        const spotifyArtist = spotifyRes?.artists?.items?.[0];
 
-        if (found) spotifyList.push(found);
+        if (spotifyArtist) spotifyArtists.push(spotifyArtist);
 
-        if (spotifyList.length >= 8) break; // limit UI load
+        // limit UI load
+        if (spotifyArtists.length >= 8) break;
       }
 
-      setArtist(mainArtist);
-      setRelatedArtists(spotifyList);
+      setMainArtist(foundMainArtist);
+      setRelatedArtists(spotifyArtists);
       setInputValue('');
-      setActiveSection('get');
+      setActiveSection('results');
 
     } catch (err) {
-      console.error(err);
+      console.error('Recommendation error:', err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className='spotify-recommendation-artists'>
+    <div className="spotify-recommendation-artists">
 
+      {/* Controls */}
       <div className="spotify-recommendation-artists__input-container">
 
         <input
-          className='textbox'
+          className="spotify-recommendation-artists__input"
           type="text"
           maxLength="30"
           placeholder="Input Artist"
@@ -129,72 +125,78 @@ export default function SpotifyRecommendation() {
           onChange={handleInputChange}
         />
 
-        <button className="get-button" onClick={handleGetClick}>
+        <button
+          className="spotify-recommendation-artists__button"
+          onClick={handleGetClick}
+        >
           Get
         </button>
 
       </div>
 
       {loading ? (
-        <div className='loading'>
+        <div className="spotify-recommendation-artists__loading">
           <LoadingCircle />
         </div>
       ) : (
         <div>
 
-          {activeSection === 'get' && artist && (
+          {/* Inputted artist */}
+          {activeSection === 'results' && mainArtist && (
 
-            <div className="spotify-recommendation-artists__artists">
+            <div className="spotify-recommendation-artists__list">
 
-              {/* MAIN ARTIST */}
-              <div className='artist-container'>
+              <div className="spotify-recommendation-artists__artist">
 
                 <a
-                  href={artist.external_urls.spotify}
+                  href={mainArtist.external_urls.spotify}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <img
-                    src={artist.images?.[0]?.url || '/fallback.jpg'}
-                    alt={artist.name}
+                    className="spotify-recommendation-artists__image"
+                    src={mainArtist.images?.[0]?.url || '/fallback.jpg'}
+                    alt={mainArtist.name}
                   />
                 </a>
 
-                <div className='artist-detail'>
-                  <p className='name'>{artist.name}</p>
+                <div className="spotify-recommendation-artists__name">
+                  <p>{mainArtist.name}</p>
                 </div>
 
               </div>
 
-              {/* RELATED ARTISTS */}
-              {relatedArtists?.map((a, index) => (
-                <div key={index} className='artists-container'>
+              {/* Recommendations */}
+              {relatedArtists.map((artist) => (
+                <div
+                  key={artist.id}
+                  className="spotify-recommendation-artists__items"
+                >
 
                   <a
-                    href={a.external_urls.spotify}
+                    href={artist.external_urls.spotify}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <img
-                      src={a.images?.[0]?.url || '/fallback.jpg'}
-                      alt={a.name}
+                      className="spotify-recommendation-artists__image"
+                      src={artist.images?.[0]?.url || '/fallback.jpg'}
+                      alt={artist.name}
                     />
                   </a>
 
-                  <div className='artists-detail'>
-                    <p className='name'>{a.name}</p>
+                  <div className="spotify-recommendation-artists__name">
+                    <p>{artist.name}</p>
                   </div>
 
                 </div>
               ))}
 
             </div>
-
           )}
 
         </div>
       )}
-
     </div>
   );
 }

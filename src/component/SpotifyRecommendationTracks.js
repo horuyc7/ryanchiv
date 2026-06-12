@@ -1,171 +1,229 @@
-import React, { useState, useEffect } from 'react';
-import FetchSpotifyToken from './FetchSpotifyToken';
-import LoadingCircle from './LoadingCircle';
+import React, { useState, useEffect } from "react";
+import FetchSpotifyToken from "./FetchSpotifyToken";
+import LoadingCircle from "./LoadingCircle";
 
-import '../css/SpotifyRecommendationTracks.css';
+import "../css/SpotifyRecommendationTracks.css";
 
+// Generic Spotify Web API helper
 async function fetchWebApi(endpoint, method, accessToken) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-    method,
-  });
-  return await res.json();
+  const response = await fetch(
+    `https://api.spotify.com/${endpoint}`,
+    {
+      method,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return response.json();
 }
 
 export default function SpotifyRecommendationTracks() {
-
   const [loading, setLoading] = useState(false);
-  const [activeSection, setActiveSection] = useState('input');
+
+  const [activeSection, setActiveSection] =
+    useState("input");
+
   const [isError, setIsError] = useState(false);
-  const [errorText, setErrorText] = useState('');
+  const [errorText, setErrorText] = useState("");
 
-  const [recommendation, setRecommendation] = useState({ tracks: [] });
+  const [recommendation, setRecommendation] =
+    useState({ tracks: [] });
 
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] =
+    useState("");
 
-  const [inputValue, setInputValue] = useState('');
-  const [artistIds, setArtistIds] = useState([]);
+  const [inputValue, setInputValue] =
+    useState("");
 
-  // Get Spotify token
+  const [artistIds, setArtistIds] =
+    useState([]);
+
   useEffect(() => {
-    async function fetchAndSetToken() {
+    async function fetchToken() {
       try {
-        const token = await FetchSpotifyToken();
+        const token =
+          await FetchSpotifyToken();
+
         setAccessToken(token);
       } catch (error) {
-        console.error('Token error:', error);
+        console.error(
+          "Token error:",
+          error
+        );
       }
     }
-    fetchAndSetToken();
+
+    fetchToken();
   }, []);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // Add artist
+  // Add artist to selected artist list.
   const handleInputClick = async () => {
-
     setLoading(true);
     setIsError(false);
 
     if (!inputValue && artistIds.length === 0) {
       setIsError(true);
-      setErrorText('No Input');
+      setErrorText("No Input");
       setLoading(false);
       return;
     }
 
     try {
-
       const response = await fetchWebApi(
-        `v1/search?q=${encodeURIComponent(inputValue)}&type=artist&limit=5`,
-        'GET',
+        `v1/search?q=${encodeURIComponent(
+          inputValue
+        )}&type=artist&limit=5`,
+        "GET",
         accessToken
       );
 
-      const artist = response?.artists?.items?.[0];
+      const artist =
+        response?.artists?.items?.[0];
 
       if (!artist) {
         setIsError(true);
-        setErrorText('Artist not found');
-        setLoading(false);
+        setErrorText("Artist not found");
         return;
       }
 
-      if (artistIds.some(a => a.id === artist.id)) {
+      const alreadyExists =
+        artistIds.some(
+          (item) => item.id === artist.id
+        );
+
+      if (alreadyExists) {
         setIsError(true);
-        setErrorText('Artist already added');
+        setErrorText(
+          "Artist already added"
+        );
       } else {
-        setArtistIds(prev => [...prev, artist]);
+        setArtistIds((prev) => [
+          ...prev,
+          artist,
+        ]);
       }
 
-      setInputValue('');
-
+      setInputValue("");
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      setActiveSection('input');
+      setActiveSection("input");
     }
   };
 
-  // Get recommendations
   const handleGetClick = async () => {
-
-    setIsError(false);
     setLoading(true);
-    setRecommendation({ tracks: [] });
+    setIsError(false);
+
+    setRecommendation({
+      tracks: [],
+    });
 
     if (artistIds.length === 0) {
       setIsError(true);
-      setErrorText('No artist(s) added');
+      setErrorText(
+        "No artist(s) added"
+      );
       setLoading(false);
       return;
     }
 
     try {
-
-      let allTracks = [];
-      const seenArtists = new Set();
+      const allTracks = [];
+      const seenArtists =
+        new Set();
 
       for (const artist of artistIds) {
-
-        const res = await fetch(
-          `/api/lastfm?artist=${encodeURIComponent(artist.name)}`
+        const response = await fetch(
+          `/api/lastfm?artist=${encodeURIComponent(
+            artist.name
+          )}`
         );
 
-        const similarArtists = await res.json();
+        const similarArtists =
+          await response.json();
 
-        if (!Array.isArray(similarArtists)) continue;
+        if (
+          !Array.isArray(similarArtists)
+        ) {
+          continue;
+        }
 
-        for (const similar of similarArtists.slice(0, 5)) {
+        for (const similar of similarArtists.slice(
+          0,
+          5
+        )) {
+          if (
+            seenArtists.has(
+              similar.name
+            )
+          ) {
+            continue;
+          }
 
-          if (seenArtists.has(similar.name)) continue;
-          seenArtists.add(similar.name);
-
-          const spotifyRes = await fetchWebApi(
-            `v1/search?q=${encodeURIComponent(similar.name)}&type=track&limit=2`,
-            'GET',
-            accessToken
+          seenArtists.add(
+            similar.name
           );
 
-          const tracks = spotifyRes?.tracks?.items || [];
-          allTracks.push(...tracks);
+          const spotifyResponse =
+            await fetchWebApi(
+              `v1/search?q=${encodeURIComponent(
+                similar.name
+              )}&type=track&limit=2`,
+              "GET",
+              accessToken
+            );
+
+          allTracks.push(
+            ...(spotifyResponse?.tracks
+              ?.items || [])
+          );
         }
       }
 
-      // remove duplicate tracks
-      const uniqueTracks = allTracks.filter(
-        (track, index, self) =>
-          index === self.findIndex(t => t.id === track.id)
-      );
+      const uniqueTracks =
+        allTracks.filter(
+          (track, index, self) =>
+            index ===
+            self.findIndex(
+              (item) =>
+                item.id === track.id
+            )
+        );
 
       setRecommendation({
-        tracks: uniqueTracks.slice(0, 10),
+        tracks: uniqueTracks.slice(
+          0,
+          10
+        ),
       });
 
-      setActiveSection('get');
-
+      setActiveSection("get");
     } catch (error) {
       console.error(error);
+
       setIsError(true);
-      setErrorText('Failed to fetch recommendations');
+      setErrorText(
+        "Failed to fetch recommendations"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className='spotify-recommendation-tracks'>
-
-      {/* INPUT */}
-      <div className="spotify-recommendation-tracks__input-container">
-
+    <div className="spotify-recommendation-tracks">
+      {/* Controls */}
+      <div className="spotify-recommendation-tracks__controls">
         <input
-          className='textbox'
+          className="spotify-recommendation-tracks__input"
           type="text"
           maxLength="30"
           placeholder="Input Artists (max 5)"
@@ -173,84 +231,129 @@ export default function SpotifyRecommendationTracks() {
           onChange={handleInputChange}
         />
 
-        <button className="input-button" onClick={handleInputClick}>
+        <button
+          className="spotify-recommendation-tracks__input-button"
+          onClick={handleInputClick}
+        >
           Input
         </button>
-
       </div>
 
-      {/* GET BUTTON */}
-      <div className="spotify-recommendation-tracks__get-container">
-        <button className="getrec-button" onClick={handleGetClick}>
+      <div className="spotify-recommendation-tracks__controls">
+        <button
+          className="spotify-recommendation-tracks__get-button"
+          onClick={handleGetClick}
+        >
           Get Rec
         </button>
       </div>
 
-      {/* ERROR */}
-      {isError && <p className='error'>{errorText}</p>}
+      {isError && (
+        <p className="spotify-recommendation-tracks__error">
+          {errorText}
+        </p>
+      )}
 
-      {/* LOADING */}
       {loading ? (
-        <div className='loading'>
+        <div className="spotify-recommendation-tracks__loading">
           <LoadingCircle />
         </div>
       ) : (
-        <div>
-
-          {/* INPUT ARTISTS */}
-          {activeSection === 'input' && (
+        <>
+          {/* Inputed artists */}
+          {activeSection === "input" && (
             <div className="spotify-recommendation-tracks__artists">
+              {artistIds.map(
+                (artist) => (
+                  <div
+                    key={artist.id}
+                    className="spotify-recommendation-tracks__artist"
+                  >
+                    <a
+                      href={
+                        artist
+                          .external_urls
+                          .spotify
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        className="spotify-recommendation-tracks__artist-image"
+                        src={
+                          artist.images?.[0]
+                            ?.url ||
+                          "/fallback.jpg"
+                        }
+                        alt={
+                          artist.name
+                        }
+                      />
+                    </a>
 
-              {artistIds.map((a) => (
-                <div key={a.id} className='artist-container'>
-
-                  <a href={a.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={a.images?.[0]?.url || '/fallback.jpg'}
-                      alt={a.name}
-                    />
-                  </a>
-
-                  <div className='artist-detail'>
-                    <p>{a.name}</p>
+                    <div className="spotify-recommendation-tracks__artist-details">
+                      <p className="spotify-recommendation-tracks__artist-name">
+                        {artist.name}
+                      </p>
+                    </div>
                   </div>
-
-                </div>
-              ))}
-
+                )
+              )}
             </div>
           )}
 
-          {/* TRACKS */}
-          {activeSection === 'get' && (
+          {/* Recommendations */}
+          {activeSection === "get" && (
             <div className="spotify-recommendation-tracks__tracks">
+              {recommendation?.tracks?.map(
+                (track) => (
+                  <div
+                    key={track.id}
+                    className="spotify-recommendation-tracks__track"
+                  >
+                    <a
+                      href={
+                        track
+                          .external_urls
+                          .spotify
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        className="spotify-recommendation-tracks__track-image"
+                        src={
+                          track.album
+                            ?.images?.[0]
+                            ?.url ||
+                          "/fallback.jpg"
+                        }
+                        alt={
+                          track.name
+                        }
+                      />
+                    </a>
 
-              {recommendation?.tracks?.map((t) => (
+                    <div className="spotify-recommendation-tracks__track-details">
+                      <p className="spotify-recommendation-tracks__track-name">
+                        {track.name}
+                      </p>
 
-                <div key={t.id} className='track-container'>
-
-                  <a href={t.external_urls.spotify} target="_blank" rel="noopener noreferrer">
-                    <img
-                      src={t.album?.images?.[0]?.url || '/fallback.jpg'}
-                      alt={t.name}
-                    />
-                  </a>
-
-                  <div className='track-detail'>
-                    <p>{t.name}</p>
-                    <p>{t.artists?.[0]?.name}</p>
+                      <p className="spotify-recommendation-tracks__track-artist">
+                        {
+                          track
+                            .artists?.[0]
+                            ?.name
+                        }
+                      </p>
+                    </div>
                   </div>
-
-                </div>
-
-              ))}
-
+                )
+              )}
             </div>
           )}
-
-        </div>
+        </>
       )}
-
     </div>
   );
 }

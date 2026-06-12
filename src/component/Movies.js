@@ -1,170 +1,231 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Loading from './LoadingCircle';
-import { useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import Loading from "./LoadingCircle";
 
-import '../css/Movies.css';
+import "../css/Movies.css";
 
 const Movies = () => {
   const [listDetails, setListDetails] = useState({});
   const [movies, setMovies] = useState([]);
+  const [movieDetails, setMovieDetails] = useState(null);
+
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [MovieDetails, setMovieDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedSynopsis, setExpandedSynopsis] = useState(false);
 
+  const modalRef = useRef(null);
+
   useEffect(() => {
-    const fetchAndSetData = async () => {
+    const fetchMovies = async () => {
       try {
-        const response = await axios.get('/api/moviesAPI');
-        const { moviesData, listDetails, moviesDetails } = response.data;
-        //setMovies(moviesData);
+        const res = await axios.get("/api/moviesAPI");
+
+        const { moviesData, listDetails, moviesDetails } =
+          res.data;
+
+        // Merge movie + metadata
         const merged = moviesData.map((m, i) => ({
-                          ...m,
-                          ...moviesDetails[i]
-                        }));
+          ...m,
+          ...moviesDetails[i],
+        }));
 
         setMovies(merged);
         setListDetails(listDetails);
         setMovieDetails(moviesDetails);
-      } catch (error) {
-        console.error('Error fetching movies data:', error);
+      } catch (err) {
+        console.error("Error fetching movies:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAndSetData();
+    fetchMovies();
   }, []);
 
-  const handleMovieClick = (index, event) => {
-  const rect = event.target.getBoundingClientRect();
+  // Open modal near clicked movie
+  const openMovieModal = (index, event) => {
+    const rect = event.target.getBoundingClientRect();
 
-  const modalWidth = 300;  // approximate or match CSS
-  const modalHeight = 250; // approximate or match CSS
+    const modalWidth = 300;
+    const modalHeight = 250;
+    const padding = 10;
 
-  const padding = 10;
+    let x = rect.left + rect.width / 2;
+    let y = rect.top + rect.height / 2;
 
-  let x = rect.left + rect.width / 2;
-  let y = rect.top + rect.height / 2;
+    // keep modal inside viewport
+    x = Math.min(
+      window.innerWidth - modalWidth / 2 - padding,
+      Math.max(modalWidth / 2 + padding, x)
+    );
 
-  // clamp horizontally
-  x = Math.max(padding + modalWidth / 2, x);
-  x = Math.min(window.innerWidth - modalWidth / 2 - padding, x);
+    y = Math.min(
+      window.innerHeight - modalHeight / 2 - padding,
+      Math.max(modalHeight / 2 + padding, y)
+    );
 
-  // clamp vertically
-  y = Math.max(padding + modalHeight / 2, y);
-  y = Math.min(window.innerHeight - modalHeight / 2 - padding, y);
+    setSelectedMovie({ index, x, y });
+    setExpandedSynopsis(false);
+  };
 
-  setSelectedMovie({
-    index,
-    x,
-    y,
-  });
-
-  setExpandedSynopsis(false);
-};
-
-  const closeModal = () => {
+  const closeMovieModal = () => {
     setSelectedMovie(null);
-    toggleSynopsis();
+    setExpandedSynopsis(false);
   };
 
   const toggleSynopsis = () => {
-    setExpandedSynopsis(!expandedSynopsis);
+    setExpandedSynopsis((prev) => !prev);
   };
 
+  // Close modal when clicking outside
   useEffect(() => {
-    const handleClickOutsideModal = (event) => {
-      const modal = document.querySelector('.details');
+    const handleOutsideClick = (event) => {
+      const modal = document.querySelector(".movies__modal");
       if (modal && !modal.contains(event.target)) {
-        closeModal();
+        closeMovieModal();
       }
     };
-  
-    document.body.addEventListener('mousedown', handleClickOutsideModal);
-    
-    return () => {
-      document.body.removeEventListener('mousedown', handleClickOutsideModal);
-    };
+
+    document.body.addEventListener("mousedown", handleOutsideClick);
+
+    return () =>
+      document.body.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
   }, []);
 
-  const modalRef = useRef(null);
-
+  // Reposition modal
   useEffect(() => {
-  if (!selectedMovie || !modalRef.current) return;
+    if (!selectedMovie || !modalRef.current) return;
 
-  const rect = modalRef.current.getBoundingClientRect();
+    const rect = modalRef.current.getBoundingClientRect();
 
-  let x = selectedMovie.x;
-  let y = selectedMovie.y;
+    let x = selectedMovie.x;
+    let y = selectedMovie.y;
 
-  const padding = 10;
+    const padding = 10;
 
-  x = Math.max(rect.width / 2 + padding, x);
-  x = Math.min(window.innerWidth - rect.width / 2 - padding, x);
+    x = Math.min(
+      window.innerWidth - rect.width / 2 - padding,
+      Math.max(rect.width / 2 + padding, x)
+    );
 
-  y = Math.max(rect.height / 2 + padding, y);
-  y = Math.min(window.innerHeight - rect.height / 2 - padding, y);
+    y = Math.min(
+      window.innerHeight - rect.height / 2 - padding,
+      Math.max(rect.height / 2 + padding, y)
+    );
 
-  modalRef.current.style.left = `${x}px`;
-  modalRef.current.style.top = `${y}px`;
-}, [selectedMovie]);
+    modalRef.current.style.left = `${x}px`;
+    modalRef.current.style.top = `${y}px`;
+  }, [selectedMovie]);
 
-  
-  
   return (
     <div className="movies">
-      <div className="movies__list">
-        <h2 className="movies__list-title">{listDetails.title}</h2>
+      {/* Header */}
+      <div className="movies__header">
+        <h2 className="movies__title">
+          {listDetails.title}
+        </h2>
       </div>
 
       {loading ? (
-          <div className='movie-loading'>
-            <Loading/>
-          </div>
+        <div className="movies__loading">
+          <Loading />
+        </div>
       ) : (
-        
-        <div className="movies__movies">
+        <div className="movies__grid">
+          {/* Grid */}
           {movies.map((movie, index) => (
-            <div key={index} className="movie-container">
-             <img
-              src={movie.imageUrl2}
-              alt={movie.href}
-              onClick={(e) => handleMovieClick(index, e)}
-            />
+            <div
+              key={index}
+              className="movies__item"
+            >
+              <img
+                className="movies__image"
+                src={movie.imageUrl2}
+                alt={movie.href}
+                onClick={(e) =>
+                  openMovieModal(index, e)
+                }
+              />
             </div>
           ))}
 
+          {/* Modal */}
           {selectedMovie && (
-            <div className="details" ref={modalRef} style={{ position: 'fixed', transform: 'translate(-50%, -50%)' }}>
-              <div className="details-content">
-                <span className="close" onClick={closeModal}>
+            <div
+              className="movies__modal"
+              ref={modalRef}
+              style={{
+                position: "fixed",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <div className="movies__modal-content">
+                <span
+                  className="movies__close"
+                  onClick={closeMovieModal}
+                >
                   &times;
                 </span>
 
-                <div className="detail-container">
-                  <a href={`https://letterboxd.com${movies[selectedMovie.index].href}`} target="_blank" rel="noopener noreferrer">
-                    <img className="details-image" src={movies[selectedMovie.index].imageUrl2} alt={movies[selectedMovie.index].href}/>
+                {/* Movie info */}
+                <div className="movies__details">
+                  <a
+                    href={`https://letterboxd.com${movies[selectedMovie.index].href}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      className="movies__poster"
+                      src={
+                        movies[selectedMovie.index]
+                          .imageUrl2
+                      }
+                      alt={movies[selectedMovie.index].href}
+                    />
                   </a>
 
-                  <div className="details-info">
-                    <p className="details-title">
-                      {MovieDetails[selectedMovie.index].title}
+                  <div className="movies__info">
+                    <p className="movies__movie-title">
+                      {
+                        movieDetails[selectedMovie.index]
+                          .title
+                      }
                     </p>
-                    <p className="details-rating">
-                      {MovieDetails[selectedMovie.index].rating} / 5 ★
+
+                    <p className="movies__rating">
+                      {
+                        movieDetails[selectedMovie.index]
+                          .rating
+                      }{" "}
+                      / 5 ★
                     </p>
-                    <p className="details-genres">
-                      Genres: {MovieDetails[selectedMovie.index].genres.slice(0, 3).join(', ')}
+
+                    <p className="movies__genres">
+                      Genres:{" "}
+                      {movieDetails[
+                        selectedMovie.index
+                      ].genres.slice(0, 3).join(", ")}
                     </p>
                   </div>
                 </div>
 
-                <p className="description" onClick={toggleSynopsis}>
-                  {expandedSynopsis ? MovieDetails[selectedMovie.index].description : MovieDetails[selectedMovie.index].description.slice(0, 150) + '....'}
+                {/* Synopsis */}
+                <p
+                  className="movies__description"
+                  onClick={toggleSynopsis}
+                >
+                  {expandedSynopsis
+                    ? movieDetails[
+                        selectedMovie.index
+                      ].description
+                    : movieDetails[
+                        selectedMovie.index
+                      ].description.slice(0, 150) +
+                      "..."}
                 </p>
-
               </div>
             </div>
           )}

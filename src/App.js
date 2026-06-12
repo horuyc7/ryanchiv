@@ -47,23 +47,11 @@ function handleDownloadPDF() {
 
 const Theme = createTheme({
   palette: {
-    primary: {
-      main: '#d6550e',
-      
-    },
-
-    secondary: {
-      main: '#8be4a9',
-      
-    },
-
-    mode: 'dark',
-
-    
+    primary: { main: "#d6550e" },
+    secondary: { main: "#8be4a9" },
+    mode: "dark",
   },
-
 });
-
 
 const ExternalLink = ({ to, children }) => (
 
@@ -74,7 +62,6 @@ const ExternalLink = ({ to, children }) => (
   </a>
 
 );
-
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -148,15 +135,13 @@ export default function App() {
           <Analytics mode="production" />
 
           <div className='drawer'>
-                <TemporaryDrawer />
+            <TemporaryDrawer />
           </div>
     
           {!hideSpeedDial && <CustomSpeedDial />}
-        
 
           <div className="container">
             <Routes>
-
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/features" element={<FeaturesCard />} />
                 <Route path="/gallery" element={<Gallery />} />
@@ -167,7 +152,6 @@ export default function App() {
                 <Route path="/image" element={<ImageClassifier />} />
                 <Route path="/object" element={<MediaPipe />} />
                 <Route path="*" element={<Navigate to="/" />} />
-
             </Routes>
           </div>
 

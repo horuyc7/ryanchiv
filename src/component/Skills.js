@@ -1,257 +1,80 @@
 import React from "react";
 import "../css/Skills.css";
 
+const SKILLS = {
+  Scripts: [
+    { name: "Java", width: "90%" },
+    { name: "JS", width: "70%" },
+    { name: "Python", width: "75%" },
+    { name: "SQL", width: "70%" },
+    { name: "C++", width: "55%" },
+    { name: "Bash", width: "80%" },
+  ],
+  Frameworks: [
+    { name: "React", width: "75%" },
+    { name: "Spring", width: "80%" },
+    { name: "Selenium", width: "64%" },
+    { name: "JUnit", width: "60%" },
+  ],
+  Tools: [
+    { name: "AWX/Ansible", width: "90%", size: "45%" },
+    { name: "RHEL", width: "85%", size: "37%" },
+    { name: "VS", width: "80%", size: "70%" },
+    { name: "AWS", width: "55%", size: "60%" },
+    { name: "IntelliJ", width: "75%", size: "34%" },
+    { name: "GNS3", width: "60%", size: "52%" },
+    { name: "Postman", width: "70%", size: "50%" },
+    { name: "Wireshark", width: "65%", size: "45%" },
+    { name: "Eclipse", width: "75%", size: "30%" },
+    { name: "VMs", width: "75%", size: "59%" },
+    { name: "Cisco Routers", width: "60%", size: "65%" },
+  ],
+  /*
+  Languages: [
+    { name: "English", width: "100%" },
+    { name: "Japanese", width: "65%", size: "87%" },
+    { name: "Khmer", width: "55%", size: "95%" },
+  ], */
+};
+
 export default function Skills() {
   return (
     <div className="skills">
-        
-        <div className="skills__header1">Skills</div>
+      <div className="skills__title">Skills</div>
 
-        <div className="skills__header2">Scripts
-            <div className="skills__body">
+      {/* Skills */}
+      {Object.entries(SKILLS).map(([category, items]) => (
+        <div key={category} className="skills__category">
 
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Java
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "90%"}}></div>
-                    </div>
+          <div className="skills__category-title">
+            {category}
+          </div>
+
+          <div className="skills__category-body">
+            {items.map((skill) => (
+              <div
+                key={skill.name}
+                className="skills__item"
+                style={{ width: skill.size || "100%" }}
+              >
+                <div className="skills__bar">
+
+                  <div className="skills__name">
+                    {skill.name}
+                    <span className="skills__line" style={{width: "8%"}}></span>
+                  </div>
+
+                  {/* PROGRESS BAR */}
+                  <div
+                    className="skills__loader"
+                    style={{ width: skill.width }}
+                  />
                 </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">JS
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "70%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Python
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">SQL
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "70%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">C++
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "55%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Bash
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "80%"}}></div>
-                    </div>
-                </div>
-
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-
-
-        <div className="skills__header2">Frameworks
-            <div className="skills__body">
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">React
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
-                    </div> 
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Spring
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "80%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Selenium
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "64%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Junit
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "60%"}}></div>
-                    </div> 
-                </div>
-
-            </div>
-        </div>
-
-        <div className="skills__header2"> Tools
-            
-            <div className="skills__body">
-
-                 <div className="skill-container" style={{width:"45%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">AWX/Ansible
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "90%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"37%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">RHEL
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "85%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"70%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">VS
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "80%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"60%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">AWS
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "55%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"34%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Intellij
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style= {{width: "75%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"52%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">GNS3
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "60%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"50%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Postman
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "70%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"45%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Wireshark
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "65%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"30%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Eclipse
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"59%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">VMs
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "75%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"65%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Cisco Routers
-                            <span className="skill-line" style={{width: "12.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "60%"}}></div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-
-
-
-        <div className="skills__header2">Languages
-            <div className="skills__body">
-
-                <div className="skill-container" style={{width:"100%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">English
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "100%"}}></div>
-                    </div> 
-                </div>
-
-                <div className="skill-container" style={{width:"87%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Japanese
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "65%"}}></div>
-                    </div>
-                </div>
-
-                <div className="skill-container" style={{width:"95%"}}>
-                    <div className="skill-bar">
-                        <div className="skill-name">Khmer
-                            <span className="skill-line" style={{width: "14.8333%"}}></span>
-                        </div>
-                        <div className="skill-loader" style={{width: "55%"}}></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+      ))}
     </div>
   );
 }

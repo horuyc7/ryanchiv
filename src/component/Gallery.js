@@ -193,7 +193,6 @@ export default function Gallery() {
     img.src = cloudinaryUrl(src, 1400);
 
     try {
-      // waits until fully decoded
       await img.decode();
     } catch (e) {
       await new Promise((res) => (img.onload = res));
@@ -413,12 +412,10 @@ export default function Gallery() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [photosData, viewMode]);
 
-  /* keyboard navigation */
   useEffect(() => {
     const handleKey = (e) => {
       if (!Array.isArray(photosData) || photosData.length === 0) return;
 
-      /* FEED MODE */
       if (viewMode === "feed") {
         if (
           e.key === "ArrowRight" ||
@@ -454,7 +451,6 @@ export default function Gallery() {
         }
       }
 
-      /* GRID POPUP MODE */
       if (active) {
         const currentIndex = photosData.findIndex(
           (p) => p.src === active.src

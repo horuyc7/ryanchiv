@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Loading from "./Loading";
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Marker, Popup } from "react-leaflet";
@@ -9,155 +8,125 @@ import '../css/Restaurants.css';
 
 import L from "leaflet";
 import { useMap } from "react-leaflet";
-import markerIconPng from "leaflet/dist/images/marker-icon.png";
 
-const createColoredIcon = (color) => {
-  return new L.DivIcon({
-    className: "custom-marker",
+const createColoredIcon = (color) =>
+  new L.DivIcon({
+    className: "restaurants__marker",
     html: `
-      <div style="
-        position: relative;
-        width: 24px;
-        height: 24px;
-      ">
-        <div style="
-          width: 24px;
-          height: 24px;
-          background: ${color};
-          border-radius: 50% 50% 50% 0;
-          transform: rotate(-45deg);
-          border: 2px solid white;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-        "></div>
+      <div class="restaurants__marker-wrapper">
+        <div class="restaurants__marker-dot" style="background:${color}"></div>
       </div>
     `,
     iconSize: [14, 14],
     iconAnchor: [7, 7],
   });
-};
 
+// Auto map bounds
 function FitBounds({ places }) {
   const map = useMap();
 
   useEffect(() => {
-    if (places.length === 0) return;
+    if (!places.length) return;
 
     const bounds = L.latLngBounds(
-      places.map(p => [p.lat, p.lng])
+      places.map((p) => [p.lat, p.lng])
     );
 
-    map.fitBounds(bounds);
-  }, [places]);
+    map.fitBounds(bounds, {
+  paddingTopLeft: [0, -450],
+});
+  }, [places, map]);
 
   return null;
 }
 
-export default function Restaurants(){
+export default function Restaurants() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-    const [loading, setLoading] = useState(true);
-    const [showIframe, setShowIframe] = useState(false);
+  const filteredStores =
+    selectedCategory === "all"
+      ? stores
+      : stores.filter((r) => r.category === selectedCategory);
 
-    const [selectedCategory, setSelectedCategory] = useState("all");
+  return (
+    <div className="restaurants">
+      {/* FILTER */}
+      <div className="restaurants__filters">
+        {["all", "restaurant", "cafe", "bakery"].map((type) => (
+          <button
+            key={type}
+            className={`restaurants__filter-btn ${
+              selectedCategory === type
+                ? "restaurants__filter-btn--active"
+                : ""
+            }`}
+            onClick={() => setSelectedCategory(type)}
+          >
+            {type === "all"
+              ? "All"
+              : type.charAt(0).toUpperCase() + type.slice(1)}
+          </button>
+        ))}
+      </div>
 
-    const filteredStores = selectedCategory === "all" ? stores : stores.filter(r => r.category === selectedCategory);
+      {/* MAP */}
+      <MapContainer
+        center={[0, -160]}
+        zoom={3}
+        className="restaurants__map"
+      >
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
+          attribution="© OpenStreetMap © CARTO"
+        />
 
-    return(
-        <div className="restaurants">
+        <FitBounds places={filteredStores} />
 
-            <div className="filter-buttons">
-                <button
-                    className={selectedCategory === "all" ? "active" : ""}
-                    onClick={() => setSelectedCategory("all")}
-                >
-                    All
-                </button>
+        {filteredStores.map((r) => (
+          <Marker
+            key={r.id}
+            position={[r.lat, r.lng]}
+            icon={createColoredIcon("#8be4a9")}
+          >
+            <Popup className="restaurants__popup" maxWidth={280}>
+              <div className="restaurants__popup-content">
 
-                <button
-                    className={selectedCategory === "restaurant" ? "active" : ""}
-                    onClick={() => setSelectedCategory("restaurant")}
-                >
-                    Restaurants
-                </button>
-
-                <button
-                    className={selectedCategory === "cafe" ? "active" : ""}
-                    onClick={() => setSelectedCategory("cafe")}
-                >
-                    Cafes
-                </button>
-
-                <button
-                    className={selectedCategory === "bakery" ? "active" : ""}
-                    onClick={() => setSelectedCategory("bakery")}
-                >
-                    Bakery
-                </button>
-            </div>
-
-            <MapContainer center={[0, -160]} zoom={3} style={{ height: "100vh", width: "100%" }}>
-                <FitBounds places={filteredStores} />
-                <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"
-                attribution="© OpenStreetMap © CARTO"
+                <img
+                  className="restaurants__popup-image"
+                  src={r.image}
+                  alt={r.name}
                 />
 
-                {filteredStores.map(r => (
-                    <Marker
-                        key={r.id}
-                        position={[r.lat, r.lng]}
-                        icon={createColoredIcon("#8be4a9")}
-                    >
+                <h3 className="restaurants__popup-title">
+                  {r.name}
+                </h3>
 
-                    <Popup maxWidth={280} offset={[5, 5]} className="custom-popup">
-                        <div style={{ width: "220px", marginLeft: "-5px", marginRight: "-5px"}}>
+                <div className="restaurants__popup-rating">
+                  ⭐ {r.rating}/5
+                </div>
 
-                        {/* Image */}
-                        <img
-                        src={r.image}
-                        alt={r.name}
-                        style={{
-                            width: "100%",
-                            height: "140px",
-                            objectFit: "cover",
-                            borderRadius: "8px",
-                            marginBottom: "8px"
-                        }}
-                        />
+                <div className="restaurants__popup-address">
+                  📍 {r.address}
+                </div>
 
-                        <h3 style={{ margin: "0 0 5px 0" }}>{r.name}</h3>
+                <p className="restaurants__popup-review">
+                  - {r.review}
+                </p>
 
-                        <div style={{ marginBottom: "5px" }}>
-                        ⭐ {r.rating}/5
-                        </div>
+                <a
+                  className="restaurants__popup-link"
+                  href={r.googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Maps →
+                </a>
 
-                        <div style={{ fontSize: "12px", color: "#ffffff", marginBottom: "-8px" }}>
-                        📍 {r.address}
-                        </div>
-
-                        <p style={{ fontSize: "13px", marginBottom: "14px" }}>
-                        - {r.review}
-                        </p>
-
-                        <a
-                        href={r.googleReviewUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            color: "#8be4a9",
-                            fontSize: "13px",
-                            textDecoration: "none"
-                        }}
-                        >
-                        Google Maps →
-                        </a>
-
-                        </div>
-                    </Popup>
-
-                </Marker>
-                ))}
-            </MapContainer>
-            
-        </div>
-    );
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
+    </div>
+  );
 }

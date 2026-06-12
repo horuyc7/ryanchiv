@@ -1,178 +1,131 @@
-import "../css/Description.css"
+import "../css/Description.css";
 
-import { Typography } from '@mui/material';
-import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot, TimelineOppositeContent } from '@mui/lab';
+import { Typography } from "@mui/material";
+import {
+  Timeline, TimelineItem, TimelineSeparator,
+  TimelineConnector, TimelineContent, TimelineDot, 
+  TimelineOppositeContent,
+} from "@mui/lab";
 
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-import SchoolIcon from '@mui/icons-material/School';
-import ConnectingAirportsIcon from '@mui/icons-material/ConnectingAirports';
-import WorkIcon from '@mui/icons-material/Work';
-import BatteryCharging80Icon from '@mui/icons-material/BatteryCharging80';
+import SchoolIcon from "@mui/icons-material/School";
+import ConnectingAirportsIcon from "@mui/icons-material/ConnectingAirports";
+import WorkIcon from "@mui/icons-material/Work";
+import BatteryCharging80Icon from "@mui/icons-material/BatteryCharging80";
 
-const Theme = createTheme({
+const theme = createTheme({
   palette: {
     primary: {
-      main: '#EC8231',
-      
+      main: "#EC8231",
     },
-
     secondary: {
-      main: '#8be4a9',
-      
+      main: "#8be4a9",
     },
-
-
-    mode: 'dark',
-
-    
+    mode: "dark",
   },
-
-
 });
 
+const PRIMARY = theme.palette.primary.main;
+const SECONDARY = theme.palette.secondary.main;
 
-const Description = ({}) => {
+const TIMELINE_ITEMS = [
+  {
+    year: "'15 - '19",
+    title: "Belton High School",
+    icon: SchoolIcon,
+    outlined: true,
+  },
+  {
+    year: "'19 - '23",
+    title: "University of Texas at Dallas",
+    subtitle: "Bachelor in Software Engineering",
+    icon: SchoolIcon,
+  },
+  {
+    year: "'23 - '24",
+    title: "Rest",
+    icon: ConnectingAirportsIcon,
+    outlined: true,
+  },
+  {
+    year: "'24 - '26",
+    title: "CGS",
+    subtitle: "Software Engineer",
+    icon: WorkIcon,
+  },
+  {
+    year: "'26 -",
+    title: "Rest 2",
+    icon: BatteryCharging80Icon,
+    outlined: true,
+  },
+];
 
+export default function Description() {
   return (
-
     <div className="description">
-
       <Timeline position="alternate">
+        {TIMELINE_ITEMS.map((item, index) => {
+          const Icon = item.icon;
 
-          <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
-              '15 - '19
-            </TimelineOppositeContent>
+          return (
+            <TimelineItem sx={{ marginLeft: "20px" }} key={`${item.year}-${item.title}`}>
+              <TimelineOppositeContent sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  minHeight: 56,
+                }}
+                className="description__timeline-date"
+              >
+                {item.year}
+              </TimelineOppositeContent>
 
+              <TimelineSeparator>
+                <TimelineConnector />
 
-            <TimelineSeparator>
-              <TimelineConnector />
-                <TimelineDot variant="outlined" sx={{color: Theme.palette.primary.main}}>
-                  <SchoolIcon />
-                </TimelineDot>
-              <TimelineConnector />
-
-            </TimelineSeparator>
-
-            <TimelineContent fontSize={"20px"} sx={{m: 'auto 0', fontWeight: 500, color:Theme.palette.primary.main}} >
-                Belton High School
-            </TimelineContent>
-
-          </TimelineItem>
-
-
-          <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
-              '19 - '23
-            </TimelineOppositeContent>
-
-
-            <TimelineSeparator>
-              <TimelineConnector />
-                <TimelineDot sx={{bgcolor: Theme.palette.primary.main}}>
-                  <SchoolIcon />
-                </TimelineDot>
-              <TimelineConnector />
-
-            </TimelineSeparator>
-
-
-            <TimelineContent>
-
-              <Typography fontSize={"20px"} sx={{fontWeight: 500, color:Theme.palette.secondary.main}}>
-                University of Texas at Dallas
-              </Typography>
-
-              <Typography fontSize={"14px"} sx={{color: "white"}} >Bachelor in Software Engineering</Typography>
-
-            </TimelineContent>
-
-          </TimelineItem>
-
-
-
-          <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
-              '23 - '24
-            </TimelineOppositeContent>
-
-
-            <TimelineSeparator>
-              <TimelineConnector />
-                <TimelineDot variant='outlined' sx={{ color: Theme.palette.primary.main}}>
-                  <ConnectingAirportsIcon/>
-                </TimelineDot>
-                
-              <TimelineConnector />
-
-            </TimelineSeparator>
-
-            <TimelineContent fontSize={"20px"} sx={{m: 'auto 0', fontWeight: 500, color:Theme.palette.primary.main}} >
-                Rest
-            </TimelineContent>
-
-          </TimelineItem>
-
-
-
-          <TimelineItem>
-            <TimelineOppositeContent sx={{ mt: 1.6, mb: 'auto', fontSize: "14px", color: "white"}}>
-              '24 - '26
-            </TimelineOppositeContent>
-
-
-            <TimelineSeparator>
-              
-                <TimelineDot sx={{bgcolor: Theme.palette.primary.main}}>
-                  <WorkIcon />
+                <TimelineDot
+                  variant={item.outlined ? "outlined" : "filled"}
+                  sx={
+                    item.outlined
+                      ? { color: PRIMARY }
+                      : { bgcolor: PRIMARY }
+                  }
+                >
+                  <Icon />
                 </TimelineDot>
 
+                <TimelineConnector />
+              </TimelineSeparator>
 
-            </TimelineSeparator>
+             <TimelineContent
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  minHeight: 56,
+                }}
+              >
+                <Typography
+                  className="description__timeline-title"
+                  sx={{
+                    color: item.subtitle ? SECONDARY : PRIMARY,
+                  }}
+                >
+                  {item.title}
+                </Typography>
 
-
-            <TimelineContent>
-
-              <Typography fontSize={"20px"} sx={{fontWeight: 500, color:Theme.palette.secondary.main}}>
-                CGS
-              </Typography>
-
-              <Typography fontSize={"14px"} sx={{color:'white'}} >Software Engineer</Typography>
-
-            </TimelineContent>
-
-          </TimelineItem>
-
-
-          <TimelineItem>
-            <TimelineOppositeContent sx={{ m: 'auto 0', fontSize: "14px", color: "white" }} variant="body2">
-              '26 -
-            </TimelineOppositeContent>
-
-
-            <TimelineSeparator>
-              <TimelineConnector />
-                <TimelineDot variant='outlined' sx={{ color: Theme.palette.primary.main}}>
-                  <BatteryCharging80Icon/>
-                </TimelineDot>
-                
-              <TimelineConnector />
-
-            </TimelineSeparator>
-
-            <TimelineContent fontSize={"20px"} sx={{m: 'auto 0', fontWeight: 500, color:Theme.palette.primary.main}} >
-                Rest 2
-            </TimelineContent>
-
-          </TimelineItem>
-
-
-
+                {item.subtitle && (
+                  <Typography className="description__timeline-subtitle">
+                    {item.subtitle}
+                  </Typography>
+                )}
+              </TimelineContent>
+            </TimelineItem>
+          );
+        })}
       </Timeline>
     </div>
   );
-};
-
-
-export default Description;
+}
