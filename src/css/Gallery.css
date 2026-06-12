@@ -181,7 +181,7 @@
 }
 
 .spotify-iframe {
-    margin-top: -31px; 
+    margin-top: -1px; 
     width: 100%;
     max-width: 100%;
 }
@@ -217,7 +217,7 @@
   }
 
   .spotify-iframe {
-    margin-top: -31px;
+    margin-top: -1px;
     margin-left: 0px;
     margin-right: 0px;
     width: 100%;
@@ -235,7 +235,7 @@
   .tiktok-img.has-spotify {
     max-height: calc(100dvh - 60px);
   }
-
+  
   .tiktok-caption {
     font-size: 8px !important;
   }
@@ -447,7 +447,6 @@
 .tiktok-spotify {
   display: block;
   width: 100%;
-  margin-top: 0;
 }
 
 .gallery-loading {
