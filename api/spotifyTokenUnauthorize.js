@@ -2,11 +2,8 @@ const AXIOS = require('axios');
 let tokenExpirationTime = null;
 let accessToken = null;
 
-
-// fetch access token from Spotify API
 async function fetchAccessToken() {
     try {
-        // Make POST request to Spotify API token endpoint
         const response = await AXIOS.post('https://accounts.spotify.com/api/token', null, {
             params: {
                 grant_type: 'client_credentials',
@@ -30,18 +27,13 @@ function isTokenExpired() {
     return tokenExpirationTime === null || tokenExpirationTime < Date.now();
 }
 
-// Export the serverless function
 module.exports = async (req, res) => {
     try {
-        // Fetch access token from Spotify API
          if (isTokenExpired() || accessToken === null) {
             await fetchAccessToken();
         }
-
-        // Return the access token as JSON response
         res.status(200).json({ access_token: accessToken });
     } catch (error) {
-        // Handle errors
         res.status(500).json({ error: 'Failed to fetch access token from Spotify API' });
     }
 };

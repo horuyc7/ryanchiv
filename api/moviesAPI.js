@@ -4,11 +4,9 @@ const { cache } = require('react');
 
 module.exports = async (req, res) => {
     try {
-        // Get letterboxd link from Vercel env var
         const responseList = await axios.get(process.env.LETTERBOXD_LIST);
         const $list = cheerio.load(responseList.data);
 
-        // Get list title and description from HTML
         const listDetails = {
             title: $list('.title-1').text().trim(),
             description: $list('.body-text p').text().trim(),
@@ -17,7 +15,7 @@ module.exports = async (req, res) => {
         const moviesData = [];
         const posterPromises = [];
 
-        // Get every movie from list
+        // Get every movie from the list
         $list('.posteritem').each((i, el) => {
 
             const slug = $list(el).find('.react-component').attr('data-item-slug');
@@ -37,7 +35,7 @@ module.exports = async (req, res) => {
 
         await Promise.all(posterPromises);
 
-        // Fetch additional details for each movie
+        // Fetch details for each movie
         const moviesDetailsPromises = moviesData.map(async movie => {
             const responseMovie = await axios.get(`https://letterboxd.com${movie.href}`);
             const $movie = cheerio.load(responseMovie.data);
@@ -46,14 +44,14 @@ module.exports = async (req, res) => {
             const tagline = $movie('.tagline').text().trim();
             const description = $movie('.truncate p').text().trim();
             const genres = [];
-            $movie('#tab-genres .text-sluglist a').each((index, element) => {
+            $movie('#tab-panel-genres .text-sluglist a').each((index, element) => {
                 genres.push($movie(element).text());
             });
 
             const jsonLd = $movie('script[type="application/ld+json"]').html();
 
             const cleaned = jsonLd
-                        .replace(/\/\*[\s\S]*?\*\//g, '') // remove /* ... */
+                        .replace(/\/\*[\s\S]*?\*\//g, '')
                         .trim();
 
             let imageUrl2 = null;

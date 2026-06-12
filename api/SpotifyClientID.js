@@ -1,4 +1,3 @@
-// Fetch Spotify ID from Vercel Env Var
 export function GET(request) {
 
   const spotifyClientId = process.env.SPOTIFY_CLIENT_ID;

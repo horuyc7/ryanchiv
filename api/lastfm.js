@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   const key = artist.toLowerCase();
 
-  // 1. In-memory cache (fast within same server instance)
+  // In-memory cache
   if (cache.has(key)) {
     return res.status(200).json(cache.get(key));
   }
@@ -28,7 +28,6 @@ export default async function handler(req, res) {
 
     const result = data?.similarartists?.artist || [];
 
-    // 2. store in cache
     cache.set(key, result);
 
     return res.status(200).json(result);

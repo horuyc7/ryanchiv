@@ -2,10 +2,10 @@ const fetch = require('node-fetch');
 
 module.exports = async (req, res) => {
   try {
-    //save active section
+    // Save active section
     const {status} = req.query;
 
-    //fetch manga list with active section
+    // Fetch manga list with active section
     const response = await fetch(`https://api.myanimelist.net/v2/users/${process.env.MAL_USERNAME}/mangalist?fields=list_status&status=${status}&sort=list_score&limit=50`, {
       headers: {
         'X-MAL-Client-ID': process.env.MAL_CLIENT_ID,

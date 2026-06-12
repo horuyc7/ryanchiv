@@ -12,12 +12,10 @@ export default async function handler(req, res) {
 
     let expression = "folder:gallery/*";
 
-    // optional album filter
     if (album) {
       expression = `folder:gallery/${album}/*`;
     }
-
-    // optional city filter (THIS is the key change)
+    
     if (city && city !== "all") {
       expression = `${expression} AND context.city:${city}`;
     }
