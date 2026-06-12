@@ -1,29 +1,35 @@
-.spotify-dashboard__navbar {
+.spotify-dashboard__nav-list {
   display: flex;
   align-items: center;
   justify-content: center;
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   margin-bottom: 20px;
-  
+  margin-left: -20px;
 }
 
- .spotify-feature a {
-    text-decoration: none;
-    font-size: 18px;
-    margin-right: 20px;
-    color: inherit;
-  }
+.spotify-dashboard__nav-item {
+  margin-right: 20px;
+}
 
-  
-  .spotify_active {
-    transition: 1s;
-    transform: scale(1.1);
-    color: #bbf3d1 !important;
-    text-shadow: 0 0 3px #bbf3d1;
-  }
-  
-  .spotify_active:hover::before {
-      transform: scale(0);
-      box-shadow: 0 0 1px #60f4a0;
-  }
+.spotify-dashboard__nav-item:last-child {
+  margin-right: 0;
+}
+
+.spotify-dashboard__nav-link {
+  text-decoration: none;
+  font-size: 18px;
+  color: inherit;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.spotify-dashboard__nav-link--active {
+  color: #bbf3d1 !important;
+  transform: scale(1.1);
+  text-shadow: 0 0 3px #bbf3d1;
+}
+
+.spotify-dashboard__nav-link--active:hover::before {
+  transform: scale(0);
+  box-shadow: 0 0 1px #60f4a0;
+}

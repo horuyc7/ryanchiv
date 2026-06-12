@@ -27,7 +27,7 @@
 .view-toggle {
   display: flex;
   justify-content: center;
-  margin: 0px 0 16px;
+  margin: 20px 0px 25px 0px;
 
   position: sticky;
   top: 0;
@@ -73,7 +73,7 @@
 
   break-inside: avoid;
 
-  border: 1px solid #d6540e10;
+  border: 1px solid #d6540e12;
 }
 
 .grid :hover{
@@ -187,6 +187,14 @@
 }
 
 @media (max-width: 768px) {
+  .gallery-heading {
+    font-size: 22px;
+  }
+
+  .city-filter {
+    scale: .9;
+  }
+
   .grid {
     margin-right: 0px;
   }
@@ -284,7 +292,7 @@
   right: 0;
 
   padding: 30px 10px 6px;
-  color: #bbf3d0bb;
+  color: #bbf3d1b1;
   font-size: 12px;
 
   background: linear-gradient(

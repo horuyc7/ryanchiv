@@ -1,98 +1,121 @@
-.spotifytracks {
+.spotify-tracks {
   margin-right: 20px;
 }
 
-.spotifytracks__input-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
+.spotify-tracks__controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
-.spotifytracks__input-container p {
-    margin: 0 8px;
-    cursor: pointer;
-
-    font-size: 13px;
-    font-weight: 100;
-    letter-spacing: .3px;
+.spotify-tracks__option {
+  margin: 0 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 100;
+  letter-spacing: 0.3px;
 }
 
-  .textbox{
-    background-color: #bbf3d1;
-    border-radius: 5px;
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 140px;
-    max-height: 30px;
-    border-width: 0;
-    text-align: center;
-    font-weight: 300;
-    font-size: 12px;
-  }
+.spotify-tracks__option input[type="radio"] {
+  accent-color: #bbf3d1;
+}
 
+.spotify-tracks__input {
+  background-color: #bbf3d1;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 110px;
+  max-height: 30px;
+  border: 0;
+  text-align: center;
+  font-weight: 300;
+  font-size: 12px;
+}
 
-  .get-button {
-    --c:  #a2f0c0; /* the color*/
-    
-    box-shadow: 0 0 0 .1em inset var(--c); 
-    --_g: linear-gradient(var(--c) 0 0) no-repeat;
-    background: 
-      var(--_g) calc(var(--_p,0%) - 100%) 0%,
-      var(--_g) calc(200% - var(--_p,0%)) 0%,
-      var(--_g) calc(var(--_p,0%) - 100%) 100%,
-      var(--_g) calc(200% - var(--_p,0%)) 100%;
-    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
-    outline-offset: .1em;
-    transition: background-size .4s, background-position 0s .4s;
-    border-radius: 5px;
+.spotify-tracks__button {
+  --c: #bbf3d1;
 
-    max-height: 30px;
-  }
-  .get-button:hover {
-    --_p: 100%;
-    transition: background-position .4s, background-size 0s;
-  }
-  .get-button:active {
-    box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
-    background-color: var(--c);
-    color: #fff;
-  }
+  box-shadow: 0 0 0 0.1em inset var(--c);
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
 
-  .get-button {
-    cursor: pointer;
-    margin-left: 10px;
-    padding: .1em .6em;
-    border: none;
-    color: #fff;
-  }
+  background:
+    var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p, 0%)) 0%,
+    var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p, 0%)) 100%;
 
+  background-size: 50.5% calc(var(--_p, 0%) / 2 + 0.5%);
+  outline-offset: 0.1em;
+  transition: background-size 0.4s, background-position 0s 0.4s;
+  border-radius: 5px;
 
-.track-container {
+  max-height: 30px;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0.1em 0.6em;
+  border: none;
+  color: #fff;
+}
+
+.spotify-tracks__button:hover {
+  --_p: 100%;
+  transition: background-position 0.4s, background-size 0s;
+}
+
+.spotify-tracks__button:active {
+  box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6);
+  background-color: var(--c);
+  color: #fff;
+}
+
+.spotify-tracks__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.spotify-tracks__item {
   display: flex;
   align-items: center;
-
   padding-top: 12px;
-
-  border-radius: 0px;
-
   margin-bottom: 10px;
+  border-radius: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #491e07;
 }
 
-.tracks-details {
-  font-size: 14px;
-
+.spotify-tracks__rank {
+  font-size: 16px;
+  font-weight: 300;
+  margin-right: 20px;
 }
 
-.track-container img
-{
+.spotify-tracks__track {
+  font-size: 16px;
+}
+.spotify-tracks__artist {
+  font-size: 13px;
+}
+
+.spotify-tracks__image {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50px;
   transition: all 1.75s;
-  border-radius:50px;
 }
 
-.track-container img:hover {
-  transition: all 1.5s;
+.spotify-tracks__image:hover {
   transform: rotateZ(360deg);
+  transition: all 1.5s;
 }
- 
 
-  
+@media (max-width: 600px) {
+  .spotify-tracks__controls {
+    scale: .9;
+  }
+
+  .spotify-tracks__button {
+    min-width: 60px;
+  }
+}

@@ -5,140 +5,104 @@
 
 .spotify-recommendation-artists__input-container {
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 20px;
-
-  
 }
 
-  .get-button {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    flex-wrap: wrap; /* Allow items to wrap if they exceed container width */
-  }
+.spotify-recommendation-artists__input {
+  background-color: #bbf3d1;
+  border-radius: 4px;
+  margin-right: 20px;
+  margin-left: 10px;
+  width: 150px;
+  height: 20px;
+  border: 0;
+  text-align: center;
+  font-weight: 400;
+  font-size: 12px;
+}
 
-  .get-button {
-    width: 70px;
-  }
+.spotify-recommendation-artists__button {
+  width: 70px;
+  font-weight: 400;
 
-  .get-button {
-    font-weight: 400;
-    --c:  #a2f0c0; /* the color*/
-    
-    box-shadow: 0 0 0 .1em inset var(--c); 
-    --_g: linear-gradient(var(--c) 0 0) no-repeat;
-    background: 
-      var(--_g) calc(var(--_p,0%) - 100%) 0%,
-      var(--_g) calc(200% - var(--_p,0%)) 0%,
-      var(--_g) calc(var(--_p,0%) - 100%) 100%,
-      var(--_g) calc(200% - var(--_p,0%)) 100%;
-    background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
-    outline-offset: .1em;
-    transition: background-size .7s, background-position 0s .7s;
-    border-radius: 5px;
-  }
+  --c: #a2f0c0;
 
-  .get-button:hover {
-    --_p: 100%;
-    transition: background-position .7s, background-size 0s;
-  }
+  box-shadow: 0 0 0 .1em inset var(--c);
+  --_g: linear-gradient(var(--c) 0 0) no-repeat;
 
-  .get-button:active {
-    box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6); 
-    background-color: var(--c);
-    color: #fff;
-  }
+  background:
+    var(--_g) calc(var(--_p,0%) - 100%) 0%,
+    var(--_g) calc(200% - var(--_p,0%)) 0%,
+    var(--_g) calc(var(--_p,0%) - 100%) 100%,
+    var(--_g) calc(200% - var(--_p,0%)) 100%;
 
-  .get-button {
-    cursor: pointer;
-    padding: .12em .6em;
-    border: none;
-    color: #fff;
-  }
+  background-size: 50.5% calc(var(--_p,0%)/2 + .5%);
+  outline-offset: .1em;
+  transition: background-size .4s, background-position 0s .4s;
 
+  border-radius: 5px;
+  cursor: pointer;
 
-.spotify-recommendation-artists__artists {
+  padding: .12em .6em;
+  border: none;
+  color: #fff;
+}
+
+.spotify-recommendation-artists__button:hover {
+  --_p: 100%;
+  transition: background-position .4s, background-size 0s;
+}
+
+.spotify-recommendation-artists__button:active {
+  box-shadow: 0 0 9e9q inset rgba(59, 240, 42, 0.6);
+  background-color: var(--c);
+  color: #fff;
+}
+
+.spotify-recommendation-artists__list {
   display: flex;
-  flex-direction: column; /* Ensure tracks are displayed in a column */
+  flex-direction: column;
 }
-  .artist-container {
-    padding-top: 10px;
-    padding-bottom: 20px;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
 
-    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
-  }
+.spotify-recommendation-artists__artist {
+  padding-top: 10px;
+  padding-bottom: 20px;
 
-  .artist-container img {
-    width: 100px;
-    height: 100px;
-    transition: all 1s;
-    border-radius: 50px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .artist-container img:hover {
-    transition: all 1.5s;
-    transform: rotateZ(360deg);
-  }
+  width: 100%;
+}
 
-    .artist-detail p{
-      display: flex;
-      flex-direction: column; /* Arrange track details vertically */
-      margin-left: 10px;
-      font-size: 18px;
-      font-weight: 200;
-    }
+.spotify-recommendation-artists__items {
+  border-bottom: 1px solid #491e07;
+  padding-bottom: 4px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
 
+.spotify-recommendation-artists__image {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
 
+  border-radius: 50px;
+  transition: all 1s;
+}
 
-  .artists-container {
-    margin-top: 20px;
-    border-bottom: 1px solid #8be7ae;
-    padding-bottom: 16px;
-    display: flex;
-    align-items: center;
-    width: 100%; /* Set width to 100% to force tracks to display in rows of one */
-  }
-
-  .artists-container img {
-    width: 80px;
-    height: 80px;
-    transition: all 1s;
-    margin-bottom: -15px;
-    border-radius: 50px;
-  }
-
-  .artists-container img:hover {
-    transition: all 1.5s;
+.spotify-recommendation-artists__image:hover {
   transform: rotateZ(-360deg);
-  }
+  transition: all 1.5s;
+}
 
-
-    .artists-detail {
-      display: flex;
-      flex-direction: column; /* Arrange track details vertically */
-      margin-left: 20px;
-    }
-
-      .name{
-        margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: 200;
-        text-align: left; /* Align text to the left */
-      }
-
-      .genres {
-        margin: 0;
-        font-size: 15px;
-        font-weight: 400;
-        text-align: left; /* Align text to the left */
-
-        text-decoration-line: underline;
-        text-decoration-style: dotted;
-        text-decoration-color: #d6550e;
-      }
+.spotify-recommendation-artists__name p {
+  font-size: 16px;
+  font-weight: 200;
+  margin: 0;
+}

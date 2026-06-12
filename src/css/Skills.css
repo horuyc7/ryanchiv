@@ -1,106 +1,126 @@
 .skills {
   border-top: 4px solid #204930;
   border-radius: 3px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  margin-left: 10px;
+  padding: 20px 0;
+  margin: 0 0 20px 10px;
 }
 
-.skills__header1 {
+.skills__title {
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
-  color: #b9e5ca;
+  color: #9de6b9;
 }
 
-.skills__header2 {
+.skills__category {
   margin-bottom: 10px;
-  padding: 10px; /* Optional: Add padding */
+  padding: 10px;
+}
+
+.skills__category-title {
   font-size: 16px;
-  font-weight:500;
+  font-weight: 500;
   color: #d3ffe3;
 }
 
-
-.skills__body {
+.skills__category-body {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
 }
 
-  .skill-container {
-    padding: 4px;
-  }
+.skills__item {
+  padding: 4px;
+}
 
-  .skill-bar {
-      background: rgba(0, 0, 0, 0.884);
-      background: linear-gradient(90deg,rgba(174, 99, 33, 0.67),rgba(88, 36, 36, 0.267) 50%,#366b4e88 0,rgba(44, 116, 77, 0.533));
-        background-position-x: 0%;
-        background-position-y: 0%;
-        background-size: auto;
-      background-position: 0 0;
-      background-size: 200%;
-      -webkit-clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
-      clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
-      overflow: hidden;
-      padding: 6px 20px;
-      position: relative;
-      transition: .8s;
-      -webkit-transition: .8s;
-  }
+.skills__bar {
+  background: rgba(0, 0, 0, 0.884);
+  background: linear-gradient(
+    90deg,
+    rgba(174, 99, 33, 0.67),
+    rgba(88, 36, 36, 0.267) 50%,
+    #ba6d335d 0,
+    rgba(174, 99, 33, 0.125)
+  );
 
-  .skill-name {
-      color: #f8fffb;
-      font-weight: 400;
-      position: relative;
-      z-index: 25;
-  }
+  -webkit-clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
 
-  .skill-line {
-    background: #ffffff;
-    height: 1px;
-    margin-left: 10px;
-    position: absolute;
-    top: 50%;
-  }
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
 
-  .skill-loader {
-    background: #1fcfcc;
-    background: linear-gradient(90deg,#d0691a,#bd7843 50%,#95e9b5 0,#95e9b5);
-      background-position-x: 0%;
-      background-position-y: 0%;
-      background-size: auto;
-    background-position: 0 0;
-    background-size: 200.1%;
-    -webkit-clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
-    clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 0px));
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: .6s;
-    -webkit-transition: .6s;
-  }
+  overflow: hidden;
+  padding: 6px 20px;
+  position: relative;
+  transition: 0.8s;
+}
 
-  .skill-bar:hover {
-    background-position: 60% 0;
-  
-  }
+.skills__name {
+  color: #f8fffb;
+  font-weight: 400;
+  position: relative;
+  z-index: 25;
+}
 
-  .skill-bar:hover .skill-name {
-    color: #51240f;
-    font-weight: bold;
-  }
+.skills__line {
+  background: #ffffff;
+  height: 1px;
+  margin-left: 10px;
+  position: absolute;
+  top: 50%;
+}
 
-  .skill-bar:hover .skill-line {
-    background: #51240f;
-  }
+.skills__loader {
+  background: linear-gradient(
+    90deg,
+    #d0691a,
+    #bd7843 50%,
+    #95e9b5e7 0,
+    #95e9b5e7
+  );
 
+  background-size: 200.1%;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 100%
+  );
 
-  .skill-bar:hover .skill-loader {
-    background-position: -100% 0;
-  }
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: 0.6s;
+}
 
- 
+.skills__bar:hover {
+  background-position: 60% 0;
+}
 
+.skills__bar:hover .skills__name {
+  color: #51240f;
+  font-weight: bold;
+}
+
+.skills__bar:hover .skills__line {
+  background: #51240f;
+}
+
+.skills__bar:hover .skills__loader {
+  background-position: -100% 0;
+}

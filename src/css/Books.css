@@ -1,11 +1,11 @@
-.books-page {
+.books {
   margin-left: 0px;
   margin-right: 20px;
   color: #fff;
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.books-header {
+.books__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,33 +13,27 @@
   gap: 16px;
 }
 
-.books-header h1 {
+.books__title {
   font-weight: 300;
   letter-spacing: 1px;
   text-transform: uppercase;
   font-size: 24px;
   margin: 0;
   color: #bbf3d0;
-  margin-top: -20px;
 }
 
-.books-header select {
+.books__sort {
   background: #1a1a1a;
   color: #bbf3d0;
   border: 1px solid #2a2a2a;
   padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
-
-  margin-top: -16px;
 }
 
-.books-grid {
+.books__grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(120px, 1fr)
-  );
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 20px;
 }
 
@@ -53,47 +47,42 @@
 
   display: flex;
   flex-direction: column;
+
+  transition: transform 0.2s ease;
+  margin-bottom: 5px;
 }
 
 .book-card:hover {
   transform: scale(1.04);
 }
 
-.book-card img {
+.book-card__cover {
+  position: relative;
   width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border-radius: 12px;
-  
-}
-
-.cover {
-  width: 101%;
   aspect-ratio: 2 / 3;
   overflow: hidden;
   border-radius: 12px;
   background: #1c1c1c;
-  flex-shrink: 0;
-  
 }
 
-.cover img {
+.book-card__cover img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  
 }
 
-.book-info {
+.book-card__info {
   padding-top: 10px;
   min-height: 52px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
-.jp-title {
+.book-card__title {
   font-size: 14px;
   line-height: 1.2;
 
@@ -102,33 +91,22 @@
   -webkit-box-orient: vertical;
 
   overflow: hidden;
-
   min-height: 36px;
 }
 
-.en-title {
-  font-size: 14px;
-  color: #ffffff;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.rating {
+.book-card__rating {
   margin-top: auto;
-
   font-size: 12px;
   color: #bbf3d0;
 }
 
-.load-more-wrapper {
+.books__load-more {
   display: flex;
   justify-content: center;
   margin: 40px 0;
 }
 
-.load-more-wrapper button {
+.books__button {
   background: #1c1c1c;
   color: #bbf3d0;
   border: 1px solid #2a2a2a;
@@ -138,15 +116,16 @@
   transition: background 0.2s ease;
 }
 
-.load-more-wrapper button:hover {
+.books__button:hover {
   background: #2a2a2a;
 }
 
-.load-more-wrapper button:disabled {
+.books__button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.modal-backdrop {
+
+.book-modal {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.3);
@@ -157,7 +136,7 @@
   z-index: 1000;
 }
 
-.book-modal {
+.book-modal__container {
   background: #141414;
   width: 100%;
   max-width: 480px;
@@ -169,94 +148,68 @@
   margin-left: 40px;
 }
 
-.book-modal img {
+.book-modal__image {
   width: 100%;
   height: 200px;
   object-fit: cover;
 }
 
-.modal-content {
+.book-modal__content {
   padding: 14px;
   overflow-y: auto;
 }
 
-.modal-content h2 {
+.book-modal__title {
   margin: 0 0 6px 0;
   font-size: 18px;
   color: #dc5318d8;
 }
 
-.modal-en-title {
-  color: #9a9a9a;
-  margin-bottom: 10px;
-  font-size: 12px;
-}
-
-.modal-content div {
+.book-modal__author,
+.book-modal__pages {
   margin-bottom: 5px;
   font-size: 12px;
   color: #cfcfcf;
 }
 
-.modal-content p {
-  margin-left: 0px;
+.book-modal__rating {
+  font-size: 12px;
+  color: #cfcfcf;
+}
+
+.book-modal__rating-count {
+  margin-left: 4px;
+  color: #888;
+}
+
+.book-modal__description {
   margin-top: 10px;
   line-height: 1.4;
   font-size: 12px;
   color: #e0e0e0;
   font-weight: 200;
+  cursor: pointer;
+}
+
+.book-modal__read-more {
+  color: #888;
+  font-size: 12px;
 }
 
 @media (max-width: 768px) {
-  .books-page {
-    padding: 10px 0px;
-  }
-
-  .books-grid {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(120px, 1fr)
-    );
+  .books__grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 14px;
   }
 
-  .book-modal {
-    grid-template-columns: 1fr;
+  .book-modal__container {
     max-height: 70vh;
     max-width: 40vh;
     overflow-y: auto;
-    margin-left: -0px;
+    margin-left: 0px;
   }
 
-  .book-modal img {
+  .book-modal__image {
     height: 200px;
   }
-}
-.blur-image-wrapper {
-  width: 100%;
-  aspect-ratio: 2 / 3;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #a74a22;
-}
-
-.blur-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.05);
-  filter: blur(20px);
-  transition: filter 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
-  opacity: 0.6;
-}
-
-.blur-image.loaded {
-  filter: blur(0px);
-  transform: scale(1);
-  opacity: 1;
-}
-
-.read-more {
-  color: #888;
-  font-size: 12px;
 }

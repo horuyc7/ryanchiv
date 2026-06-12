@@ -1,0 +1,124 @@
+.top-menu {
+  flex-grow: 1;
+}
+
+.top-menu__appbar {
+  background-color: #d6550e !important;
+  color: #8be4a9 !important;
+}
+
+.top-menu__toolbar {
+  gap: 8px;
+}
+
+.top-menu__profile {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  display: block;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  margin-top: 8px;
+  margin-left: -4px;
+  margin-bottom: 5px;
+}
+
+.top-menu__profile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: #491e07;
+
+  z-index: 2;
+
+  transition: opacity 0.55s ease;
+}
+
+.top-menu__profile img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scale(1.08);
+  transition: all 0.55s ease;
+}
+
+.top-menu__profile:hover::before {
+  opacity: 0;
+}
+
+.top-menu__profile:hover img {
+  transform: scale(1.2);
+}
+
+.top-menu__toggle {
+  color: #491e07 !important;
+}
+
+.top-menu__nav {
+  display: flex;
+  align-items: center;
+
+  margin-left: -10px;
+  gap: 0.5rem;
+}
+
+.top-menu__item {
+  min-width: 36px !important;
+  height: 25px;
+
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+
+  border-radius: 8px !important;
+
+  overflow: hidden;
+
+  color: #491e07 !important;
+
+  transition: all 0.2s ease !important;
+}
+
+.top-menu__item .MuiTypography-root {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.top-menu__item:hover {
+  padding-left: 4px !important;
+  padding-right: 8px !important;
+
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.top-menu__icon {
+  min-width: 0 !important;
+  color: #491e07 !important;
+}
+
+.top-menu__icon svg {
+  font-size: 1.45rem;
+}
+
+.top-menu__text {
+  opacity: 0;
+  width: 0;
+
+  white-space: nowrap;
+
+  transition: 0.2s;
+}
+
+.top-menu__item:hover .top-menu__text {
+  opacity: 1;
+  width: auto;
+
+  margin-left: 3px;
+  margin-top: 6px;
+}
